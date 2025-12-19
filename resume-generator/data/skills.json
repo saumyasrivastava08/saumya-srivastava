@@ -1,0 +1,8 @@
+{
+  "core": "Full Stack Development, Cloud Deployments, CI/CD, Infrastructure Automation",
+  "frontend": "React.js, Next.js, Redux, TypeScript, JavaScript, Material-UI",
+  "backend": "GoLang, Node.js, PostgreSQL, MongoDB, REST APIs, MQTT, Swagger",
+  "devops": "Docker, Kubernetes, Jenkins, GitHub Actions, Terraform, Vault",
+  "cloud": "AWS EC2, S3, CloudFront, IAM, GCP GKE",
+  "tools": "Git, Linux, Jira, Agile and Scrum"
+}

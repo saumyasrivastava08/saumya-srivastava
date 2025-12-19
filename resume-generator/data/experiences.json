@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Software (Research and Development) Engineer",
+    "company": "Creospan Pvt. Ltd., Pune",
+    "duration": "July 2025 – Present",
+    "bullets": [
+      "Delivered frontend, backend, and DevOps ownership for a high-traffic production platform",
+      "Modernized React.js and Next.js modules and optimized API flows, reducing production defects",
+      "Migrated cronjobs to Jenkins pipelines to improve automation visibility and failure recovery",
+      "Managed deployments on AWS EC2 and S3 and configured CloudFront and IAM for secure releases"
+    ],
+    "tech": "React.js, Next.js, TypeScript, Node.js, REST APIs, Jenkins, AWS, Git, Kubernetes"
+  },
+  {
+    "title": "Software Engineer",
+    "company": "Privafy Technologies Pvt. Ltd., Bengaluru",
+    "duration": "August 2023 – July 2025",
+    "bullets": [
+      "Led development of React.js dashboards with scalable state management and reusable components",
+      "Developed and optimized GoLang and PostgreSQL APIs resulting in 25 percent lower latency",
+      "Automated infrastructure provisioning using Terraform and integrated Vault for secrets management",
+      "Deployed and monitored Dockerized services on Kubernetes improving deployment speed by 40 percent",
+      "Integrated Swagger and MQTT for device to cloud communication in MicroEdge"
+    ],
+    "tech": "React.js, Redux, TypeScript, GoLang, PostgreSQL, Docker, Kubernetes, Terraform, Vault, Jenkins, MQTT, Swagger"
+  },
+  {
+    "title": "Software Engineer Intern",
+    "company": "Privafy Technologies Pvt. Ltd., Bengaluru",
+    "duration": "March 2022 – July 2023",
+    "bullets": [
+      "Built the MicroEdge frontend using React.js and Redux improving UI performance by 20 percent",
+      "Contributed to GoLang and PostgreSQL APIs and assisted in backend feature development"
+    ],
+    "tech": "React.js, Redux, GoLang, PostgreSQL, Swagger, MQTT"
+  }
+]

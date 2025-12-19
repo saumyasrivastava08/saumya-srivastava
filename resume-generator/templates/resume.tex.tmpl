@@ -1,0 +1,124 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage{geometry}
+\geometry{left=0.5in,right=0.5in,top=0.5in,bottom=0.5in}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% Disable link color and box
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    pdfborder={0 0 0}
+}
+
+% Section spacing
+\titlespacing*{\section}{0pt}{0.2em}{0.3em}
+
+\begin{document}
+
+% ======================
+% Header
+% ======================
+\begin{center}
+    \textbf{\LARGE {{ .Profile.Name }}}
+ \\[1em]
+    \noindent
+\href{mailto:{{ .Profile.Email }}}{{ .Profile.Email }} \textbar\
+{{ .Profile.Phone }} \textbar\
+\href{ {{ .Profile.LinkedIn }} }{ {{ .Profile.LinkedIn }} }
+\end{center}
+
+% ======================
+% Experience
+% ======================
+\section*{Experience}
+\vspace{-\baselineskip}
+\noindent\rule{\textwidth}{0.1mm}
+
+{{ range .Experiences }}
+\noindent
+\makebox[\textwidth][l]{%
+\textbf{ {{ .Title }} }\hfill {{ .Duration }}
+}\\
+\hspace{0.8em}{{ .Company }}
+\vspace{-0.6em}
+
+\begin{itemize}[left=1em, label=\textbullet, itemsep=0.15em]
+{{ range .Bullets }}
+    \item {{ . }}
+{{ end }}
+{{ if .Tech }}
+    \item \textbf{Tech:} {{ .Tech }}
+{{ end }}
+\end{itemize}
+{{ end }}
+
+% ======================
+% Technical Skills
+% ======================
+\section*{Technical Skills}
+\vspace{-\baselineskip}
+\noindent\rule{\textwidth}{0.1mm}
+
+\noindent\textbf{Core Strengths:} {{ .Skills.Core }} \\
+\textbf{Frontend:} {{ .Skills.Frontend }} \\
+\textbf{Backend:} {{ .Skills.Backend }} \\
+\textbf{DevOps \& CI/CD:} {{ .Skills.DevOps }} \\
+\textbf{Cloud:} {{ .Skills.Cloud }} \\
+\textbf{Tools:} {{ .Skills.Tools }}
+
+% ======================
+% Projects
+% ======================
+\section*{Projects}
+\vspace{-\baselineskip}
+\noindent\rule{\textwidth}{0.1mm}
+
+{{ range .Projects }}
+\vspace{0.3em}
+\noindent \textbf{ {{ .Name }} }
+\vspace{-0.6em}
+
+\begin{itemize}[left=1em, label=\textbullet, itemsep=0.10em]
+{{ range .Bullets }}
+    \item {{ . }}
+{{ end }}
+{{ if .Tech }}
+    \item \textbf{Tech Stack:} {{ .Tech }}
+{{ end }}
+\end{itemize}
+{{ end }}
+
+% ======================
+% Education
+% ======================
+\section*{Education}
+\vspace{-\baselineskip}
+\noindent\rule{\textwidth}{0.1mm}
+
+\noindent
+\makebox[\textwidth][l]{%
+\textbf{ {{ .Education.Degree }} }\hfill {{ .Education.Duration }}
+}\\
+{{ .Education.Institute }} \\
+CGPA: {{ .Education.CGPA }}
+
+% ======================
+% Achievements
+% ======================
+\section*{Achievements}
+\vspace{-\baselineskip}
+\noindent\rule{\textwidth}{0.1mm}
+\vspace{-0.6em}
+
+\begin{itemize}[left=0pt,label=\textbullet,itemsep=0pt,topsep=0pt]
+{{ range .Achievements }}
+  \item {{ . }}
+{{ end }}
+\end{itemize}
+
+
+\end{document}

@@ -1,0 +1,10 @@
+[
+  {
+    "name": "CRMCalling – Role-Based CRM System",
+    "bullets": [
+      "Built a CRM platform supporting lead assignment, call logging, and agent performance analytics",
+      "Implemented role-based access control and optimized API workflows for faster lead updates"
+    ],
+    "tech": "React.js, Next.js, Node.js, MongoDB, AWS"
+  }
+]
