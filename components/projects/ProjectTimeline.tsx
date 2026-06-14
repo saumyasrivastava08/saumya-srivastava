@@ -74,7 +74,10 @@ const filteredProjects =
                
               >
                 {
-                  project.year && <span className="project-year">{project.year}</span>
+                  /* Type-safe guard: some project entries don't include `year` */
+                  ('year' in project && (project as any).year) && (
+                    <span className="project-year">{(project as any).year}</span>
+                  )
                 }
                 <ProjectCard {...project} />
               </motion.div>
