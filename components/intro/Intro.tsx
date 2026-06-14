@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Moon, Sparkles, FileText } from "lucide-react";
-import { Layers, Brain, Settings , Server} from "lucide-react";
-
+import { Layers, Brain, Settings, Server } from "lucide-react";
+import { Mail, Linkedin, Github, Phone } from "lucide-react";
 export default function Intro() {
   return (
     <section id="intro" className="intro">
@@ -19,49 +19,43 @@ export default function Intro() {
         >
           Hi, I’m <span className="intro-name">Saumya ✨</span>
         </motion.h1>
+        <motion.div
+          className="intro-subtitle"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          <p className="role-line">
+            <Layers size={14} />
+            <span>Full-Stack Engineer</span>
+            <span className="dot">•</span>
 
+            <Server size={14} />
+            <span>DevOps Engineer</span>
+          </p>
 
-                      <motion.div
-            className="intro-subtitle"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-          >
-            <p className="role-line">
-             
-              <Layers size={14} />
-              <span>Full-Stack Enginner</span>
-              <span className="dot">•</span>
-               <Sparkles size={14} />
-              <span>Frontend Engineer</span>
-              <span className="dot">•</span>
-              <Server size={14} />
-              <span>Backend</span>
-            </p>
+          <p className="role-line">
+            <Brain size={14} />
+            <span>AI-Powered Applications</span>
+            <span className="dot">•</span>
 
-            <p className="role-line">
-              <Brain size={14} />
-              <span>AI-Powered Apps</span>
-              <span className="dot">•</span>
-              <Settings size={14} />
-              <span>DevOps</span>
-            </p>
-          </motion.div>
+            <Settings size={14} />
+            <span>Cloud & Automation</span>
+          </p>
+        </motion.div>
 
-
-
-            <motion.p
-        className="intro-subtext"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.6 }}
-      >
-   I design thoughtful user interfaces, build scalable full-stack systems,
-and ship AI-enabled features — with hands-on ownership of backend APIs,
-cloud infrastructure, and DevOps pipelines focused on performance and reliability.
-
-      </motion.p>
-
+        <motion.p
+          className="intro-subtext"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+        >
+          Full-Stack & DevOps Engineer with 3+ years of experience building
+          scalable web applications, cloud-native infrastructure, and internal
+          platforms. I specialize in React, TypeScript, Java, AWS, Kubernetes,
+          and CI/CD automation, delivering reliable systems from frontend to
+          production.
+        </motion.p>
 
         {/* Actions */}
         <motion.div
@@ -74,12 +68,59 @@ cloud infrastructure, and DevOps pipelines focused on performance and reliabilit
             View Experience
           </a>
 
-          <a href="/resume.pdf" className="intro-secondary-btn">
+          <a
+            href="/resumes/Saumya_Srivastava_Resume.pdf"
+            className="intro-secondary-btn"
+            download="saumya_srivastava_resume.pdf"
+          >
             <FileText size={16} />
             Download CV
           </a>
         </motion.div>
+        <motion.div
+          className="intro-links"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9 }}
+        >
+          <div className="intro-links">
+            <a
+              href="mailto:saumyasanjay08@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Mail size={16} />
+              <span>Email</span>
+            </a>
 
+            <a
+              href="https://linkedin.com/in/saumya-sanjay-srivastava"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Linkedin size={16} />
+              <span>LinkedIn</span>
+            </a>
+
+            <a
+              href="https://github.com/saumyasrivastava08"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github size={16} />
+              <span>GitHub</span>
+            </a>
+
+            <a
+              href="tel:+919473729355"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Phone size={16} />
+              <span>+91 9473729355</span>
+            </a>
+          </div>
+        </motion.div>
         {/* Note — personality lives here */}
         <motion.p
           className="intro-note"
@@ -88,12 +129,12 @@ cloud infrastructure, and DevOps pipelines focused on performance and reliabilit
           transition={{ delay: 1 }}
         >
           <Moon size={14} />
-          Built late nights
+          Turning ideas into products
           <span className="dot">•</span>
           🫖 Powered by chai
           <span className="dot">•</span>
           <Sparkles size={14} />
-          Crafted with care
+          Continuously learning
         </motion.p>
       </div>
     </section>

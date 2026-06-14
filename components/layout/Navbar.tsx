@@ -12,7 +12,7 @@ const links = [
   { name: "Projects", href: "/projects" },
   { name: "Skills", href: "/skills" },
   { name: "Education", href: "/education" },
-  { name: "Achievements", href: "/achievements" },
+  { name: "Contacts", href: "/contacts" },
 ];
 
 export default function Navbar() {

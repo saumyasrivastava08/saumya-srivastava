@@ -15,31 +15,79 @@ export default function Skills() {
 
   const groups = [
     {
+      title: "Core / Languages",
+      skills: ["JavaScript", "TypeScript", "Go", "SQL", "Java"],
+    },
+    {
       title: "Frontend",
-      skills: ["React", "Next.js", "TypeScript", "JavaScript", "Redux", "HTML", "CSS"],
+      skills: [
+        "React.js",
+        "Next.js",
+        "Zustand",
+        "Redux Toolkit",
+        "Module Federation (Rspack)",
+        "React Hook Form",
+        "Zod",
+        "MUI",
+      ],
     },
     {
       title: "Backend",
-      skills: ["GoLang", "Node.js", "REST APIs", "Microservices"],
+      skills: [
+        "Node.js (Express)",
+        "Bun (Elysia)",
+        "Go (Gin)",
+        "REST APIs",
+        "WebSockets",
+        "MQTT",
+        "Microservices",
+      ],
     },
     {
-      title: "DevOps & Cloud",
-      skills: ["AWS", "Docker", "Kubernetes", "Jenkins", "Terraform", "CI/CD"],
+      title: "Databases",
+      skills: [
+        "PostgreSQL (Drizzle ORM)",
+        "Indexing",
+        "Read Replicas",
+        "Query Optimization",
+        "MongoDB",
+        "Redis",
+      ],
     },
     {
-      title: "Databases & Messaging",
-      skills: ["PostgreSQL", "MongoDB", "MQTT"],
+      title: "Cloud & DevOps",
+      skills: [
+        "AWS (EC2, S3, ECR, CloudFront, IAM, Auto Scaling)",
+        "GCP (GKE)",
+        "Docker",
+        "Kubernetes",
+        "Jenkins",
+        "CloudBees CI/CD",
+        "GitHub Actions",
+        "Terraform",
+        "HashiCorp Vault",
+        "SonarQube",
+      ],
     },
     {
-      title: "Tools & Practices",
-      skills: ["Git", "Linux", "Agile / Scrum", "System Design"],
+      title: "Testing & Tools",
+      skills: [
+        "Jest",
+        "Integration Testing",
+        "OpenAPI/Swagger",
+        "Git",
+        "Biome",
+        "Husky",
+        "Linux",
+        "Jira",
+        "Agile/Scrum",
+      ],
     },
   ];
 
   return (
     <section className="skills-section">
       <div className="skills-container">
-        
         {/* Title */}
         <motion.h2
           className="skills-heading"
@@ -49,7 +97,7 @@ export default function Skills() {
           viewport={{ once: true }}
           custom={0}
         >
-          Skills <span className="text-pink-300">🛠️</span>
+          Technical Skills <span className="text-pink-300">🛠️</span>
         </motion.h2>
 
         {/* Subtitle */}

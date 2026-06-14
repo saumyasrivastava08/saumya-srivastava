@@ -1,8 +1,11 @@
 {
   "core": "Full Stack Development, Cloud Deployments, CI/CD, Infrastructure Automation",
-  "frontend": "React.js, Next.js, Redux, TypeScript, JavaScript, Material-UI",
-  "backend": "GoLang, Node.js, PostgreSQL, MongoDB, REST APIs, MQTT, Swagger",
-  "devops": "Docker, Kubernetes, Jenkins, GitHub Actions, Terraform, Vault",
-  "cloud": "AWS EC2, S3, CloudFront, IAM, GCP GKE",
-  "tools": "Git, Linux, Jira, Agile and Scrum"
+  "frontend": "React.js, Next.js, Zustand, Redux Toolkit, Module Federation (Rspack), React Hook Form, Zod, MUI",
+  "backend": "Node.js (Express), Bun (Elysia), Go (Gin), REST APIs, WebSockets, MQTT, Microservices",
+  "devops": "Docker, Kubernetes, Jenkins, CloudBees CI/CD, GitHub Actions, Terraform, HashiCorp Vault, SonarQube",
+  "cloud": "AWS (EC2, S3, ECR, CloudFront, IAM, Auto Scaling), GCP (GKE)",
+  "databases": "PostgreSQL (Drizzle ORM, Indexing, Read Replicas, Query Optimization), MongoDB, Redis",
+  "testing": "Jest, Integration Testing, OpenAPI/Swagger",
+  "tools": "Git, Biome, Husky, Linux, Jira, Agile/Scrum",
+  "languages": "JavaScript, TypeScript, Go, SQL, Java"
 }

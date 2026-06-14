@@ -28,14 +28,6 @@ export default function ProjectPreview() {
   custom={0}
 >
   Projects
- <motion.span
-    className="projects-underline"
-    initial={{ scaleX: 0 }}
-    whileInView={{ scaleX: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-    style={{ transformOrigin: "center" }}
-  />
 </motion.h2>
 
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import TimelineCard from "../shared/TimelineCard";
 
 interface EducationCardProps {
   degree: string;
@@ -17,20 +17,15 @@ export default function EducationCard({
   score,
   location,
 }: EducationCardProps) {
-  return (
-    <motion.div
-      className="education-card edu-animate"
-      whileHover={{ scale: 1.02 }}   // ✅ hover only
-      transition={{ duration: 0.25, ease: "easeOut" }}
-    >
-      <div className="edu-shimmer" />
+  const highlights = score ? [score] : [];
 
-      
-      <h3 className="education-institute">{institute}</h3>
-      <p className="education-location">{location}</p>
-      <p className="education-meta">
-      {score && `· ${score}`}
-      </p>
-    </motion.div>
+  return (
+    <TimelineCard
+      heading={degree}
+      subheading={institute}
+      meta={`${duration}${location ? ` • ${location}` : ""}`}
+      highlights={highlights}
+      tags={[]}
+    />
   );
 }
