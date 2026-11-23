@@ -1165,3 +1165,90 @@
  .tech-orbit-three { width:220px;height:310px; }
  .hero-contact-section { width:100%; }
 }
+
+/* HERO — COSMIC UNIVERSE PASS: wider canvas, intentional composition, no dead margins */
+.intro {
+  min-height:0;
+  padding:clamp(3.5rem,7vh,6rem) 0 clamp(2rem,4vh,3rem);
+  align-items:flex-start;
+  background:#030712;
+}
+.intro-bg {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.42) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 28% 78%, rgba(125,211,252,.35) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 42% 13%, rgba(255,255,255,.32) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 64% 80%, rgba(244,114,182,.32) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 86% 22%, rgba(255,255,255,.35) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 91% 63%, rgba(125,211,252,.25) 0 1px, transparent 1.5px),
+    radial-gradient(ellipse at 70% 35%, rgba(56,189,248,.15), transparent 42%),
+    radial-gradient(ellipse at 96% 70%, rgba(236,72,153,.13), transparent 35%),
+    radial-gradient(ellipse at 8% 85%, rgba(129,140,248,.08), transparent 28%),
+    linear-gradient(145deg,#081326 0%,#030712 55%,#080617 100%);
+}
+.intro-container {
+  width:96vw;
+  max-width:1800px;
+  padding-inline:clamp(1.25rem,2.4vw,3rem);
+}
+.intro-layout {
+  width:100%;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1.5rem,3vw,3.5rem);
+  align-items:center;
+}
+.intro-main { width:100%; max-width:760px; }
+.intro-title { font-size:clamp(3rem,5vw,5.4rem); }
+.intro-subtext { max-width:unset; font-size:clamp(1rem,1.12vw,1.2rem); line-height:1.8; }
+.intro-subtitle { gap:.6rem; }
+.intro-tech-scene {
+  min-height:clamp(480px,54vw,680px);
+  max-width:none;
+  width:100%;
+  margin:0;
+}
+.tech-laptop { width:min(540px,78%); }
+.tech-orbit-one { width:min(560px,94%);height:min(390px,65%); }
+.tech-orbit-two { width:min(680px,112%);height:min(500px,82%); }
+.tech-orbit-three { width:min(450px,75%);height:min(620px,102%); }
+.tech-float { font-size:clamp(.68rem,.8vw,.82rem); padding:.72rem .9rem; }
+.tech-scene-caption { bottom:.5rem; }
+.hero-contact-section {
+  width:100%;
+  margin:clamp(1.8rem,3.8vh,3rem) auto 0;
+  padding:clamp(1rem,1.5vw,1.5rem) clamp(1rem,2vw,2rem);
+  background:linear-gradient(110deg,rgba(8,19,38,.75),rgba(16,8,31,.68));
+  border-color:rgba(125,211,252,.16);
+  box-shadow:0 12px 45px rgba(0,0,0,.15);
+}
+.hero-contact-grid { gap:clamp(.6rem,1.2vw,1.2rem); }
+.hero-contact-grid a { padding:clamp(.7rem,1vw,1rem); }
+@media(max-width:1200px) {
+  .intro-container { width:98vw; }
+  .intro-layout { grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:1.5rem; }
+  .intro-title { font-size:clamp(2.8rem,4.5vw,4rem); }
+  .intro-tech-scene { min-height:480px; }
+  .tech-laptop { width:78%; }
+}
+@media(max-width:900px) {
+  .intro-container { width:100%; }
+  .intro-layout { grid-template-columns:1fr; gap:1.25rem; }
+  .intro-main { max-width:none; }
+  .intro-tech-scene { min-height:470px; max-width:620px; margin-inline:auto; }
+  .tech-laptop { width:min(440px,70%); }
+  .hero-contact-section { margin-top:1.5rem; }
+}
+@media(max-width:720px) {
+  .intro { padding:3.5rem 0 2.5rem; }
+  .intro-container { padding-inline:1rem; }
+  .intro-layout { gap:.8rem; }
+  .intro-title { font-size:clamp(2.35rem,9vw,3.5rem); }
+  .intro-tech-scene { min-height:390px; }
+  .tech-laptop { width:67%; }
+  .hero-contact-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:420px) {
+  .intro-tech-scene { min-height:340px; }
+  .tech-laptop { width:64%; }
+  .hero-contact-grid { grid-template-columns:1fr; }
+}
