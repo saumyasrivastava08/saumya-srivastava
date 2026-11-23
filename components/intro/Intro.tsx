@@ -50,7 +50,7 @@ export default function Intro() {
         </div>
 
         <motion.aside className="intro-tech-scene" initial={{ opacity: 0, scale: 0.92, x: 20 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ delay: 0.45, duration: 0.8, ease: "easeOut" }} aria-label="Technology stack">
-          <div className="tech-scene-label"><span className="contact-status-dot" />MY TECH UNIVERSE</div>
+          
           <div className="tech-orbit tech-orbit-one" /><div className="tech-orbit tech-orbit-two" /><div className="tech-orbit tech-orbit-three" />
           <div className="tech-laptop">
             <div className="laptop-screen">
