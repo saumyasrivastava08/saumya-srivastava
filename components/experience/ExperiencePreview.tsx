@@ -10,9 +10,9 @@ import { EXPERIENCE_PREVIEW } from "./data";
 export default function ExperiencePreview() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const shipX = useTransform(scrollYProgress, [0, 1], ["0vw", "72vw"]);
-  const shipY = useTransform(scrollYProgress, [0, 1], [0, 220]);
-  const shipRotate = useTransform(scrollYProgress, [0, 1], [-12, 18]);
+  const shipX = useTransform(scrollYProgress, [0, 1], ["0%", "78%"]);
+  const shipY = useTransform(scrollYProgress, [0, 1], [0, -34]);
+  const shipRotate = useTransform(scrollYProgress, [0, 1], [-8, 8]);
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     show: (i = 0) => ({
