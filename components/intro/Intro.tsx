@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Moon, Sparkles, FileText, Layers, Brain, Settings, Server, Mail, Linkedin, Github, Phone, ArrowUpRight, Laptop2, Terminal, Cloud, Database, Container, GitBranch, Code2 } from "lucide-react";
+import { Moon, Sparkles, FileText, Layers, Brain, Settings, Server, Mail, Linkedin, Github, Phone, ArrowUpRight, Cloud, Database, Container, GitBranch, Code2 } from "lucide-react";
 
 const techStack = [
   { name: "React", icon: Code2, className: "tech-react", x: "8%", y: "18%" },
@@ -17,10 +17,10 @@ const techStack = [
 ];
 
 const contacts = [
-  { label: "Email", href: "mailto:saumyasanjay08@gmail.com", Icon: Mail },
-  { label: "LinkedIn", href: "https://linkedin.com/in/saumya-sanjay-srivastava", Icon: Linkedin },
-  { label: "GitHub", href: "https://github.com/saumyasrivastava08", Icon: Github },
-  { label: "Phone", href: "tel:+919473729355", Icon: Phone },
+  { label: "Email", detail: "Get in touch", href: "mailto:saumyasanjay08@gmail.com", Icon: Mail },
+  { label: "LinkedIn", detail: "Connect", href: "https://linkedin.com/in/saumya-sanjay-srivastava", Icon: Linkedin },
+  { label: "GitHub", detail: "My code", href: "https://github.com/saumyasrivastava08", Icon: Github },
+  { label: "Phone", detail: "Call me", href: "tel:+919473729355", Icon: Phone },
 ];
 
 export default function Intro() {
@@ -74,7 +74,7 @@ export default function Intro() {
           ))}
           <div className="tech-scene-caption">Building across the stack <Sparkles size={13} /></div>
           <div className="tech-contact-row">
-            {contacts.map(({ label, href, Icon }) => <a key={label} href={href} target={label === "Phone" ? undefined : "_blank"} rel={label === "Phone" ? undefined : "noopener noreferrer"} aria-label={label}><Icon size={16} /><ArrowUpRight size={11} className="tech-contact-arrow" /></a>)}
+            {contacts.map(({ label, detail, href, Icon }) => <a key={label} href={href} target={label === "Phone" ? undefined : "_blank"} rel={label === "Phone" ? undefined : "noopener noreferrer"}><Icon size={16} /><span className="tech-contact-copy"><strong>{label}</strong><small>{detail}</small></span><ArrowUpRight size={11} className="tech-contact-arrow" /></a>)}
           </div>
         </motion.aside>
       </div>
