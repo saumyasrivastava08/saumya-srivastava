@@ -1121,3 +1121,47 @@
 @media(max-width:900px){.hero-contact-section{margin-top:3rem}.hero-contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){.intro{padding:3.5rem 0 3rem}.hero-contact-section{margin-top:2.5rem;padding:1rem}.intro-tech-scene{min-height:420px}.hero-contact-grid{gap:.55rem}.hero-contact-grid a{padding:.7rem}.hero-contact-copy small{font-size:.6rem}}
 @media(max-width:420px){.hero-contact-grid{grid-template-columns:1fr}.hero-contact-grid a{padding:.75rem}}
+
+/* WIDEN HERO: use the desktop canvas and reduce dead space around both columns */
+.intro-container { max-width:92rem; padding-left:clamp(1.5rem,4vw,4rem); padding-right:clamp(1.5rem,4vw,4rem); }
+.intro-layout { grid-template-columns:minmax(0,1.08fr) minmax(480px,.92fr); gap:clamp(2rem,4vw,4rem); align-items:center; }
+.intro-main { max-width:none; }
+.intro-title { font-size:clamp(3rem,4.8vw,4.6rem); }
+.intro-subtext { max-width:52rem; font-size:clamp(1rem,1.05vw,1.12rem); }
+.intro-tech-scene { min-height:560px; max-width:650px; margin-inline:auto; }
+.tech-laptop { width:min(460px,82%); }
+.tech-orbit-one { width:450px;height:310px; }
+.tech-orbit-two { width:540px;height:400px; }
+.tech-orbit-three { width:360px;height:490px; }
+.tech-float { font-size:.76rem; padding:.68rem .82rem; }
+.hero-contact-section { width:min(100%,78rem); margin-top:clamp(2.5rem,5vh,4rem); }
+@media(max-width:1200px) {
+ .intro-container { max-width:84rem; }
+ .intro-layout { grid-template-columns:minmax(0,1fr) minmax(390px,.9fr); gap:2rem; }
+ .intro-tech-scene { min-height:510px; }
+ .tech-laptop { width:min(400px,82%); }
+ .tech-orbit-one { width:390px;height:270px; }
+ .tech-orbit-two { width:470px;height:350px; }
+ .tech-orbit-three { width:320px;height:430px; }
+}
+@media(max-width:900px) {
+ .intro-container { max-width:80rem; padding-inline:2rem; }
+ .intro-layout { grid-template-columns:minmax(0,1fr) minmax(320px,.85fr); gap:1.5rem; }
+ .intro-title { font-size:clamp(2.5rem,5vw,3.4rem); }
+ .intro-tech-scene { min-height:470px; }
+ .tech-laptop { width:min(340px,78%); }
+ .tech-orbit-one { width:320px;height:220px; }
+ .tech-orbit-two { width:390px;height:290px; }
+ .tech-orbit-three { width:260px;height:360px; }
+}
+@media(max-width:720px) {
+ .intro-container { padding-inline:1.25rem; }
+ .intro-layout { grid-template-columns:1fr; gap:1.25rem; }
+ .intro-main { text-align:left; }
+ .intro-tech-scene { min-height:420px; max-width:440px; }
+ .tech-laptop { width:68%; }
+ .tech-orbit-one { width:270px;height:185px; }
+ .tech-orbit-two { width:340px;height:255px; }
+ .tech-orbit-three { width:220px;height:310px; }
+ .hero-contact-section { width:100%; }
+}
