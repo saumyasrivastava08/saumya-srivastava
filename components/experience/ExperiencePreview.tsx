@@ -23,7 +23,16 @@ export default function ExperiencePreview() {
   };
 
   return (
-    <section ref={sectionRef} className="experience-section cosmic-experience-section">\n      <div className="experience-cosmic-bridge" aria-hidden="true">\n        <div className="experience-bridge-track" />\n        <motion.div className="experience-bridge-ship" style={{ x: shipX, y: shipY, rotate: shipRotate }}>\n          <Rocket size={22} />\n          <span className="experience-ship-trail" />\n        </motion.div>\n        <Sparkles className="experience-bridge-star experience-bridge-star-one" size={15} />\n        <Sparkles className="experience-bridge-star experience-bridge-star-two" size={20} />\n      </div>
+    <section ref={sectionRef} className="experience-section cosmic-experience-section">
+      <div className="experience-cosmic-bridge" aria-hidden="true">
+        <div className="experience-bridge-track" />
+        <motion.div className="experience-bridge-ship" style={{ x: shipX, y: shipY, rotate: shipRotate }}>
+          <Rocket size={22} />
+          <span className="experience-ship-trail" />
+        </motion.div>
+        <Sparkles className="experience-bridge-star experience-bridge-star-one" size={15} />
+        <Sparkles className="experience-bridge-star experience-bridge-star-two" size={20} />
+      </div>
       <div className="experience-container">
 
         {/* Title */}
