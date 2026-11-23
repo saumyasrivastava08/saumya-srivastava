@@ -11,7 +11,7 @@ const techStack = [
   { name: "AWS", icon: Cloud, className: "tech-aws", x: "45%", y: "5%" },
   { name: "Docker", icon: Container, className: "tech-docker", x: "18%", y: "72%" },
   { name: "Kubernetes", icon: Settings, className: "tech-k8s", x: "5%", y: "48%" },
-  { name: "PostgreSQL", icon: Database, className: "tech-db", x: "52%", y: "84%" },
+  { name: "PostgreSQL", icon: Database, className: "tech-db", x: "52%", y: "72%" },
   { name: "Git", icon: GitBranch, className: "tech-git", x: "91%", y: "55%" },
   { name: "Node.js", icon: Server, className: "tech-node", x: "28%", y: "10%" },
 ];
