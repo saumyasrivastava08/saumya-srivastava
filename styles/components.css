@@ -1368,3 +1368,13 @@
 .cosmic-experience-section .experience-subtitle {color:#a9a4c5}
 @media(max-width:720px) { .experience-cosmic-bridge{height:80px;margin-bottom:1.25rem}.experience-bridge-ship{left:0}.experience-ship-trail{width:24px} }
 @media(prefers-reduced-motion:reduce){.experience-bridge-star{animation:none}}
+
+/* Refine the experience scroll bridge: clean curved path, restrained spacecraft */
+.experience-cosmic-bridge { height:86px; max-width:64rem; margin:0 auto 1.25rem; overflow:hidden; }
+.experience-bridge-track { left:4%;right:4%;top:58%;height:1px;background:linear-gradient(90deg,transparent,rgba(170,145,255,.22),rgba(245,155,222,.35),rgba(170,145,255,.22),transparent); }
+.experience-bridge-track:before { display:none; }
+.experience-bridge-ship { top:calc(58% - 11px);left:4%;transform-origin:center; color:#f2b3e9;filter:drop-shadow(0 0 7px rgba(231,140,220,.4)); }
+.experience-ship-trail { width:24px;height:1.5px; background:linear-gradient(90deg,rgba(242,179,233,.5),transparent); }
+.experience-bridge-star-one {left:31%;top:20%;opacity:.4}
+.experience-bridge-star-two {right:26%;bottom:18%;opacity:.45}
+@media(max-width:720px){.experience-cosmic-bridge{height:62px;margin-bottom:.8rem}}
