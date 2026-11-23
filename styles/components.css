@@ -1378,3 +1378,10 @@
 .experience-bridge-star-one {left:31%;top:20%;opacity:.4}
 .experience-bridge-star-two {right:26%;bottom:18%;opacity:.45}
 @media(max-width:720px){.experience-cosmic-bridge{height:62px;margin-bottom:.8rem}}
+
+/* Remove the rejected spaceship bridge; let the section breathe */
+.experience-cosmic-bridge { display:none!important; }
+.cosmic-experience-section { position:relative; overflow:hidden; }
+.cosmic-experience-section:before { background-size:180% 180%; animation:experience-nebula-drift 24s ease-in-out infinite alternate; }
+@keyframes experience-nebula-drift { from{background-position:0% 20%}to{background-position:100% 80%} }
+@media(prefers-reduced-motion:reduce){.cosmic-experience-section:before{animation:none}}
