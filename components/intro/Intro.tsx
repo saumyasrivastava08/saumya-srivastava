@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";\nimport { Moon, Sparkles, FileText } from "lucide-react";
+import { motion } from "framer-motion";
+import { Moon, Sparkles, FileText } from "lucide-react";
 import { Layers, Brain, Settings, Server } from "lucide-react";
 import { Mail, Linkedin, Github, Phone, ArrowUpRight } from "lucide-react";
 
@@ -35,7 +36,8 @@ const contactLinks = [
   },
 ];
 
-export default function Intro() {\n  return (
+export default function Intro() {
+  return (
     <section id="intro" className="intro">
       <div className="intro-bg" /><div className="intro-orb intro-orb-one" /><div className="intro-orb intro-orb-two" />
 
