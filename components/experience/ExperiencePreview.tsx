@@ -1,18 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Rocket, Sparkles } from "lucide-react";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+
 import ExperienceCard from "./ExperienceCard";
 import Link from "next/link";
 import { EXPERIENCE_PREVIEW } from "./data";
 
 export default function ExperiencePreview() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const shipX = useTransform(scrollYProgress, [0, 1], ["0%", "78%"]);
-  const shipY = useTransform(scrollYProgress, [0, 1], [0, -34]);
-  const shipRotate = useTransform(scrollYProgress, [0, 1], [-8, 8]);
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     show: (i = 0) => ({
@@ -23,16 +17,7 @@ export default function ExperiencePreview() {
   };
 
   return (
-    <section ref={sectionRef} className="experience-section cosmic-experience-section">
-      <div className="experience-cosmic-bridge" aria-hidden="true">
-        <div className="experience-bridge-track" />
-        <motion.div className="experience-bridge-ship" style={{ x: shipX, y: shipY, rotate: shipRotate }}>
-          <Rocket size={22} />
-          <span className="experience-ship-trail" />
-        </motion.div>
-        <Sparkles className="experience-bridge-star experience-bridge-star-one" size={15} />
-        <Sparkles className="experience-bridge-star experience-bridge-star-two" size={20} />
-      </div>
+    <section className="experience-section cosmic-experience-section">
       <div className="experience-container">
 
         {/* Title */}
