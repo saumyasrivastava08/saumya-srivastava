@@ -1351,3 +1351,20 @@
 .hero-contact-icon { background:linear-gradient(135deg,rgba(130,190,255,.14),rgba(255,139,211,.16));color:#dba6f7; }
 @media(max-width:900px){.cosmic-planet-one{left:2%;top:8%}.cosmic-planet-two{left:auto;right:4%;top:65%}.cosmic-planet-three{left:2%;top:38%}}
 @media(prefers-reduced-motion:reduce){.cosmic-starfield,.cosmic-planet{animation:none!important}}
+
+/* SCROLL STORY: spaceship travels into the Experience section */
+.cosmic-experience-section { overflow:hidden; isolation:isolate; background:linear-gradient(180deg,#070a1b 0%,#0b1025 55%,#10091f 100%); }
+.cosmic-experience-section:before { content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 12% 12%,rgba(91,75,190,.17),transparent 35%),radial-gradient(ellipse at 82% 45%,rgba(232,91,186,.13),transparent 34%); }
+.experience-cosmic-bridge { height:clamp(90px,12vw,150px); position:relative; margin:0 auto 2.25rem; max-width:72rem; overflow:visible; }
+.experience-bridge-track { position:absolute;left:2%;right:2%;top:50%;height:1px;background:linear-gradient(90deg,transparent,rgba(131,177,255,.24),rgba(244,163,224,.32),transparent); }
+.experience-bridge-track:before { content:"";position:absolute;inset:-24px 0;background:repeating-radial-gradient(circle at 15% 50%,rgba(255,255,255,.55) 0 1px,transparent 2px 58px);opacity:.45; }
+.experience-bridge-ship { position:absolute;top:calc(50% - 13px);left:2%;display:flex;align-items:center;color:#f0a6e2;filter:drop-shadow(0 0 12px rgba(236,130,224,.7));z-index:2; }
+.experience-ship-trail { width:42px;height:2px;margin-left:2px;background:linear-gradient(90deg,rgba(246,154,220,.7),transparent); }
+.experience-bridge-star { position:absolute;color:#c8b2ff;animation:bridge-twinkle 2.5s ease-in-out infinite; }
+.experience-bridge-star-one {left:24%;top:20%}
+.experience-bridge-star-two {right:16%;bottom:16%;animation-delay:1s}
+@keyframes bridge-twinkle {0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.cosmic-experience-section .experience-title {background:linear-gradient(100deg,#c6a5ff,#ff9bd5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cosmic-experience-section .experience-subtitle {color:#a9a4c5}
+@media(max-width:720px) { .experience-cosmic-bridge{height:80px;margin-bottom:1.25rem}.experience-bridge-ship{left:0}.experience-ship-trail{width:24px} }
+@media(prefers-reduced-motion:reduce){.experience-bridge-star{animation:none}}
