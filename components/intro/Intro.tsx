@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "framer-motion";\nimport React from "react";
 import { Moon, Sparkles, FileText } from "lucide-react";
 import { Layers, Brain, Settings, Server } from "lucide-react";
-import { Mail, Linkedin, Github, Phone, ArrowUpRight } from "lucide-react";
+import { Mail, Linkedin, Github, Phone, ArrowUpRight, Copy, Check } from "lucide-react";
 
 const contactLinks = [
   {
@@ -15,31 +15,31 @@ const contactLinks = [
   },
   {
     label: "LinkedIn",
-    value: "Connect professionally",
+    value: "Saumya Srivastava",
     href: "https://linkedin.com/in/saumya-sanjay-srivastava",
     Icon: Linkedin,
-    detail: "Network",
+    detail: "Professional network",
   },
   {
     label: "GitHub",
-    value: "Explore my work",
+    value: "saumyasrivastava08",
     href: "https://github.com/saumyasrivastava08",
     Icon: Github,
-    detail: "Open source",
+    detail: "Code & projects",
   },
   {
     label: "Phone",
     value: "+91 9473729355",
     href: "tel:+919473729355",
     Icon: Phone,
-    detail: "Say hello",
+    detail: "Call me",
   },
 ];
 
-export default function Intro() {
+export default function Intro() {\n  const [emailCopied, setEmailCopied] = React.useState(false);
   return (
     <section id="intro" className="intro">
-      <div className="intro-bg" />
+      <div className="intro-bg" /><div className="intro-orb intro-orb-one" /><div className="intro-orb intro-orb-two" />
 
       <div className="intro-container intro-layout">
         <div className="intro-main">
@@ -170,7 +170,7 @@ export default function Intro() {
 
           <div className="contact-panel-footer">
             <span className="contact-footer-line" />
-            <span>Usually around, always curious.</span>
+            <span>Building, learning & exploring what’s next</span>
             <Sparkles size={14} />
           </div>
         </motion.aside>
