@@ -26,7 +26,7 @@ const contacts = [
 export default function Intro() {
   return (
     <section id="intro" className="intro">
-      <div className="intro-bg" /><div className="intro-orb intro-orb-one" /><div className="intro-orb intro-orb-two" />
+      <div className="intro-bg" /><div className="intro-orb intro-orb-one" /><div className="intro-orb intro-orb-two" /><div className="cosmic-planet cosmic-planet-one" aria-hidden="true" /><div className="cosmic-planet cosmic-planet-two" aria-hidden="true" /><div className="cosmic-planet cosmic-planet-three" aria-hidden="true" /><div className="cosmic-starfield" aria-hidden="true" />
       <div className="intro-container">
         <div className="intro-layout">
         <div className="intro-main">
