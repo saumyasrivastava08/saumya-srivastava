@@ -1252,3 +1252,60 @@
   .tech-laptop { width:64%; }
   .hero-contact-grid { grid-template-columns:1fr; }
 }
+
+/* COSMIC HERO REFINEMENT — visible universe, balanced scale, viewport-friendly */
+.intro {
+  padding:clamp(2.2rem,5vh,4rem) 0 2.4rem;
+  min-height:0;
+}
+.intro-bg {
+  background:
+    radial-gradient(circle at 9% 14%,rgba(255,255,255,.8) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 17% 62%,rgba(125,211,252,.55) 0 1px,transparent 2px),
+    radial-gradient(circle at 26% 35%,rgba(255,255,255,.5) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 37% 82%,rgba(244,114,182,.55) 0 1px,transparent 2px),
+    radial-gradient(circle at 48% 17%,rgba(255,255,255,.6) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 61% 66%,rgba(125,211,252,.55) 0 1px,transparent 2px),
+    radial-gradient(circle at 76% 22%,rgba(255,255,255,.7) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 89% 45%,rgba(244,114,182,.5) 0 1px,transparent 2px),
+    radial-gradient(circle at 94% 82%,rgba(255,255,255,.55) 0 1px,transparent 1.8px),
+    radial-gradient(ellipse at 72% 33%,rgba(45,120,220,.24),transparent 38%),
+    radial-gradient(ellipse at 91% 73%,rgba(180,55,155,.22),transparent 34%),
+    radial-gradient(ellipse at 14% 85%,rgba(70,80,190,.15),transparent 32%),
+    radial-gradient(ellipse at 42% 48%,rgba(35,90,155,.12),transparent 44%),
+    linear-gradient(135deg,#081326 0%,#030712 52%,#09051b 100%);
+}
+.intro-container { max-width:1500px; width:94vw; padding-inline:clamp(1rem,2vw,2rem); }
+.intro-layout {
+  grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  gap:clamp(1rem,2.2vw,2.5rem);
+}
+.intro-title { font-size:clamp(2.6rem,4.1vw,4.25rem); }
+.intro-subtext { font-size:clamp(.92rem,1vw,1.05rem); line-height:1.7; max-width:46rem; }
+.intro-tech-scene { min-height:clamp(390px,43vw,530px); }
+.tech-laptop { width:min(440px,75%); }
+.tech-orbit-one { width:min(470px,90%);height:min(320px,64%); }
+.tech-orbit-two { width:min(570px,106%);height:min(420px,82%); }
+.tech-orbit-three { width:min(370px,72%);height:min(500px,100%); }
+.tech-float { padding:.56rem .72rem; font-size:.7rem; }
+.tech-scene-caption { bottom:.25rem; font-size:.7rem; }
+.hero-contact-section { margin-top:1.7rem; width:100%; padding:1rem 1.25rem; }
+.hero-contact-grid { margin-top:.75rem; gap:.65rem; }
+.hero-contact-grid a { padding:.7rem .8rem; }
+.intro-note { margin-top:1.3rem; font-size:.82rem; }
+@media(min-width:1400px) {
+  .intro-container { max-width:1600px; }
+  .intro-tech-scene { min-height:500px; }
+}
+@media(max-width:900px) {
+  .intro-container { width:100%; }
+  .intro-layout { grid-template-columns:1fr; gap:.5rem; }
+  .intro-tech-scene { min-height:440px; max-width:560px; margin:0 auto; }
+  .intro-title { font-size:clamp(2.6rem,6vw,3.8rem); }
+}
+@media(max-width:720px) {
+  .intro { padding:2.5rem 0 2rem; }
+  .intro-tech-scene { min-height:380px; }
+  .tech-laptop { width:66%; }
+  .hero-contact-section { margin-top:1rem; }
+}
