@@ -135,7 +135,7 @@ export default function Intro() {
           <div className="contact-panel-heading">
             <span className="contact-eyebrow">
               <span className="contact-status-dot" />
-              CONTACT & LINKS
+              OPEN TO OPPORTUNITIES
             </span>
             <h2>Let’s connect<span>.</span></h2>
             <p>Have an idea, an opportunity, or just want to say hello?</p>
