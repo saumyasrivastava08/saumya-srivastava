@@ -69,7 +69,7 @@ export default function Intro() {
           </a>
 
           <a
-            href="/resumes/Saumya_Srivastava_Resume.pdf"
+            href="/resumes/Saumya-Resume.pdf"
             className="intro-secondary-btn"
             download="saumya_srivastava_resume.pdf"
           >
