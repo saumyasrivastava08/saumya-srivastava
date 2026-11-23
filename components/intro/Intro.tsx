@@ -27,7 +27,8 @@ export default function Intro() {
   return (
     <section id="intro" className="intro">
       <div className="intro-bg" /><div className="intro-orb intro-orb-one" /><div className="intro-orb intro-orb-two" />
-      <div className="intro-container intro-layout">
+      <div className="intro-container">
+        <div className="intro-layout">
         <div className="intro-main">
           <motion.h1 className="intro-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
             Hi, I’m <span className="intro-name">Saumya ✨</span>
@@ -73,10 +74,14 @@ export default function Intro() {
             </motion.div>
           ))}
           <div className="tech-scene-caption">Building across the stack <Sparkles size={13} /></div>
-          <div className="tech-contact-row">
-            {contacts.map(({ label, detail, href, Icon }) => <a key={label} href={href} target={label === "Phone" ? undefined : "_blank"} rel={label === "Phone" ? undefined : "noopener noreferrer"}><Icon size={16} /><span className="tech-contact-copy"><strong>{label}</strong><small>{detail}</small></span><ArrowUpRight size={11} className="tech-contact-arrow" /></a>)}
-          </div>
         </motion.aside>
+        </div>
+        <motion.div className="hero-contact-section" initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{delay:0.9,duration:0.6}}>
+          <div className="hero-contact-heading"><span className="contact-status-dot" />LET’S CONNECT <span className="hero-contact-heading-line" /></div>
+          <div className="hero-contact-grid">
+            {contacts.map(({ label, detail, href, Icon }) => <a key={label} href={href} target={label === "Phone" ? undefined : "_blank"} rel={label === "Phone" ? undefined : "noopener noreferrer"}><span className="hero-contact-icon"><Icon size={18}/></span><span className="hero-contact-copy"><strong>{label}</strong><small>{detail}</small></span><ArrowUpRight size={14} className="hero-contact-arrow" /></a>)}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
