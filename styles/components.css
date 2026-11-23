@@ -1128,9 +1128,6 @@
 
 /* HERO — COSMIC UNIVERSE PASS: wider canvas, intentional composition, no dead margins */
 .intro {
-  min-height:0;
-  padding:clamp(3.5rem,7vh,6rem) 0 clamp(2rem,4vh,3rem);
-  align-items:flex-start;
   background:#030712;
 }
 .intro-bg {
