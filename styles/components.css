@@ -1099,3 +1099,25 @@
   .tech-contact-row { gap:.25rem; }
   .tech-contact-row a { min-width:0; height:2.5rem; padding:.4rem .45rem; }
 }
+
+/* Place contact links in the lower open space of the hero */
+.intro { align-items:flex-start; padding:4.5rem 0 4rem; }
+.intro-container { display:flex; flex-direction:column; }
+.intro-layout { width:100%; }
+.intro-tech-scene { min-height:500px; }
+.tech-scene-caption { bottom:1.15rem; }
+.tech-contact-row { display:none; }
+.hero-contact-section { width:min(100%,68rem); margin:clamp(3.5rem,8vh,6rem) auto 0; padding:1.25rem 1.5rem 1.4rem; border:1px solid rgba(148,163,184,.14); border-radius:1.35rem; background:linear-gradient(120deg,rgba(15,23,42,.48),rgba(9,17,32,.65)); backdrop-filter:blur(14px); }
+.hero-contact-heading { display:flex; align-items:center; gap:.65rem; color:#7dd3fc; font-size:.7rem; font-weight:700; letter-spacing:.14em; }
+.hero-contact-heading-line { height:1px; flex:1; background:linear-gradient(90deg,rgba(56,189,248,.35),rgba(249,168,212,.05)); }
+.hero-contact-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin-top:1rem; }
+.hero-contact-grid a { display:flex; align-items:center; gap:.75rem; min-width:0; padding:.85rem 1rem; border:1px solid rgba(148,163,184,.13); border-radius:.95rem; background:rgba(2,6,23,.45); color:#cbd5e1; text-decoration:none; transition:transform .2s,border-color .2s,background .2s; }
+.hero-contact-grid a:hover { transform:translateY(-3px); border-color:rgba(125,211,252,.4); background:rgba(15,23,42,.85); }
+.hero-contact-icon { display:flex; align-items:center; justify-content:center; width:2.4rem;height:2.4rem;flex:0 0 2.4rem;border-radius:.75rem;background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(244,114,182,.12));color:#7dd3fc; }
+.hero-contact-copy { display:flex;flex-direction:column;gap:.2rem;min-width:0; }
+.hero-contact-copy strong { font-size:.78rem;color:#e2e8f0; }
+.hero-contact-copy small { font-size:.66rem;color:#64748b; }
+.hero-contact-arrow { margin-left:auto; flex:0 0 auto; color:#64748b; }
+@media(max-width:900px){.hero-contact-section{margin-top:3rem}.hero-contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.intro{padding:3.5rem 0 3rem}.hero-contact-section{margin-top:2.5rem;padding:1rem}.intro-tech-scene{min-height:420px}.hero-contact-grid{gap:.55rem}.hero-contact-grid a{padding:.7rem}.hero-contact-copy small{font-size:.6rem}}
+@media(max-width:420px){.hero-contact-grid{grid-template-columns:1fr}.hero-contact-grid a{padding:.75rem}}
