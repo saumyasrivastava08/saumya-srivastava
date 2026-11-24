@@ -45,6 +45,7 @@ export default function Skills() {
         </div>
 
         <div className="skills-universe">
+          <div className="skills-stage-wrap">
           <div className="skills-orbit-stage" aria-label="Featured technology constellation">
             <div className="skills-stage-grid" />
             <div className="skills-orbit orbit-large" />
@@ -69,6 +70,7 @@ export default function Skills() {
             ))}
           </div>
           <div className="skills-stage-caption"><Orbit size={13} /> SELECT A TECHNOLOGY TO TRACE ITS CLUSTER</div>
+          </div>
 
           <div className={`skills-detail-panel tone-${selected.color}`}>
             <div className="skills-detail-topline">
