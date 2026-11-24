@@ -11,7 +11,7 @@ const groups = [
   { title: "Frontend", short: "INTERFACES", icon: Monitor, color: "pink", skills: ["React.js", "Next.js", "Zustand", "Redux Toolkit", "Module Federation (Rspack)", "React Hook Form", "Zod", "MUI"] },
   { title: "Backend", short: "SERVICES", icon: Server, color: "violet", skills: ["Node.js (Express)", "Bun (Elysia)", "Go (Gin)", "REST APIs", "WebSockets", "MQTT", "Microservices"] },
   { title: "Databases", short: "DATA", icon: Database, color: "blue", skills: ["PostgreSQL (Drizzle ORM)", "Indexing", "Read Replicas", "Query Optimization", "MongoDB", "Redis"] },
-  { title: "Cloud & DevOps", short: "INFRASTRUCTURE", icon: Cloud, color: "gold", skills: ["AWS (EC2, S3, ECR, CloudFront, IAM, Auto Scaling)", "GCP (GKE)", "Docker", "Kubernetes", "Jenkins", "CloudBees CI/CD", "GitHub Actions", "Terraform", "HashiCorp Vault", "SonarQube"] },
+  { title: "Cloud & DevOps", short: "INFRASTRUCTURE", icon: Cloud, color: "gold", skills: ["AWS", "EC2", "S3", "ECR", "CloudFront", "IAM", "Auto Scaling", "GCP (GKE)", "Docker", "Kubernetes", "Jenkins", "CloudBees CI/CD", "GitHub Actions", "Terraform", "HashiCorp Vault", "SonarQube"] },
   { title: "Testing & Tools", short: "QUALITY", icon: FlaskConical, color: "mint", skills: ["Jest", "Integration Testing", "OpenAPI/Swagger", "Git", "Biome", "Husky", "Linux", "Jira", "Agile/Scrum"] },
 ];
 
