@@ -2347,3 +2347,27 @@
   .skills-stage-caption { top: .65rem; bottom: auto; }
   .feature-seven { bottom: 7%; }
 }
+
+
+/* SKILLS — keep the orbit instruction outside the constellation */
+.skills-stage-caption {
+  position: static;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .75rem;
+  padding: .35rem .5rem;
+  color: #9291b3;
+  font-size: .58rem;
+  font-weight: 750;
+  letter-spacing: .13em;
+  text-align: center;
+}
+.feature-eight { top: 31%; left: 27%; }
+.feature-nine { right: 24%; bottom: 31%; }
+@media (max-width: 640px) {
+  .skills-stage-caption { margin-top: .55rem; font-size: .49rem; letter-spacing: .09em; }
+  .feature-eight { top: 31%; left: 24%; }
+  .feature-nine { right: 20%; bottom: 30%; }
+}
