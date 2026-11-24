@@ -36,17 +36,9 @@ export default function Timeline({ entries }: TimelineProps) {
         const focusY = window.innerHeight * 0.46;
         const activeItem = items.reduce((closest, item) => {
           const bounds = item.getBoundingClientRect();
-          const distance = focusY < bounds.top
-            ? bounds.top - focusY
-            : focusY > bounds.bottom
-              ? focusY - bounds.bottom
-              : 0;
           const closestBounds = closest.getBoundingClientRect();
-          const closestDistance = focusY < closestBounds.top
-            ? closestBounds.top - focusY
-            : focusY > closestBounds.bottom
-              ? focusY - closestBounds.bottom
-              : 0;
+          const distance = Math.abs((bounds.top + bounds.bottom) / 2 - focusY);
+          const closestDistance = Math.abs((closestBounds.top + closestBounds.bottom) / 2 - focusY);
           return distance < closestDistance ? item : closest;
         }, items[0]);
 
