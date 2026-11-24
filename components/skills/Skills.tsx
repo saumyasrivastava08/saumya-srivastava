@@ -53,7 +53,15 @@ export default function Skills() {
             <div className="skills-orbit orbit-small" />
             <div className="skills-core">
               <div className="skills-core-halo" />
-              <div className="skills-core-icon"><Cpu size={27} strokeWidth={1.5} /></div>
+              <div className="skills-core-planets" aria-label="Two centre planet concepts">
+                <div className="skills-core-planet skills-core-planet-tech" role="img" aria-label="Tech planet with circuit details">
+                  <span className="planet-circuit planet-circuit-one" />
+                  <span className="planet-circuit planet-circuit-two" />
+                </div>
+                <div className="skills-core-planet skills-core-planet-cosmic" role="img" aria-label="Cosmic ringed planet">
+                  <span className="planet-ring" />
+                </div>
+              </div>
               <strong>ENGINEERING</strong>
               <span>CORE SYSTEM</span>
             </div>
