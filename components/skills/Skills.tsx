@@ -19,15 +19,15 @@ const groups = [
 ];
 
 const planets = [
-  { group: 0, diameter: "24%", size: "1.45rem", duration: "72s", phase: "0deg" }
-  { group: 1, diameter: "31.75%", size: "1.6rem", duration: "72s", phase: "40deg" }
-  { group: 2, diameter: "39.5%", size: "1.7rem", duration: "72s", phase: "80deg" }
-  { group: 3, diameter: "47.25%", size: "1.45rem", duration: "72s", phase: "120deg" }
-  { group: 4, diameter: "55%", size: "1.95rem", duration: "72s", phase: "160deg" }
-  { group: 5, diameter: "62.75%", size: "1.8rem", duration: "72s", phase: "200deg" }
-  { group: 6, diameter: "70.5%", size: "1.65rem", duration: "72s", phase: "240deg" }
-  { group: 7, diameter: "78.25%", size: "1.7rem", duration: "72s", phase: "280deg" }
-  { group: 8, diameter: "86%", size: "1.35rem", duration: "72s", phase: "320deg" }
+  { group: 0, diameter: "24%", size: "1.45rem", duration: "72s", phase: "0deg" },
+  { group: 1, diameter: "31.75%", size: "1.6rem", duration: "72s", phase: "40deg" },
+  { group: 2, diameter: "39.5%", size: "1.7rem", duration: "72s", phase: "80deg" },
+  { group: 3, diameter: "47.25%", size: "1.45rem", duration: "72s", phase: "120deg" },
+  { group: 4, diameter: "55%", size: "1.95rem", duration: "72s", phase: "160deg" },
+  { group: 5, diameter: "62.75%", size: "1.8rem", duration: "72s", phase: "200deg" },
+  { group: 6, diameter: "70.5%", size: "1.65rem", duration: "72s", phase: "240deg" },
+  { group: 7, diameter: "78.25%", size: "1.7rem", duration: "72s", phase: "280deg" },
+  { group: 8, diameter: "86%", size: "1.35rem", duration: "72s", phase: "320deg" },
 ];
 
 export default function Skills() {
