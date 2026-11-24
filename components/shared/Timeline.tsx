@@ -26,31 +26,57 @@ export default function Timeline({ entries }: TimelineProps) {
     const planet = planetRef.current;
     if (!timeline || !planet || experienceEntries.length === 0) return;
 
-    let frame = 0;
+    let scrollFrame = 0;
+    let animationFrame = 0;
+    let targetTop = 0;
+    let currentTop = 0;
+    let hasPosition = false;
+
+    const movePlanet = () => {
+      const difference = targetTop - currentTop;
+      if (Math.abs(difference) < 0.35) {
+        currentTop = targetTop;
+        planet.style.transform = `translate3d(0, ${currentTop}px, 0)`;
+        animationFrame = 0;
+        return;
+      }
+      currentTop += difference * 0.18;
+      planet.style.transform = `translate3d(0, ${currentTop}px, 0)`;
+      animationFrame = requestAnimationFrame(movePlanet);
+    };
+
     const update = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
+      cancelAnimationFrame(scrollFrame);
+      scrollFrame = requestAnimationFrame(() => {
         const items = Array.from(timeline.querySelectorAll<HTMLElement>(".timeline-item[id]"));
         if (items.length === 0) return;
 
+        const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
         const focusY = window.innerHeight * 0.46;
-        const activeItem = items.reduce((closest, item) => {
-          const bounds = item.getBoundingClientRect();
-          const closestBounds = closest.getBoundingClientRect();
-          const distance = Math.abs((bounds.top + bounds.bottom) / 2 - focusY);
-          const closestDistance = Math.abs((closestBounds.top + closestBounds.bottom) / 2 - focusY);
-          return distance < closestDistance ? item : closest;
-        }, items[0]);
+        const activeItem = atPageEnd
+          ? items[items.length - 1]
+          : items.reduce((closest, item) => {
+              const bounds = item.getBoundingClientRect();
+              const closestBounds = closest.getBoundingClientRect();
+              const distance = Math.abs((bounds.top + bounds.bottom) / 2 - focusY);
+              const closestDistance = Math.abs((closestBounds.top + closestBounds.bottom) / 2 - focusY);
+              return distance < closestDistance ? item : closest;
+            }, items[0]);
 
-        const nextId = activeItem.id;
+        const bounds = activeItem.getBoundingClientRect();
         const timelineBounds = timeline.getBoundingClientRect();
-        const itemBounds = activeItem.getBoundingClientRect();
-        const top = itemBounds.top - timelineBounds.top + timeline.scrollTop + 8;
-        planet.style.transform = `translate3d(0, ${top}px, 0)`;
+        targetTop = bounds.top - timelineBounds.top + timeline.scrollTop + Math.min(28, bounds.height / 2);
+        if (!hasPosition) {
+          currentTop = targetTop;
+          hasPosition = true;
+          planet.style.transform = `translate3d(0, ${currentTop}px, 0)`;
+        } else if (!animationFrame) {
+          animationFrame = requestAnimationFrame(movePlanet);
+        }
 
-        if (nextId !== activeExperienceRef.current) {
-          activeExperienceRef.current = nextId;
-          setActiveExperience(nextId);
+        if (activeItem.id !== activeExperienceRef.current) {
+          activeExperienceRef.current = activeItem.id;
+          setActiveExperience(activeItem.id);
         }
       });
     };
@@ -61,7 +87,8 @@ export default function Timeline({ entries }: TimelineProps) {
     const resizeObserver = new ResizeObserver(update);
     resizeObserver.observe(timeline);
     return () => {
-      cancelAnimationFrame(frame);
+      cancelAnimationFrame(scrollFrame);
+      cancelAnimationFrame(animationFrame);
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
       resizeObserver.disconnect();
