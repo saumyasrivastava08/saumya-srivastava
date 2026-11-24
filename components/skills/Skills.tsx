@@ -19,15 +19,15 @@ const groups = [
 ];
 
 const planets = [
-  { group: 0, diameter: "30%", size: "2.6rem", duration: "18s", phase: "-20deg" },
-  { group: 1, diameter: "40%", size: "3.2rem", duration: "25s", phase: "-110deg" },
-  { group: 2, diameter: "50%", size: "3.5rem", duration: "32s", phase: "-205deg" },
-  { group: 3, diameter: "60%", size: "2.5rem", duration: "39s", phase: "-290deg" },
-  { group: 4, diameter: "72%", size: "4.3rem", duration: "52s", phase: "-35deg" },
-  { group: 5, diameter: "84%", size: "3.7rem", duration: "64s", phase: "-145deg" },
-  { group: 6, diameter: "68%", size: "2.9rem", duration: "46s", phase: "-225deg" },
-  { group: 7, diameter: "54%", size: "3.1rem", duration: "35s", phase: "-315deg" },
-  { group: 8, diameter: "36%", size: "2.2rem", duration: "22s", phase: "-255deg" },
+  { group: 0, diameter: "24%", size: "1.35rem", duration: "18s", phase: "-20deg" },
+  { group: 1, diameter: "31.75%", size: "1.45rem", duration: "23s", phase: "-110deg" },
+  { group: 2, diameter: "39.5%", size: "1.55rem", duration: "29s", phase: "-205deg" },
+  { group: 3, diameter: "47.25%", size: "1.3rem", duration: "35s", phase: "-290deg" },
+  { group: 4, diameter: "55%", size: "1.8rem", duration: "43s", phase: "-35deg" },
+  { group: 5, diameter: "62.75%", size: "1.65rem", duration: "51s", phase: "-145deg" },
+  { group: 6, diameter: "70.5%", size: "1.5rem", duration: "59s", phase: "-225deg" },
+  { group: 7, diameter: "78.25%", size: "1.55rem", duration: "68s", phase: "-315deg" },
+  { group: 8, diameter: "86%", size: "1.25rem", duration: "78s", phase: "-255deg" },
 ];
 
 export default function Skills() {
@@ -78,7 +78,6 @@ export default function Skills() {
                   <span className="solar-planet-surface" />
                   <span className="solar-planet-atmosphere" />
                   {group.planet === "saturn" && <span className="solar-planet-ring" />}
-                  <span className="solar-planet-label">{group.title}</span>
                 </button>
               </div>
             );
