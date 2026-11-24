@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Code2, Monitor, Server, Database, Cloud, FlaskConical } from "lucide-react";
 import SkillGroup from "./SkillGroup";
 
 export default function Skills() {
@@ -16,10 +17,12 @@ export default function Skills() {
   const groups = [
     {
       title: "Core / Languages",
+      icon: Code2,
       skills: ["JavaScript", "TypeScript", "Go", "SQL", "Java"],
     },
     {
       title: "Frontend",
+      icon: Monitor,
       skills: [
         "React.js",
         "Next.js",
@@ -33,6 +36,7 @@ export default function Skills() {
     },
     {
       title: "Backend",
+      icon: Server,
       skills: [
         "Node.js (Express)",
         "Bun (Elysia)",
@@ -45,6 +49,7 @@ export default function Skills() {
     },
     {
       title: "Databases",
+      icon: Database,
       skills: [
         "PostgreSQL (Drizzle ORM)",
         "Indexing",
@@ -56,6 +61,7 @@ export default function Skills() {
     },
     {
       title: "Cloud & DevOps",
+      icon: Cloud,
       skills: [
         "AWS (EC2, S3, ECR, CloudFront, IAM, Auto Scaling)",
         "GCP (GKE)",
@@ -71,6 +77,7 @@ export default function Skills() {
     },
     {
       title: "Testing & Tools",
+      icon: FlaskConical,
       skills: [
         "Jest",
         "Integration Testing",
@@ -97,7 +104,7 @@ export default function Skills() {
           viewport={{ once: true }}
           custom={0}
         >
-          Technical Skills <span className="text-pink-300">🛠️</span>
+          Technical Skills <span className="skills-heading-accent">/ What I work with</span>
         </motion.h2>
 
         {/* Subtitle */}
@@ -123,7 +130,7 @@ export default function Skills() {
               viewport={{ once: true, amount: 0.2 }}
               custom={i + 1}
             >
-              <SkillGroup title={grp.title} skills={grp.skills} />
+              <SkillGroup title={grp.title} skills={grp.skills} icon={grp.icon} />
             </motion.div>
           ))}
         </div>
