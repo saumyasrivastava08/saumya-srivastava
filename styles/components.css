@@ -1866,3 +1866,222 @@
   .experience-stop-marker span,
   .experience-constellation-line { animation: none; }
 }
+
+
+/* FULL EXPERIENCE PAGE — immersive cosmic career log */
+.cosmic-experience-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  padding-top: clamp(5.5rem, 10vw, 8rem);
+  padding-bottom: 7rem;
+  background:
+    radial-gradient(ellipse at 82% 8%, rgba(120, 78, 190, .22), transparent 32%),
+    radial-gradient(ellipse at 4% 48%, rgba(45, 120, 190, .13), transparent 34%),
+    linear-gradient(155deg, #070b1d 0%, #0b1025 52%, #120b22 100%);
+}
+.cosmic-experience-page .experience-container { position: relative; z-index: 2; }
+.experience-page-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .38;
+  background-image:
+    radial-gradient(circle, #fff 1px, transparent 1.5px),
+    radial-gradient(circle, #c6a5ff 1px, transparent 1.5px);
+  background-size: 130px 130px, 190px 190px;
+  background-position: 10px 20px, 70px 90px;
+  animation: experience-page-star-drift 65s linear infinite;
+}
+@keyframes experience-page-star-drift {
+  to { transform: translateY(-120px); }
+}
+.experience-page-planet {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.experience-page-planet-one {
+  top: 8rem;
+  right: max(3vw, calc((100vw - 72rem) / 2 - 6rem));
+  width: 7rem;
+  height: 7rem;
+  background:
+    radial-gradient(ellipse at 32% 28%, rgba(255,255,255,.72), transparent 12%),
+    radial-gradient(circle at 35% 30%, #d8b5ff 0%, #9564d1 38%, #4d347f 72%, #211a48 100%);
+  box-shadow: inset -16px -12px 25px rgba(4,7,25,.6), 0 0 55px rgba(159,111,231,.24);
+  animation: experience-page-float 8s ease-in-out infinite;
+}
+.experience-page-planet-one span {
+  position: absolute;
+  inset: 27px -22px;
+  border: 1px solid rgba(218,192,255,.55);
+  border-radius: 50%;
+  transform: rotate(-24deg);
+}
+.experience-page-planet-two {
+  top: 42%;
+  left: -2.4rem;
+  width: 4.2rem;
+  height: 4.2rem;
+  background: radial-gradient(circle at 32% 28%, #d4f5ff, #5aa8d5 48%, #243b77 100%);
+  box-shadow: inset -10px -8px 16px rgba(4,7,25,.6), 0 0 35px rgba(91,177,235,.2);
+  animation: experience-page-float 10s ease-in-out infinite reverse;
+}
+.experience-page-orbit {
+  position: absolute;
+  top: 11rem;
+  right: max(1vw, calc((100vw - 72rem) / 2 - 9rem));
+  width: 18rem;
+  height: 8rem;
+  border: 1px solid rgba(198,165,255,.1);
+  border-radius: 50%;
+  transform: rotate(-24deg);
+  pointer-events: none;
+}
+@keyframes experience-page-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -12px; }
+}
+.experience-page-intro {
+  position: relative;
+  max-width: 52rem;
+  padding-bottom: 2.8rem;
+}
+.experience-page-kicker {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  color: #c8a8ed;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+.experience-page-intro .experience-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.15rem;
+  color: #f7f2ff;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -.055em;
+}
+.experience-page-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border: 1px solid rgba(198,165,255,.28);
+  border-radius: 1.1rem;
+  background: linear-gradient(145deg, rgba(198,165,255,.17), rgba(125,211,252,.08));
+  color: #e0c5ff;
+  box-shadow: 0 0 28px rgba(169,124,232,.12);
+}
+.experience-page-intro .experience-subtitle {
+  max-width: 43rem;
+  margin-top: 1rem;
+  color: #b3aec9;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.experience-page-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin-top: 1.4rem;
+}
+.experience-page-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .48rem .75rem;
+  border: 1px solid rgba(198,165,255,.16);
+  border-radius: 999px;
+  background: rgba(19,22,49,.55);
+  color: #cfc3e5;
+  font-size: .72rem;
+}
+.experience-page-timeline-wrap {
+  position: relative;
+  max-width: 66rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(198,165,255,.16);
+}
+.experience-page-section-label {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  color: #9e91bd;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+.experience-page-section-dot {
+  width: .48rem;
+  height: .48rem;
+  border-radius: 50%;
+  background: #d9a5f1;
+  box-shadow: 0 0 12px rgba(217,165,241,.85);
+}
+.cosmic-experience-page .timeline { margin-top: 2rem; }
+.cosmic-experience-page .timeline-line {
+  left: 17px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(125,211,252,.15), rgba(198,165,255,.75) 20%, rgba(244,114,182,.45) 82%, transparent);
+  box-shadow: 0 0 12px rgba(198,165,255,.16);
+}
+.cosmic-experience-page .timeline-dot {
+  left: 10px;
+  top: .45rem;
+  width: .9rem;
+  height: .9rem;
+  border: 2px solid #d9c0ff;
+  background: #a879e5;
+  box-shadow: 0 0 0 5px rgba(168,121,229,.12), 0 0 20px rgba(168,121,229,.6);
+}
+.cosmic-experience-page .timeline-year {
+  color: #bca8df;
+  font-size: .78rem;
+  font-weight: 650;
+  letter-spacing: .04em;
+}
+.cosmic-experience-page .experience-card {
+  border: 1px solid rgba(198,165,255,.17);
+  border-radius: 1.15rem;
+  background: linear-gradient(145deg, rgba(20,24,53,.9), rgba(10,15,35,.94) 72%, rgba(35,17,48,.82));
+  box-shadow: 0 16px 42px rgba(0,0,0,.16);
+}
+.cosmic-experience-page .experience-card:hover {
+  border-color: rgba(198,165,255,.38);
+  box-shadow: 0 18px 48px rgba(0,0,0,.25), 0 0 28px rgba(168,121,229,.1);
+}
+.cosmic-experience-page .experience-role { color: #f4edff; }
+.cosmic-experience-page .experience-meta { color: #aaa5c2; }
+.cosmic-experience-page .experience-company { color: #d5a7ed; }
+.cosmic-experience-page .experience-desc li { color: #c5c2d8; line-height: 1.75; }
+.cosmic-experience-page .experience-highlight { color: #e0b6f4; }
+.cosmic-experience-page .experience-tag {
+  border: 1px solid rgba(125,211,252,.15);
+  background: rgba(125,211,252,.06);
+  color: #c5dff1;
+}
+@media (max-width: 640px) {
+  .cosmic-experience-page { padding-top: 5.5rem; padding-bottom: 4.5rem; }
+  .experience-page-planet-one { top: 5.5rem; right: -3.5rem; width: 5rem; height: 5rem; opacity: .72; }
+  .experience-page-planet-two { left: -3rem; }
+  .experience-page-intro { padding-bottom: 2rem; }
+  .experience-page-intro .experience-title { gap: .7rem; font-size: clamp(2rem, 9vw, 2.8rem); }
+  .experience-page-icon { width: 2.7rem; height: 2.7rem; border-radius: .9rem; }
+  .cosmic-experience-page .timeline-item { padding-left: 3.2rem; padding-bottom: 2.6rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience-page-stars,
+  .experience-page-planet,
+  .experience-page-planet-one { animation: none; }
+}
