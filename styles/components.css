@@ -1147,7 +1147,6 @@
   width:100%;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:clamp(1.5rem,3vw,3.5rem);
-  align-items:center;
 }
 .intro-main { width:100%; max-width:760px; }
 .intro-title { font-size:clamp(3rem,5vw,5.4rem); }
