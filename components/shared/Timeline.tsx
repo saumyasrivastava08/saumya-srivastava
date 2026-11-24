@@ -101,7 +101,7 @@ export default function Timeline({ entries }: TimelineProps) {
           />
 
           {entry.duration && (
-            <motion.p
+            <motion.div
               className="timeline-year"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -109,7 +109,7 @@ export default function Timeline({ entries }: TimelineProps) {
               transition={{ delay: idx * 0.15 }}
             >
               {entry.duration}
-            </motion.p>
+            </motion.div>
           )}
 
           {entry.content}
