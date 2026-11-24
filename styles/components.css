@@ -2773,3 +2773,17 @@
 @media (max-width: 640px) {
   .solar-orbit-path .solar-planet { --planet-size: 1.2rem !important; }
 }
+
+/* One clear orbital system: each planet starts in a separate sector. */
+.solar-orbit-path { border-color: rgba(184,190,235,.14); }
+.solar-orbit-path .solar-planet {
+  transform: translate(-50%,-50%);
+  transition: filter .25s ease;
+}
+.solar-orbit-path .solar-planet:hover,
+.solar-orbit-path .solar-planet:focus-visible,
+.solar-orbit-path .solar-planet.is-selected {
+  transform: translate(-50%,-50%);
+  filter: drop-shadow(0 0 16px rgba(180,205,255,.8));
+  outline: none;
+}
