@@ -55,4 +55,38 @@ export const projects = [
       live: null,
     },
   },
+
+  {
+    title: "DevTrack",
+    context: "Personal Project · Full-Stack",
+    description:
+      "A developer productivity and tracking platform built with Next.js, Go, and PostgreSQL.",
+    highlights: [
+      "Built a Next.js frontend backed by Go services and PostgreSQL.",
+      "Structured the application around clear frontend, API, and data responsibilities.",
+    ],
+    tech: ["Next.js", "Go", "PostgreSQL"],
+    categories: ["Full Stack", "Backend"],
+    links: {
+      github: null,
+      live: null,
+    },
+  },
+
+  {
+    title: "GenAI — Multi-Task Text Utility",
+    context: "Backend Project · AI / LLM",
+    description:
+      "A FastAPI service that processes user prompts through LLMs and returns structured responses with usage and cost metrics.",
+    highlights: [
+      "Integrated OpenAI models with reusable prompt templates and six predefined task types.",
+      "Added latency, token, and cost tracking, plus JSON and CSV report generation.",
+    ],
+    tech: ["Python", "FastAPI", "OpenAI API", "Pytest"],
+    categories: ["Backend", "AI"],
+    links: {
+      github: "https://github.com/saumyasrivastava08/genai",
+      live: null,
+    },
+  },
 ];
