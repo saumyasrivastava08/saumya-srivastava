@@ -2105,14 +2105,16 @@
 /* EXPERIENCE TIMELINE — the active planet travels down the central rail */
 .cosmic-experience-page .timeline { position: relative; }
 .cosmic-experience-page .timeline-scroll-planet {
-  position: sticky;
+  position: absolute;
   z-index: 4;
-  top: 42vh;
+  left: 0;
+  top: 0;
   display: grid;
   place-items: center;
   width: 3.6rem;
   height: 3.6rem;
-  margin: 0 0 -3.6rem -.8rem;
+  margin: 0;
+  transition: top 650ms cubic-bezier(.2,.75,.25,1);
   border: 1px solid rgba(225,202,255,.72);
   border-radius: 50%;
   background:
@@ -2152,9 +2154,14 @@
   50% { box-shadow: inset -10px -8px 14px rgba(4,7,25,.65), 0 0 0 10px rgba(178,137,235,.08), 0 0 38px rgba(185,143,255,.82); }
 }
 @media (max-width: 640px) {
-  .cosmic-experience-page .timeline-scroll-planet { width: 2.8rem; height: 2.8rem; margin-bottom: -2.8rem; top: 40vh; }
+  .cosmic-experience-page .timeline-scroll-planet { width: 2.8rem; height: 2.8rem; }
   .cosmic-experience-page .timeline-scroll-planet-label { left: calc(100% + .65rem); font-size: .56rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cosmic-experience-page .timeline-scroll-planet { animation: none; }
 }
+
+
+/* Keep the moving planet as the only timeline marker; remove decorative specks. */
+.cosmic-experience-page .experience-page-stars { display: none; }
+.cosmic-experience-page .timeline-dot { display: none !important; }
