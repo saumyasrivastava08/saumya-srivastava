@@ -19,15 +19,15 @@ const groups = [
 ];
 
 const planets = [
-  { group: 0, x: "50%", y: "13%", size: "3.5rem" },
-  { group: 1, x: "75%", y: "20%", size: "4.3rem" },
-  { group: 2, x: "87%", y: "43%", size: "4.8rem" },
-  { group: 3, x: "77%", y: "73%", size: "3.1rem" },
-  { group: 4, x: "50%", y: "86%", size: "6.1rem" },
-  { group: 5, x: "23%", y: "73%", size: "4.9rem" },
-  { group: 6, x: "13%", y: "43%", size: "3.8rem" },
-  { group: 7, x: "25%", y: "20%", size: "4.2rem" },
-  { group: 8, x: "50%", y: "31%", size: "2.6rem" },
+  { group: 0, radius: "15%", size: "2.6rem", duration: "18s", phase: "-20deg" },
+  { group: 1, radius: "20%", size: "3.2rem", duration: "25s", phase: "-110deg" },
+  { group: 2, radius: "25%", size: "3.5rem", duration: "32s", phase: "-205deg" },
+  { group: 3, radius: "30%", size: "2.5rem", duration: "39s", phase: "-290deg" },
+  { group: 4, radius: "36%", size: "4.3rem", duration: "52s", phase: "-35deg" },
+  { group: 5, radius: "42%", size: "3.7rem", duration: "64s", phase: "-145deg" },
+  { group: 6, radius: "34%", size: "2.9rem", duration: "46s", phase: "-225deg" },
+  { group: 7, radius: "27%", size: "3.1rem", duration: "35s", phase: "-315deg" },
+  { group: 8, radius: "18%", size: "2.2rem", duration: "22s", phase: "-255deg" },
 ];
 
 export default function Skills() {
@@ -62,20 +62,25 @@ export default function Skills() {
           {planets.map((planet) => {
             const group = groups[planet.group];
             return (
-              <button
+              <div
                 key={group.planet}
-                type="button"
-                className={`solar-planet solar-planet-${group.planet} ${active === planet.group ? "is-selected" : ""}`}
-                style={{ "--planet-x": planet.x, "--planet-y": planet.y, "--planet-size": planet.size } as CSSProperties}
-                onClick={() => setActive(planet.group)}
-                aria-label={`Explore ${group.title}`}
-                aria-pressed={active === planet.group}
+                className="solar-orbit-path"
+                style={{ "--orbit-radius": planet.radius, "--orbit-duration": planet.duration, "--orbit-phase": planet.phase } as CSSProperties}
               >
-                <span className="solar-planet-surface" />
-                <span className="solar-planet-atmosphere" />
-                {group.planet === "saturn" && <span className="solar-planet-ring" />}
-                <span className="solar-planet-label">{group.title}</span>
-              </button>
+                <button
+                  type="button"
+                  className={`solar-planet solar-planet-${group.planet} ${active === planet.group ? "is-selected" : ""}`}
+                  style={{ "--planet-size": planet.size } as CSSProperties}
+                  onClick={() => setActive(planet.group)}
+                  aria-label={`Explore ${group.title}`}
+                  aria-pressed={active === planet.group}
+                >
+                  <span className="solar-planet-surface" />
+                  <span className="solar-planet-atmosphere" />
+                  {group.planet === "saturn" && <span className="solar-planet-ring" />}
+                  <span className="solar-planet-label">{group.title}</span>
+                </button>
+              </div>
             );
           })}
         </div>
