@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
@@ -19,6 +19,17 @@ export default function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
+
   return (
     <>
       <motion.header
@@ -27,7 +38,7 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <nav className="navbar-container">
+        <nav className="navbar-container" aria-label="Main navigation">
           {/* Logo */}
           <Link href="/" className="navbar-logo">
             <div className="navbar-logo-icon">S</div>
@@ -46,6 +57,7 @@ export default function Navbar() {
                   className={`navbar-link ${
                     active ? "navbar-link-active" : ""
                   }`}
+                  aria-current={active ? "page" : undefined}
                 >
                   {link.name}
                   <span className="navbar-underline" />
@@ -56,8 +68,12 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
+            type="button"
             className="navbar-menu-btn"
             onClick={() => setOpen(true)}
+            aria-label="Open navigation menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
           >
             <Menu size={26} />
           </button>
@@ -75,7 +91,11 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
           >
             <motion.aside
+              id="mobile-navigation"
               className="mobile-sidebar"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -83,8 +103,10 @@ export default function Navbar() {
               onClick={(e) => e.stopPropagation()}
             >
               <button
+                type="button"
                 className="close-btn"
                 onClick={() => setOpen(false)}
+                aria-label="Close navigation menu"
               >
                 <X size={22} />
               </button>
