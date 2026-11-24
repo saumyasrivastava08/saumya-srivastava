@@ -3300,3 +3300,32 @@
 @media(prefers-reduced-motion:reduce) {
   .skill-orbiting-world .orbit-planet-texture { transition:none; }
 }
+
+
+/* Globe-like axial rotation: moving longitude bands make each sphere visibly turn on its own axis. */
+.orbit-planet-texture {
+  overflow:hidden;
+  transform-style:preserve-3d;
+  perspective:180px;
+}
+.orbit-planet-texture > span {
+  position:absolute; inset:-2% -55%; display:block; border-radius:50%;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 12%,rgba(4,10,28,.2) 13% 15%,transparent 16% 28%),
+    repeating-linear-gradient(0deg,transparent 0 22%,rgba(255,255,255,.09) 23% 24%,transparent 25% 45%);
+  animation:planet-axial-spin 7s linear infinite;
+  mix-blend-mode:soft-light;
+  pointer-events:none;
+}
+.orbit-planet-texture.world-planet-jupiter > span,
+.orbit-planet-texture.world-planet-saturn > span,
+.orbit-planet-texture.world-planet-neptune > span { animation-duration:9s; }
+.orbit-planet-texture.world-planet-earth > span { animation-duration:6s; }
+@keyframes planet-axial-spin {
+  from { transform:translateX(-14%) scaleX(.78); }
+  50% { transform:translateX(14%) scaleX(1); }
+  to { transform:translateX(-14%) scaleX(.78); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .orbit-planet-texture > span { animation:none !important; }
+}
