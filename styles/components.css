@@ -2371,3 +2371,28 @@
   .feature-eight { top: 31%; left: 24%; }
   .feature-nine { right: 20%; bottom: 30%; }
 }
+
+
+/* Keep the orbit diagram, its instruction and the detail panel in two columns. */
+.skills-stage-wrap { min-width: 0; }
+.skills-stage-wrap .skills-stage-caption {
+  position: static;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .75rem;
+  padding: .35rem .5rem;
+  color: #9291b3;
+  font-size: .58rem;
+  font-weight: 750;
+  letter-spacing: .13em;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .skills-stage-wrap .skills-stage-caption {
+    margin-top: .55rem;
+    font-size: .49rem;
+    letter-spacing: .09em;
+  }
+}
