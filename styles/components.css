@@ -1247,3 +1247,13 @@
   .navbar-link { transition: none; }
 }
 
+/* NAVBAR — enforce one navigation control set per viewport */
+@media (min-width: 768px) {
+  .navbar-links { display: flex; }
+  .navbar-menu-btn { display: none; }
+}
+@media (max-width: 767px) {
+  .navbar-links { display: none; }
+  .navbar-menu-btn { display: grid; }
+}
+
