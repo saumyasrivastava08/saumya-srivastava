@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface TimelineEntry {
   key?: string;
@@ -17,22 +17,38 @@ interface TimelineProps {
 export default function Timeline({ entries }: TimelineProps) {
   const experienceEntries = entries.filter((entry) => entry.id);
   const [activeExperience, setActiveExperience] = useState(experienceEntries[0]?.id ?? "");
+  const [planetTop, setPlanetTop] = useState(0);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (experienceEntries.length === 0) return;
+    const timeline = timelineRef.current;
+    if (!timeline || experienceEntries.length === 0) return;
+
+    const updatePlanetPosition = (item: Element) => {
+      const timelineBounds = timeline.getBoundingClientRect();
+      const itemBounds = item.getBoundingClientRect();
+      setPlanetTop(itemBounds.top - timelineBounds.top + timeline.scrollTop + 8);
+    };
+
+    const firstItem = timeline.querySelector(".timeline-item[id]");
+    if (firstItem) updatePlanetPosition(firstItem);
+
     const observer = new IntersectionObserver(
       (observations) => {
         const visible = observations
           .filter((observation) => observation.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActiveExperience(visible.target.id);
+        if (visible?.target.id) {
+          setActiveExperience(visible.target.id);
+          updatePlanetPosition(visible.target);
+        }
       },
       { rootMargin: "-38% 0px -48% 0px", threshold: [0, 0.15, 0.35, 0.6] }
     );
-    const items = document.querySelectorAll(".cosmic-experience-page .timeline-item[id]");
-    items.forEach((item) => observer.observe(item));
+
+    timeline.querySelectorAll(".timeline-item[id]").forEach((item) => observer.observe(item));
     return () => observer.disconnect();
-  }, []);
+  }, [entries]);
   const fadeUp = {
     hidden: { opacity: 0, y: 24 },
     show: (i = 0) => ({
@@ -43,7 +59,7 @@ export default function Timeline({ entries }: TimelineProps) {
   };
 
   return (
-    <div className="timeline relative">
+    <div ref={timelineRef} className="timeline relative">
       <motion.div
         className="timeline-line"
         initial={{ scaleY: 0 }}
@@ -54,7 +70,7 @@ export default function Timeline({ entries }: TimelineProps) {
       />
 
       {experienceEntries.length > 0 && (
-        <div className="timeline-scroll-planet" aria-live="polite">
+        <div className="timeline-scroll-planet" style={{ top: planetTop }} aria-live="polite">
           <span className="timeline-scroll-planet-ring" />
           <span className="timeline-scroll-planet-label">{activeExperience.replace(/-/g, " ")}</span>
         </div>
