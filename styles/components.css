@@ -2535,3 +2535,82 @@
   .skills-core-planet { width: 1.8rem; height: 1.8rem; }
   .skills-universe > .skills-detail-panel { width: 100%; }
 }
+
+/* NINE-PLANET SKILLS SOLAR SYSTEM */
+.skills-solar-container { max-width: 82rem; }
+.skills-solar-system {
+  position: relative;
+  width: min(100%, 47rem);
+  aspect-ratio: 1;
+  margin: 2.7rem auto 2rem;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(173,166,220,.17);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(41,53,104,.42), transparent 48%),
+    radial-gradient(ellipse at 50% 50%, rgba(15,19,48,.72), rgba(5,9,26,.94) 72%);
+  box-shadow: inset 0 0 100px rgba(83,93,169,.12), 0 30px 90px rgba(0,0,0,.28);
+}
+.solar-starfield {
+  position:absolute; inset:0; opacity:.58; pointer-events:none;
+  background-image: radial-gradient(1px 1px at 12% 23%,#fff 98%,transparent), radial-gradient(1px 1px at 79% 17%,#d7d4ff 98%,transparent), radial-gradient(1.5px 1.5px at 88% 68%,#fff 98%,transparent), radial-gradient(1px 1px at 21% 78%,#b7dfff 98%,transparent), radial-gradient(1px 1px at 62% 91%,#fff 98%,transparent), radial-gradient(1px 1px at 43% 12%,#fff 98%,transparent), radial-gradient(1px 1px at 8% 54%,#fff 98%,transparent), radial-gradient(1px 1px at 92% 39%,#fff 98%,transparent);
+}
+.solar-orbit { position:absolute; top:50%; left:50%; border:1px solid rgba(184,190,235,.17); border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; }
+.solar-orbit-outer { width:88%; height:88%; }
+.solar-orbit-middle { width:65%; height:65%; border-color:rgba(190,163,235,.19); }
+.solar-orbit-inner { width:41%; height:41%; border-color:rgba(125,211,252,.2); }
+.solar-sun {
+  position:absolute; z-index:2; top:50%; left:50%; width:7.6rem; height:7.6rem; transform:translate(-50%,-50%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.2rem;
+  border:1px solid rgba(255,220,164,.78); border-radius:50%; color:#fff0cf;
+  background:radial-gradient(circle at 35% 27%,#fff9dc 0%,#ffd27a 13%,#f59b45 34%,#9e4e52 62%,#38254e 100%);
+  box-shadow:inset -18px -15px 27px rgba(25,9,35,.5), 0 0 0 9px rgba(255,190,108,.06), 0 0 42px rgba(255,166,91,.45), 0 0 100px rgba(255,128,86,.17);
+}
+.solar-sun-corona { position:absolute; inset:-.75rem; border:1px solid rgba(255,197,128,.24); border-radius:50%; box-shadow:0 0 32px rgba(255,159,87,.12); }
+.solar-sun strong { font-size:.52rem; letter-spacing:.13em; }
+.solar-sun small { font-size:.43rem; letter-spacing:.2em; opacity:.8; }
+.solar-planet {
+  position:absolute; z-index:4; left:var(--planet-x); top:var(--planet-y); width:var(--planet-size); height:var(--planet-size);
+  display:block; padding:0; transform:translate(-50%,-50%); border:0; border-radius:50%; background:transparent; cursor:pointer;
+  filter:drop-shadow(0 7px 12px rgba(0,0,0,.4)); transition:filter .25s ease, transform .25s ease;
+}
+.solar-planet-surface { position:absolute; inset:0; display:block; overflow:hidden; border:1px solid rgba(220,225,255,.42); border-radius:50%; box-shadow:inset -13px -10px 18px rgba(2,5,20,.72), inset 4px 4px 10px rgba(255,255,255,.24); }
+.solar-planet-surface:before,.solar-planet-surface:after { position:absolute; content:""; border-radius:50%; filter:blur(1px); opacity:.55; }
+.solar-planet-surface:before { width:72%; height:24%; top:25%; left:-8%; background:rgba(255,255,255,.2); transform:rotate(-28deg); }
+.solar-planet-surface:after { width:80%; height:16%; right:-16%; bottom:24%; background:rgba(5,10,30,.38); transform:rotate(22deg); }
+.solar-planet-atmosphere { position:absolute; inset:-5px; border:1px solid rgba(190,210,255,.15); border-radius:50%; box-shadow:0 0 16px rgba(145,180,255,.12); pointer-events:none; }
+.solar-planet-label {
+  position:absolute; top:calc(100% + .55rem); left:50%; transform:translateX(-50%);
+  width:max-content; max-width:7rem; color:#d8d8ec; font-size:.58rem; font-weight:700; letter-spacing:.04em;
+  text-shadow:0 2px 8px #050817; pointer-events:none;
+}
+.solar-planet:hover,.solar-planet:focus-visible,.solar-planet.is-selected { z-index:8; transform:translate(-50%,-50%) scale(1.14); filter:drop-shadow(0 0 15px rgba(160,194,255,.45)); outline:none; }
+.solar-planet.is-selected .solar-planet-atmosphere { border-color:rgba(209,225,255,.72); box-shadow:0 0 24px rgba(147,190,255,.45); }
+.solar-planet-mercury .solar-planet-surface { background:radial-gradient(circle at 32% 27%,#d9d5cb,#85858b 42%,#414654 75%,#171d2b); }
+.solar-planet-mercury .solar-planet-surface:before { width:17%;height:17%;top:25%;left:22%;background:#535765;box-shadow:18px 13px 0 -2px #666873, -4px 20px 0 -3px #454b59; }
+.solar-planet-venus .solar-planet-surface { background:repeating-linear-gradient(155deg,transparent 0 7px,rgba(255,223,165,.24) 8px 11px,transparent 13px 18px),radial-gradient(circle at 32% 25%,#ffe2a6,#d28b58 48%,#713f43 82%); }
+.solar-planet-earth .solar-planet-surface { background:radial-gradient(ellipse at 35% 34%,#5fbf8a 0 12%,transparent 13%),radial-gradient(ellipse at 65% 62%,#74c78b 0 15%,transparent 16%),radial-gradient(circle at 30% 25%,#9be4f2,#2774b6 55%,#102c62 100%); }
+.solar-planet-earth .solar-planet-surface:before { width:95%;height:28%;top:34%;left:-5%;background:rgba(239,249,255,.5);filter:blur(3px); }
+.solar-planet-mars .solar-planet-surface { background:radial-gradient(circle at 34% 26%,#f2b08a,#b95743 45%,#682e36 78%,#291d32); }
+.solar-planet-jupiter .solar-planet-surface { background:repeating-linear-gradient(0deg,rgba(255,231,202,.45) 0 5px,rgba(159,91,73,.58) 6px 11px,rgba(239,194,151,.72) 12px 17px,#a95e51 18px 22px),radial-gradient(circle at 30% 22%,#ffe0b5,#a75c4f); }
+.solar-planet-jupiter .solar-planet-surface:after { width:22%;height:13%;right:19%;bottom:29%;background:#a54d48;box-shadow:inset 0 0 4px #f3b48e; }
+.solar-planet-saturn .solar-planet-surface { background:repeating-linear-gradient(0deg,rgba(255,231,190,.5) 0 4px,rgba(184,143,99,.4) 5px 9px),radial-gradient(circle at 30% 25%,#f8e2b4,#b78d60 68%,#544052); }
+.solar-planet-ring { position:absolute; z-index:2; inset:28% -38%; border:5px solid rgba(224,205,168,.72); border-left-color:rgba(224,205,168,.24); border-right-color:rgba(224,205,168,.9); border-radius:50%; transform:rotate(-24deg); box-shadow:0 0 8px rgba(239,214,170,.18); pointer-events:none; }
+.solar-planet-uranus .solar-planet-surface { background:radial-gradient(circle at 30% 25%,#d5ffff,#71c4d0 48%,#285a78 85%); }
+.solar-planet-neptune .solar-planet-surface { background:repeating-linear-gradient(165deg,transparent 0 8px,rgba(174,216,255,.16) 9px 12px,transparent 13px 18px),radial-gradient(circle at 30% 25%,#7cbdff,#2853a8 55%,#101b50); }
+.solar-planet-pluto .solar-planet-surface { background:radial-gradient(ellipse at 35% 30%,#e8cbb5 0 18%,transparent 19%),radial-gradient(circle at 30% 25%,#c7b2a5,#796c79 62%,#2c2c48); }
+.solar-system-caption { position:absolute; bottom:1.15rem; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:.45rem; color:#9291b3; font-size:.55rem; font-weight:750; letter-spacing:.14em; text-align:center; }
+.solar-detail-panel { width:min(100%,52rem); margin:0 auto; }
+.solar-planet-nav { grid-template-columns:repeat(3,minmax(0,1fr)); max-width:66rem; margin:1.25rem auto 0; }
+@media(max-width:640px) {
+  .skills-solar-system { width:100%; margin:2rem auto 1.4rem; }
+  .solar-sun { width:5.4rem; height:5.4rem; }
+  .solar-sun strong { font-size:.4rem; }
+  .solar-sun small { font-size:.35rem; }
+  .solar-planet-label { top:calc(100% + .32rem); font-size:.46rem; max-width:5rem; }
+  .solar-planet-ring { border-width:3px; }
+  .solar-system-caption { bottom:.6rem; font-size:.43rem; letter-spacing:.08em; }
+  .solar-planet-nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(prefers-reduced-motion:reduce) { .solar-planet { transition:none; } }
