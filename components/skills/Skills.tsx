@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import {
   Code2, Monitor, Server, Database, Cloud, Workflow, Network,
-  FlaskConical, Wrench, Sparkles, Sun,
+  FlaskConical, Wrench, Sparkles,
 } from "lucide-react";
 
 const groups = [
@@ -18,7 +18,6 @@ const groups = [
   { title: "Developer Tools", short: "WORKFLOW", icon: Wrench, color: "silver", planet: "pluto", skills: ["Git", "Biome", "Husky", "Linux", "Jira", "Agile/Scrum"], description: "The everyday tools and practices that keep engineering work efficient and collaborative." },
 ];
 
-
 export default function Skills() {
   const [active, setActive] = useState(0);
   const selected = groups[active];
@@ -32,59 +31,46 @@ export default function Skills() {
         <div className="skills-intro">
           <div className="skills-eyebrow"><Sparkles size={13} /> THE ENGINEERING UNIVERSE</div>
           <h2 className="skills-heading">A universe of <span>things I build with.</span></h2>
-          <p className="skills-subtitle">Nine skill planets orbit the engineering core. Select a world to explore its technologies.</p>
+          <p className="skills-subtitle">Explore the worlds behind the way I design, build and ship software.</p>
         </div>
 
-        <div className="skills-orbit-layout">
-          <div className="skills-orbit-universe" aria-label="Three-dimensional orbit of nine engineering skill planets">
-            <div className="orbit-nebula-glow" />
-            <div className="orbit-starfield" />
-            <div className="orbit-sun">
-              <span className="orbit-sun-corona" />
-              <Sun size={27} strokeWidth={1.2} />
-              <strong>DEV</strong><small>CORE</small>
-            </div>
-            {groups.map((group, index) => {
-              const Icon = group.icon;
-              return (
-                <div
-                  key={group.planet}
-                  className={`skill-orbit-path skill-orbit-path-${index + 1}`}
-                  style={{ "--orbit-index": index } as CSSProperties}
-                >
-                  <span className="skill-orbit-track" />
-                  <button
-                    type="button"
-                    className={`skill-orbiting-world tone-${group.color} ${active === index ? "active" : ""}`}
-                    onClick={() => setActive(index)}
-                    aria-label={`Explore ${group.title}`}
-                    aria-pressed={active === index}
-                  >
-                    <span className={`orbit-planet-texture world-planet-${group.planet}`}><span /></span>
-                    <span className="orbit-world-label"><Icon size={13} /><strong>{group.title}</strong></span>
-                  </button>
-                </div>
-              );
-            })}
-            <div className="orbit-scene-caption"><span /> 9 WORLDS · ONE ENGINEERING UNIVERSE</div>
-          </div>
-
-          <aside className={`skills-orbit-detail tone-${selected.color}`} aria-live="polite">
-            <div className="orbit-detail-topline"><span>PLANET {String(active + 1).padStart(2, "0")} / 09</span><span>{selected.short}</span></div>
-            <div className="orbit-detail-heading">
-              <span className="orbit-detail-planet"><span className={`orbit-planet-texture world-planet-${selected.planet}`} /></span>
-              <div><span>SKILL WORLD</span><h3>{selected.title}</h3></div>
-            </div>
+        <div className={`skills-planet-showcase tone-${selected.color}`} aria-live="polite">
+          <div className="planet-showcase-stars" />
+          <div className="planet-showcase-copy">
+            <div className="planet-showcase-kicker">SKILL WORLD <span>{String(active + 1).padStart(2, "0")} / 09</span></div>
+            <h3>{selected.title}</h3>
+            <div className="planet-showcase-rule" />
             <p>{selected.description}</p>
-            <div className="orbit-detail-skills">
+            <div className="planet-showcase-tech">
               {selected.skills.map((skill, index) => (
                 <span key={skill} style={{ "--skill-index": index } as CSSProperties}>{skill}</span>
               ))}
             </div>
-            <div className="orbit-detail-footer"><span><i /> WORLD IN FOCUS</span><span>{String(selected.skills.length).padStart(2, "0")} SKILLS</span></div>
-          </aside>
+            <div className="planet-showcase-foot"><span><i /> {selected.short}</span><span>{String(selected.skills.length).padStart(2, "0")} TECHNOLOGIES</span></div>
+          </div>
+          <div className="planet-showcase-art" aria-hidden="true">
+            <div className="planet-aura" />
+            <div className={`planet-featured world-planet-${selected.planet}`}><span className="planet-clouds" /></div>
+            <div className="planet-orbit-glint" />
+          </div>
+          <div className="planet-showcase-index">EXPLORE THE COLLECTION <span>↘</span></div>
         </div>
-        <div className="skills-total-line"><span>MY TOOLKIT</span><span>09 PLANETS <i /> {String(totalSkills).padStart(2, "0")} SKILLS</span></div>
+
+        <nav className="planet-selector" aria-label="Choose a skill world">
+          {groups.map((group, index) => {
+            const Icon = group.icon;
+            return (
+              <button key={group.planet} type="button"
+                className={`planet-selector-item ${active === index ? "active" : ""}`}
+                onClick={() => setActive(index)} aria-pressed={active === index}
+                aria-label={`Show ${group.title}`}>
+                <span className={`planet-selector-sphere world-planet-${group.planet}`} />
+                <span className="planet-selector-name"><Icon size={12} />{group.title}</span>
+              </button>
+            );
+          })}
+        </nav>
+        <div className="skills-total-line"><span>MY TOOLKIT</span><span>09 WORLDS <i /> {String(totalSkills).padStart(2, "0")} TECHNOLOGIES</span></div>
       </div>
     </section>
   );
