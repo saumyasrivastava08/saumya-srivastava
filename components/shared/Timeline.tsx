@@ -5,6 +5,7 @@ import React from "react";
 
 interface TimelineEntry {
   key?: string;
+  id?: string;
   duration?: string | React.ReactNode;
   content: React.ReactNode;
 }
@@ -37,6 +38,7 @@ export default function Timeline({ entries }: TimelineProps) {
       {entries.map((entry, idx) => (
         <motion.div
           key={entry.key ?? idx}
+          id={entry.id}
           className={`timeline-item ${idx === entries.length - 1 ? "timeline-item-last" : ""}`}
           variants={fadeUp}
           initial="hidden"
