@@ -2709,3 +2709,47 @@
     grid-row: auto;
   }
 }
+
+/* Independent orbital paths around the Engineering Sun. */
+.solar-orbit-path {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--orbit-radius) * 2);
+  height: calc(var(--orbit-radius) * 2);
+  margin: calc(var(--orbit-radius) * -1) 0 0 calc(var(--orbit-radius) * -1);
+  border: 1px solid rgba(185,190,232,.12);
+  border-radius: 50%;
+  transform: rotate(var(--orbit-phase));
+  animation: solar-orbit-revolution var(--orbit-duration) linear infinite;
+  pointer-events: none;
+}
+.solar-orbit-path .solar-planet {
+  top: 0;
+  left: 50%;
+  width: var(--planet-size);
+  height: var(--planet-size);
+  transform: translate(-50%,-50%);
+  animation: solar-planet-counter-rotation var(--orbit-duration) linear infinite;
+  pointer-events: auto;
+}
+.solar-orbit-path .solar-planet:hover,
+.solar-orbit-path .solar-planet:focus-visible,
+.solar-orbit-path .solar-planet.is-selected {
+  transform: translate(-50%,-50%);
+  filter: drop-shadow(0 0 17px rgba(180,205,255,.72));
+  outline: none;
+}
+@keyframes solar-orbit-revolution {
+  from { transform: rotate(var(--orbit-phase)); }
+  to { transform: rotate(calc(var(--orbit-phase) + 360deg)); }
+}
+@keyframes solar-planet-counter-rotation {
+  from { transform: translate(-50%,-50%) rotate(0deg); }
+  to { transform: translate(-50%,-50%) rotate(-360deg); }
+}
+.solar-orbit-path .solar-planet-label { white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .solar-orbit-path, .solar-orbit-path .solar-planet { animation: none !important; }
+}
