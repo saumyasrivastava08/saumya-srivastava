@@ -23,6 +23,8 @@ const featured = [
   { name: "AWS", group: 4, orbit: "feature-five" },
   { name: "Kubernetes", group: 4, orbit: "feature-six" },
   { name: "Next.js", group: 1, orbit: "feature-seven" },
+  { name: "Java", group: 0, orbit: "feature-eight" },
+  { name: "Node.js", group: 2, orbit: "feature-nine" },
 ];
 
 export default function Skills() {
@@ -65,8 +67,8 @@ export default function Skills() {
                 <span className="skills-feature-dot" />{item.name}
               </button>
             ))}
-            <div className="skills-stage-caption"><Orbit size={13} /> SELECT A TECHNOLOGY TO TRACE ITS CLUSTER</div>
           </div>
+          <div className="skills-stage-caption"><Orbit size={13} /> SELECT A TECHNOLOGY TO TRACE ITS CLUSTER</div>
 
           <div className={`skills-detail-panel tone-${selected.color}`}>
             <div className="skills-detail-topline">
