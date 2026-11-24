@@ -26,57 +26,48 @@ export default function Timeline({ entries }: TimelineProps) {
     const planet = planetRef.current;
     if (!timeline || !planet || experienceEntries.length === 0) return;
 
-    let scrollFrame = 0;
-    let animationFrame = 0;
-    let targetTop = 0;
-    let currentTop = 0;
-    let hasPosition = false;
-
-    const movePlanet = () => {
-      const difference = targetTop - currentTop;
-      if (Math.abs(difference) < 0.35) {
-        currentTop = targetTop;
-        planet.style.transform = `translate3d(0, ${currentTop}px, 0)`;
-        animationFrame = 0;
-        return;
-      }
-      currentTop += difference * 0.18;
-      planet.style.transform = `translate3d(0, ${currentTop}px, 0)`;
-      animationFrame = requestAnimationFrame(movePlanet);
-    };
-
+    let frame = 0;
     const update = () => {
-      cancelAnimationFrame(scrollFrame);
-      scrollFrame = requestAnimationFrame(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
         const items = Array.from(timeline.querySelectorAll<HTMLElement>(".timeline-item[id]"));
-        if (items.length === 0) return;
+        if (!items.length) return;
 
-        const atPageEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8;
-        const focusY = window.innerHeight * 0.46;
-        const activeItem = atPageEnd
-          ? items[items.length - 1]
-          : items.reduce((closest, item) => {
-              const bounds = item.getBoundingClientRect();
-              const closestBounds = closest.getBoundingClientRect();
-              const distance = Math.abs((bounds.top + bounds.bottom) / 2 - focusY);
-              const closestDistance = Math.abs((closestBounds.top + closestBounds.bottom) / 2 - focusY);
-              return distance < closestDistance ? item : closest;
-            }, items[0]);
+        const scrollY = window.scrollY;
+        const focusDocumentY = scrollY + window.innerHeight * 0.46;
+        const timelineDocumentTop = timeline.getBoundingClientRect().top + scrollY;
+        const anchors = items.map((item) => {
+          const rect = item.getBoundingClientRect();
+          return {
+            id: item.id,
+            y: rect.top + scrollY + Math.min(28, rect.height / 2),
+          };
+        });
 
-        const bounds = activeItem.getBoundingClientRect();
-        const timelineBounds = timeline.getBoundingClientRect();
-        targetTop = bounds.top - timelineBounds.top + timeline.scrollTop + Math.min(28, bounds.height / 2);
-        if (!hasPosition) {
-          currentTop = targetTop;
-          hasPosition = true;
-          planet.style.transform = `translate3d(0, ${currentTop}px, 0)`;
-        } else if (!animationFrame) {
-          animationFrame = requestAnimationFrame(movePlanet);
+        let lower = anchors[0];
+        let upper = anchors[anchors.length - 1];
+        for (let index = 0; index < anchors.length - 1; index += 1) {
+          if (focusDocumentY >= anchors[index].y && focusDocumentY <= anchors[index + 1].y) {
+            lower = anchors[index];
+            upper = anchors[index + 1];
+            break;
+          }
+          if (focusDocumentY < anchors[0].y) upper = anchors[0];
+          if (focusDocumentY > anchors[anchors.length - 1].y) lower = anchors[anchors.length - 1];
         }
 
-        if (activeItem.id !== activeExperienceRef.current) {
-          activeExperienceRef.current = activeItem.id;
-          setActiveExperience(activeItem.id);
+        const span = upper.y - lower.y;
+        const progress = span > 0
+          ? Math.max(0, Math.min(1, (focusDocumentY - lower.y) / span))
+          : 0;
+        const planetDocumentY = lower.y + (upper.y - lower.y) * progress;
+        const planetLocalY = planetDocumentY - timelineDocumentTop;
+        planet.style.transform = `translate3d(0, ${planetLocalY}px, 0)`;
+
+        const activeAnchor = progress < 0.5 ? lower : upper;
+        if (activeAnchor.id !== activeExperienceRef.current) {
+          activeExperienceRef.current = activeAnchor.id;
+          setActiveExperience(activeAnchor.id);
         }
       });
     };
@@ -87,8 +78,7 @@ export default function Timeline({ entries }: TimelineProps) {
     const resizeObserver = new ResizeObserver(update);
     resizeObserver.observe(timeline);
     return () => {
-      cancelAnimationFrame(scrollFrame);
-      cancelAnimationFrame(animationFrame);
+      cancelAnimationFrame(frame);
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
       resizeObserver.disconnect();
