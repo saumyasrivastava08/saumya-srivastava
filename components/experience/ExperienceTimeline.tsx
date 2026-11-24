@@ -30,6 +30,7 @@ export default function ExperienceTimeline() {
     // internships
     ...EXPERIENCE_PREVIEW_EXT.map((exp, i) => ({
       key: `intern-${i}`,
+      id: `${exp.company.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-internship`,
       duration: exp.duration,
       content: <ExperienceCard {...exp} />,
     })),
