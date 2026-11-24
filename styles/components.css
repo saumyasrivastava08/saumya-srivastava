@@ -288,173 +288,13 @@
 
 .dot { opacity: 0.55; }
 
-/* Right-side contact panel */
-.intro-contact-panel {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding: clamp(1.5rem, 2.5vw, 2.25rem);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  background: linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(7, 15, 32, 0.78));
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255,255,255,0.05);
-  backdrop-filter: blur(18px);
-}
-
-.contact-panel-glow {
-  position: absolute;
-  z-index: -1;
-  top: -7rem;
-  right: -5rem;
-  width: 16rem;
-  height: 16rem;
-  border-radius: 50%;
-  background: rgba(56, 189, 248, 0.16);
-  filter: blur(65px);
-  pointer-events: none;
-}
-
-.contact-panel-heading { position: relative; }
-
-.contact-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: #7dd3fc;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.13em;
-}
-
+/* Current hero uses the compact contact strip; retain its shared status indicator. */
 .contact-status-dot {
   width: 0.48rem;
   height: 0.48rem;
   border-radius: 50%;
   background: #34d399;
   box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12), 0 0 14px rgba(52, 211, 153, 0.65);
-}
-
-.contact-panel-heading h2 {
-  margin-top: 0.9rem;
-  color: #f8fafc;
-  font-size: clamp(1.8rem, 2.5vw, 2.35rem);
-  line-height: 1.15;
-  font-weight: 650;
-  letter-spacing: -0.035em;
-}
-
-.contact-panel-heading h2 span {
-  color: #f9a8d4;
-}
-
-.contact-panel-heading p {
-  margin-top: 0.65rem;
-  color: #94a3b8;
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-.contact-card-list {
-  display: grid;
-  gap: 0.7rem;
-  margin-top: 1.65rem;
-}
-
-.contact-card {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  min-width: 0;
-  padding: 0.85rem 0.9rem;
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  border-radius: 1rem;
-  background: rgba(15, 23, 42, 0.55);
-  color: inherit;
-  text-decoration: none;
-  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-}
-
-.contact-card:hover {
-  transform: translateX(4px);
-  border-color: rgba(125, 211, 252, 0.42);
-  background: rgba(30, 41, 59, 0.78);
-  box-shadow: 0 10px 28px rgba(2, 6, 23, 0.22);
-}
-
-.contact-icon-wrap {
-  width: 2.7rem;
-  height: 2.7rem;
-  flex: 0 0 2.7rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.85rem;
-  color: #7dd3fc;
-  background: linear-gradient(135deg, rgba(56,189,248,0.17), rgba(244,114,182,0.13));
-  border: 1px solid rgba(125, 211, 252, 0.12);
-}
-
-.contact-card-copy {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  flex: 1;
-  gap: 0.25rem;
-}
-
-.contact-card-topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
-}
-
-.contact-card-label {
-  color: #e2e8f0;
-  font-size: 0.88rem;
-  font-weight: 650;
-}
-
-.contact-card-detail {
-  color: #64748b;
-  font-size: 0.68rem;
-  white-space: nowrap;
-}
-
-.contact-card-value {
-  color: #94a3b8;
-  font-size: 0.78rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.contact-card-arrow {
-  flex: 0 0 auto;
-  color: #64748b;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.contact-card:hover .contact-card-arrow {
-  color: #7dd3fc;
-  transform: translate(2px, -2px);
-}
-
-.contact-panel-footer {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin-top: 1.3rem;
-  color: #64748b;
-  font-size: 0.75rem;
-}
-
-.contact-panel-footer svg { color: #f9a8d4; }
-
-.contact-footer-line {
-  height: 1px;
-  flex: 1;
-  background: linear-gradient(90deg, rgba(56,189,248,0.45), rgba(249,168,212,0.08));
 }
 
 /* =====================================================
@@ -485,8 +325,6 @@
 .experience-subtitle { @apply mt-3 text-slate-400; }
 .experience-grid { margin-top: 3rem; }
 .experience-grid > * + * { margin-top: 1.5rem; }
-.experience-card { @apply rounded-2xl bg-slate-800/80 border border-slate-700/70 p-6; }
-
 .experience-role {
   font-size: 1.125rem;
   font-weight: 600;
@@ -853,7 +691,6 @@
 }
 
 .timeline { position: relative; margin-top: 4rem; }
-.timeline-year { margin-bottom: 0.75rem; }
 .timeline-line {
   position: absolute;
   left: 18px;
@@ -927,8 +764,7 @@
   .intro { padding: 4rem 0 3.5rem; }
   .intro-container { padding-left: 1.25rem; padding-right: 1.25rem; }
   .intro-layout { grid-template-columns: 1fr; gap: 2.75rem; }
-  .intro-contact-panel { max-width: 38rem; width: 100%; }
-  .intro-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+    .intro-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
   .intro-subtext { font-size: 0.95rem; }
   .intro-note { margin-top: 2rem; }
 }
@@ -973,48 +809,7 @@
   to { transform: translate3d(12px, 10px, 0) scale(1.04); }
 }
 
-.intro-main, .intro-contact-panel { position: relative; z-index: 1; }
-
-.contact-eyebrow {
-  padding: 0.48rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(52, 211, 153, 0.07);
-  border: 1px solid rgba(52, 211, 153, 0.17);
-  letter-spacing: 0.09em;
-  font-size: 0.66rem;
-}
-
-.contact-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 15%, rgba(255,255,255,0.035), transparent 65%);
-  transform: translateX(-100%);
-  transition: transform 0.55s ease;
-  pointer-events: none;
-}
-
-.contact-card:hover::before { transform: translateX(100%); }
-
-.contact-icon-wrap {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.contact-card:hover .contact-icon-wrap {
-  transform: scale(1.04);
-  box-shadow: 0 0 22px rgba(56, 189, 248, 0.12);
-}
-
-.intro-primary-btn, .intro-secondary-btn {
-  min-height: 46px;
-}
-
-
+.intro-main { position: relative; z-index: 1; }
 
 /* LAPTOP + TECH CONSTELLATION HERO */
 .intro-tech-scene { position: relative; width: 100%; display:flex; align-items:center; justify-content:center; isolation:isolate; }
@@ -1138,23 +933,17 @@
     radial-gradient(ellipse at 8% 85%, rgba(129,140,248,.08), transparent 28%),
     linear-gradient(145deg,#081326 0%,#030712 55%,#080617 100%);
 }
-.intro-container {
-  width:96vw;
-  max-width:1800px;
-  padding-inline:clamp(1.25rem,2.4vw,3rem);
-}
+
 .intro-layout {
   width:100%;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:clamp(1.5rem,3vw,3.5rem);
-  align-items:center;
 }
 .intro-main { width:100%; max-width:760px; }
 .intro-title { font-size:clamp(3rem,5vw,5.4rem); }
 .intro-subtext { max-width:unset; font-size:clamp(1rem,1.12vw,1.2rem); line-height:1.8; }
 .intro-subtitle { gap:.6rem; }
 .intro-tech-scene {
-  min-height:clamp(480px,54vw,680px);
   max-width:none;
   width:100%;
   margin:0;

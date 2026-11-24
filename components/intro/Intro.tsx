@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { Moon, Sparkles, FileText, Layers, Brain, Settings, Server, Mail, Linkedin, Github, Phone, ArrowUpRight, Cloud, Database, Container, GitBranch, Code2 } from "lucide-react";
 
 const techStack = [
@@ -41,7 +42,7 @@ export default function Intro() {
             Full-Stack & DevOps Engineer with 3+ years of experience building scalable web applications, cloud-native infrastructure, and internal platforms. I specialize in React, TypeScript, Java, AWS, Kubernetes, and CI/CD automation, delivering reliable systems from frontend to production.
           </motion.p>
           <motion.div className="intro-actions" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.5 }}>
-            <a href="/experience" className="intro-primary-btn">View Experience</a>
+            <Link href="/experience" className="intro-primary-btn">View Experience</Link>
             <a href="/resumes/Saumya-Resume.pdf" className="intro-secondary-btn" download="saumya_srivastava_resume.pdf"><FileText size={16} />Download CV</a>
           </motion.div>
           <motion.p className="intro-note" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>
@@ -56,10 +57,10 @@ export default function Intro() {
             <div className="laptop-screen">
               <div className="laptop-topbar"><span /><span /><span /><small>saumya.dev</small></div>
               <div className="laptop-code">
-                <div className="code-line"><i>01</i><b>const</b> developer = <em>"Saumya"</em>;</div>
+                <div className="code-line"><i>01</i><b>const</b> developer = <em>&quot;Saumya&quot;</em>;</div>
                 <div className="code-line"><i>02</i></div>
                 <div className="code-line"><i>03</i><b>function</b> <strong>build</strong>() {"{"}</div>
-                <div className="code-line"><i>04</i>&nbsp;&nbsp;return <em>"ideas → reality"</em>;</div>
+                <div className="code-line"><i>04</i>&nbsp;&nbsp;return <em>&quot;ideas → reality&quot;</em>;</div>
                 <div className="code-line"><i>05</i>{"}"}</div>
                 <div className="code-line"><i>06</i></div>
                 <div className="code-line"><i>07</i><span className="code-cursor">▌</span></div>

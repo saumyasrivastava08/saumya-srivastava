@@ -41,7 +41,7 @@ export default function ExperiencePreview() {
           viewport={{ once: true }}
           custom={1}
         >
-          A quick look at where & what I've worked
+          A quick look at where &amp; what I&apos;ve worked
         </motion.p>
 
         {/* Cards */}
