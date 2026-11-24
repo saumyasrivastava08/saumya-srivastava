@@ -2396,3 +2396,29 @@
     letter-spacing: .09em;
   }
 }
+
+
+/* Cloud cluster: force chips to wrap within the panel and let the panel expand. */
+.skills-detail-panel.tone-gold {
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  align-self: stretch;
+  overflow: visible;
+}
+.skills-detail-panel.tone-gold .skills-detail-tags {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: .5rem;
+}
+.skills-detail-panel.tone-gold .skills-detail-tags span {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  flex: 0 1 auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
