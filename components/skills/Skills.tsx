@@ -47,6 +47,7 @@ export default function Skills() {
           <p className="skills-subtitle">Nine worlds of engineering. Choose a planet to explore the technologies and systems behind it.</p>
         </div>
 
+        <div className="skills-solar-layout">
         <div className="skills-solar-system" aria-label="Interactive nine-planet engineering solar system">
           <div className="solar-starfield" />
           <div className="solar-orbit solar-orbit-outer" />
@@ -96,6 +97,7 @@ export default function Skills() {
             ))}
           </div>
           <div className="skills-detail-footer"><span><span className="skills-live-dot" /> PLANET IN VIEW</span><span>{String(active + 1).padStart(2, "0")} / 09</span></div>
+        </div>
         </div>
 
         <div className="skills-cluster-nav solar-planet-nav" aria-label="Choose a planet">
