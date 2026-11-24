@@ -3229,3 +3229,74 @@
   .skill-orbit-path,.skill-orbiting-world,.orbit-sun,.orbit-sun:before,.orbit-sun-corona,
   .orbit-nebula-glow,.orbit-starfield,.orbit-detail-skills span { animation:none !important; }
 }
+
+
+/* Art direction refinement: planets orbit freely; their category names sit directly beneath. */
+.skill-orbiting-world {
+  top:-1.55rem; flex-direction:column; justify-content:flex-start; gap:.42rem;
+  width:7.8rem; max-width:7.8rem; padding:0; overflow:visible;
+  border:0; border-radius:0; background:transparent; box-shadow:none;
+  transform:translateX(-50%) rotateX(-58deg);
+}
+.skill-orbiting-world:hover,.skill-orbiting-world.active {
+  border:0; background:transparent; box-shadow:none;
+}
+.skill-orbiting-world:focus-visible { outline:2px solid rgba(170,205,255,.9); outline-offset:5px; border-radius:1rem; }
+.skill-orbiting-world .orbit-planet-texture {
+  width:2.9rem; height:2.9rem; flex:0 0 auto;
+  box-shadow:inset -10px -8px 15px rgba(2,5,20,.72),inset 4px 4px 9px rgba(255,255,255,.32),0 0 18px rgba(129,169,255,.25),0 0 34px rgba(129,169,255,.1);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.skill-orbiting-world:hover .orbit-planet-texture,.skill-orbiting-world.active .orbit-planet-texture {
+  transform:scale(1.13);
+  box-shadow:inset -10px -8px 15px rgba(2,5,20,.72),inset 4px 4px 9px rgba(255,255,255,.32),0 0 22px rgba(157,198,255,.55),0 0 42px rgba(129,169,255,.22);
+}
+.orbit-world-label {
+  display:flex; justify-content:center; align-items:center; gap:.35rem;
+  width:max-content; max-width:100%; min-height:1.45rem; padding:.22rem .58rem;
+  border:1px solid rgba(153,174,234,.23); border-radius:999px;
+  color:#edf1ff; background:rgba(9,15,39,.88);
+  box-shadow:0 4px 14px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.05);
+  font-size:.59rem; line-height:1.2; text-align:center; white-space:normal;
+  backdrop-filter:blur(8px); transition:border-color .2s ease,background .2s ease;
+}
+.orbit-world-label strong { font-weight:750; }
+.orbit-world-label svg { display:none; }
+.skill-orbiting-world:hover .orbit-world-label,.skill-orbiting-world.active .orbit-world-label {
+  border-color:rgba(167,203,255,.72); color:#fff;
+  background:rgba(30,45,91,.94);
+}
+.skill-orbit-path-1 .orbit-planet-texture,.skill-orbit-path-2 .orbit-planet-texture { width:2.35rem; height:2.35rem; }
+.skill-orbit-path-5 .orbit-planet-texture { width:3.25rem; height:3.25rem; }
+.skill-orbit-path-5 .skill-orbiting-world { top:-1.7rem; }
+.skill-orbit-path-6 .orbit-planet-texture { width:2.75rem; height:2.75rem; }
+.skill-orbit-path-8 .skill-orbiting-world,.skill-orbit-path-9 .skill-orbiting-world { width:8.5rem; max-width:8.5rem; }
+.skill-orbit-path-8 .orbit-world-label,.skill-orbit-path-9 .orbit-world-label { font-size:.55rem; }
+.skill-orbiting-world .orbit-planet-texture:after {
+  background:radial-gradient(circle at 28% 23%,rgba(255,255,255,.48),transparent 27%),linear-gradient(135deg,transparent 40%,rgba(0,0,0,.3));
+}
+.skill-orbit-path-2 .skill-orbit-track,.skill-orbit-path-5 .skill-orbit-track,.skill-orbit-path-8 .skill-orbit-track {
+  border-color:rgba(166,190,255,.25); box-shadow:0 0 18px rgba(106,145,226,.06);
+}
+@media(max-width:620px) {
+  .skills-orbit-universe { min-height:26rem; }
+  .skill-orbit-path-1 { --orbit-size:28%; --orbit-height:21%; }
+  .skill-orbit-path-2 { --orbit-size:39%; --orbit-height:29%; }
+  .skill-orbit-path-3 { --orbit-size:50%; --orbit-height:37%; }
+  .skill-orbit-path-4 { --orbit-size:61%; --orbit-height:45%; }
+  .skill-orbit-path-5 { --orbit-size:71%; --orbit-height:53%; }
+  .skill-orbit-path-6 { --orbit-size:81%; --orbit-height:60%; }
+  .skill-orbit-path-7 { --orbit-size:90%; --orbit-height:67%; }
+  .skill-orbit-path-8 { --orbit-size:98%; --orbit-height:73%; }
+  .skill-orbit-path-9 { --orbit-size:106%; --orbit-height:79%; }
+  .skill-orbit-path-8,.skill-orbit-path-9 { display:block; }
+  .skill-orbiting-world { width:6.1rem; max-width:6.1rem; gap:.28rem; }
+  .skill-orbiting-world .orbit-planet-texture { width:1.75rem; height:1.75rem; }
+  .skill-orbit-path-5 .orbit-planet-texture { width:2.1rem; height:2.1rem; }
+  .orbit-world-label { min-height:1.15rem; padding:.16rem .38rem; font-size:.43rem; }
+  .skill-orbit-path-8 .skill-orbiting-world,.skill-orbit-path-9 .skill-orbiting-world { width:6.4rem; max-width:6.4rem; }
+  .skill-orbit-path-8 .orbit-world-label,.skill-orbit-path-9 .orbit-world-label { font-size:.4rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .skill-orbiting-world .orbit-planet-texture { transition:none; }
+}
