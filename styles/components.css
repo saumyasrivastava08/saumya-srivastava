@@ -1494,3 +1494,16 @@
 @media (max-width: 640px) {
   .projects-grid { row-gap: .9rem; }
 }
+
+
+/* PROJECTS — keep category filters visually separate from the card grid */
+.project-chips {
+  margin-bottom: 1.5rem;
+}
+.projects-grid {
+  margin-top: 1.5rem;
+}
+@media (max-width: 640px) {
+  .project-chips { margin-bottom: 1.1rem; }
+  .projects-grid { margin-top: 1.1rem; }
+}
