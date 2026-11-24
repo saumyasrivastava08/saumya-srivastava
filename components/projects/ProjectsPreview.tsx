@@ -11,72 +11,63 @@ export default function ProjectPreview() {
     show: (i = 0) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, delay: i * 0.15 },
+      transition: { duration: 0.55, delay: i * 0.12 },
     }),
   };
 
   return (
     <section className="projects-section">
       <div className="projects-container">
-        
-        <motion.h2
-  className="projects-title "
-  variants={fadeUp}
-  initial="hidden"
-  whileInView="show"
-  viewport={{ once: true }}
-  custom={0}
->
-  Projects
-</motion.h2>
-
-
-        {/* Subtitle */}
-        <motion.p
-          className="projects-subtitle"
+        <motion.div
+          className="projects-heading-row"
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          custom={0.2}
         >
-          Selected work (client & personal)
-        </motion.p>
+          <div>
+            <p className="projects-kicker">BUILT WITH INTENT</p>
+            <h2 className="projects-title">Selected projects</h2>
+            <p className="projects-subtitle">
+              A closer look at products, interfaces, and systems I’ve helped bring to life.
+            </p>
+          </div>
+          <span className="projects-count">{String(projects.length).padStart(2, "0")} PROJECTS</span>
+        </motion.div>
 
-        {/* Cards */}
         <div className="projects-grid">
           {projects.map((project, i) => (
             <motion.div
-              key={i}
+              key={project.title}
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               custom={i + 1}
             >
-              <ProjectCard {...project} />
+              <ProjectCard {...project} index={i} />
             </motion.div>
           ))}
         </div>
 
-        {/* CTA */}
         <motion.div
-          className="mt-10"
+          className="projects-footer"
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          custom={3}
+          custom={projects.length + 1}
         >
-          <Link
-            href="/projects"
-            className="intro-primary-btn inline-block"
-          >
-            View all projects →
+          <p>Want to explore more of the work?</p>
+          <Link href="/projects" className="intro-primary-btn">
+            Explore all projects <ArrowRightFallback />
           </Link>
         </motion.div>
-
       </div>
     </section>
   );
+}
+
+function ArrowRightFallback() {
+  return <span aria-hidden="true">↗</span>;
 }
