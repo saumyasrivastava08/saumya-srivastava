@@ -108,7 +108,7 @@ export default function Timeline({ entries }: TimelineProps) {
       {experienceEntries.length > 0 && (
         <div ref={planetRef} className="timeline-scroll-planet" aria-live="polite">
           <span className="timeline-scroll-planet-ring" />
-          <span className="timeline-scroll-planet-label">{activeExperience.replace(/-/g, " ")}</span>
+          <span className="timeline-scroll-planet-label">{activeExperience.endsWith("-internship") ? "Internships" : "Full-time roles"}</span>
         </div>
       )}
 
