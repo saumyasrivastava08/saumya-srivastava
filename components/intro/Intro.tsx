@@ -31,6 +31,9 @@ export default function Intro() {
       <div className="intro-container">
         <div className="intro-layout">
         <div className="intro-main">
+          <motion.p className="intro-eyebrow" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
+            <Sparkles size={13} aria-hidden="true" /> SOFTWARE ENGINEERING <span>·</span> CLOUD <span>·</span> DEVOPS
+          </motion.p>
           <motion.h1 className="intro-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
             Hi, I’m <span className="intro-name">Saumya ✨</span>
           </motion.h1>
