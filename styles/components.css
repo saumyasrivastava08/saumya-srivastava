@@ -1149,7 +1149,6 @@
 .intro-subtext { max-width:unset; font-size:clamp(1rem,1.12vw,1.2rem); line-height:1.8; }
 .intro-subtitle { gap:.6rem; }
 .intro-tech-scene {
-  min-height:clamp(480px,54vw,680px);
   max-width:none;
   width:100%;
   margin:0;
