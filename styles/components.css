@@ -2752,3 +2752,24 @@
 @media (prefers-reduced-motion: reduce) {
   .solar-orbit-path, .solar-orbit-path .solar-planet { animation: none !important; }
 }
+
+/* Collision-conscious orbital layout: planet names live in the selector below,
+   not beside moving bodies where labels can collide during revolution. */
+.solar-orbit-path {
+  border-color: rgba(185,190,232,.10);
+}
+.solar-orbit-path .solar-planet {
+  z-index: 5;
+  border-radius: 50%;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,.5));
+}
+.solar-orbit-path .solar-planet:hover,
+.solar-orbit-path .solar-planet:focus-visible,
+.solar-orbit-path .solar-planet.is-selected {
+  z-index: 9;
+  transform: translate(-50%,-50%) scale(1.18);
+}
+.solar-orbit-path .solar-planet-label { display: none; }
+@media (max-width: 640px) {
+  .solar-orbit-path .solar-planet { --planet-size: 1.2rem !important; }
+}
