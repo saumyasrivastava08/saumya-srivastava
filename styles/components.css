@@ -2107,7 +2107,7 @@
 .cosmic-experience-page .timeline-scroll-planet {
   position: absolute;
   z-index: 4;
-  left: 0;
+  left: -.75rem;
   top: 0;
   display: grid;
   place-items: center;
@@ -2154,7 +2154,7 @@
   50% { box-shadow: inset -10px -8px 14px rgba(4,7,25,.65), 0 0 0 10px rgba(178,137,235,.08), 0 0 38px rgba(185,143,255,.82); }
 }
 @media (max-width: 640px) {
-  .cosmic-experience-page .timeline-scroll-planet { width: 2.8rem; height: 2.8rem; }
+  .cosmic-experience-page .timeline-scroll-planet { left: -.34rem; width: 2.8rem; height: 2.8rem; }
   .cosmic-experience-page .timeline-scroll-planet-label { left: calc(100% + .65rem); font-size: .56rem; }
 }
 @media (prefers-reduced-motion: reduce) {
