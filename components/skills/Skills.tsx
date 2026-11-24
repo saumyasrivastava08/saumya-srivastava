@@ -78,8 +78,8 @@ export default function Skills() {
               </button>
             );
           })}
-          <div className="solar-system-caption"><Orbit size={13} /> SELECT A PLANET TO EXPLORE ITS WORLD</div>
         </div>
+        <div className="solar-system-caption"><Orbit size={13} /> SELECT A PLANET TO EXPLORE ITS WORLD</div>
 
         <div className={`skills-detail-panel tone-${selected.color} solar-detail-panel`}>
           <div className="skills-detail-topline">
