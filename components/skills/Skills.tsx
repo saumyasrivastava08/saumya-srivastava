@@ -37,63 +37,44 @@ export default function Skills() {
           <p className="skills-subtitle">Nine worlds of engineering. Choose a planet to explore the technologies and systems behind it.</p>
         </div>
 
-        <div className="skills-solar-layout">
-          <div className="skills-universe-panel">
-            <div className="universe-panel-topline"><span>INTERACTIVE SYSTEM MAP</span><span>09 WORLDS ONLINE</span></div>
-            <div className="universe-core-stage" aria-hidden="true">
-              <span className="universe-core-orbit universe-core-orbit-one" />
-              <span className="universe-core-orbit universe-core-orbit-two" />
-              <span className="universe-core-orbit universe-core-orbit-three" />
-              <div className="solar-sun universe-sun">
-                <span className="solar-sun-corona" />
-                <Sun size={25} strokeWidth={1.1} />
-                <strong>DEV</strong>
-                <small>CORE</small>
-              </div>
-              <span className="universe-core-caption">THE ENGINEERING STAR</span>
-            </div>
-            <div className="skills-world-grid" aria-label="Explore engineering skill worlds">
-              {groups.map((group, index) => {
-                const Icon = group.icon;
-                return (
-                  <button
-                    key={group.planet}
-                    type="button"
-                    className={`skills-world-node tone-${group.color} ${active === index ? "active" : ""}`}
-                    onClick={() => setActive(index)}
-                    aria-label={`Explore ${group.title}`}
-                    aria-pressed={active === index}
-                  >
-                    <span className={`world-planet world-planet-${group.planet}`}><span /></span>
-                    <span className="world-node-copy"><strong>{group.title}</strong><small>{String(group.skills.length).padStart(2, "0")} SKILLS</small></span>
-                    <Icon className="world-node-icon" size={15} />
-                    <span className="world-node-index">0{index + 1}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <div className="universe-panel-foot"><span><i /> LIVE ORBITAL NETWORK</span><span>SELECT A WORLD TO EXPLORE</span></div>
+        <div className="skills-galaxy" aria-label="All engineering skill planets">
+          <div className="galaxy-core">
+            <span className="galaxy-core-halo" />
+            <span className="galaxy-core-star"><Sun size={22} /></span>
+            <span>MY DEV UNIVERSE</span>
           </div>
-
-          <div className={`skills-detail-panel tone-${selected.color} solar-detail-panel`}>
-            <div className="skills-detail-topline">
-              <span>WORLD {String(active + 1).padStart(2, "0")} / 09 · {selected.short}</span>
-              <span>{String(selected.skills.length).padStart(2, "0")} TECHNOLOGIES</span>
-            </div>
-            <div className="skills-detail-heading">
-              <span className="skills-detail-icon"><SelectedIcon size={22} strokeWidth={1.7} /></span>
-              <div><span className="skills-detail-kicker">{selected.short}</span><h3>{selected.title}</h3></div>
-            </div>
-            <p className="skills-detail-description">{selected.description}</p>
-            <div className="skills-detail-tags">
-              {selected.skills.map((skill, index) => (
-                <span key={skill} style={{ "--skill-index": index } as CSSProperties}>{skill}</span>
-              ))}
-            </div>
-            <div className="skills-detail-footer"><span><span className="skills-live-dot" /> WORLD IN VIEW</span><span>{String(active + 1).padStart(2, "0")} / 09</span></div>
+          <div className="skills-world-grid">
+            {groups.map((group, index) => {
+              const Icon = group.icon;
+              return (
+                <article key={group.planet} className={`skills-world-card tone-${group.color} ${active === index ? "active" : ""}`}>
+                  <button
+                    type="button"
+                    className="world-card-heading"
+                    onClick={() => setActive(index)}
+                    aria-pressed={active === index}
+                    aria-label={`Select ${group.title}`}
+                  >
+                    <span className={`world-orbital-art world-orbital-${group.planet}`}>
+                      <span className="world-orbit-ring world-orbit-ring-back" />
+                      <span className={`world-planet world-planet-${group.planet}`}><span /></span>
+                      <span className="world-orbit-ring world-orbit-ring-front" />
+                    </span>
+                    <span className="world-card-title"><small>WORLD 0{index + 1}</small><strong>{group.title}</strong></span>
+                    <Icon className="world-node-icon" size={17} />
+                  </button>
+                  <p className="world-card-description">{group.description}</p>
+                  <div className="world-skill-cloud" aria-label={`${group.title} skills`}>
+                    {group.skills.map((skill, skillIndex) => (
+                      <span key={skill} style={{ "--skill-index": skillIndex } as CSSProperties}>{skill}</span>
+                    ))}
+                  </div>
+                  <div className="world-card-footer"><span>{String(group.skills.length).padStart(2, "0")} SKILLS</span><span>{active === index ? "IN FOCUS" : "EXPLORE WORLD"}</span></div>
+                </article>
+              );
+            })}
           </div>
         </div>
-
         <div className="skills-total-line"><span>MY TOOLKIT</span><span>09 PLANETS <i /> {String(totalSkills).padStart(2, "0")} SKILLS</span></div>
       </div>
     </section>
