@@ -764,8 +764,7 @@
   .intro { padding: 4rem 0 3.5rem; }
   .intro-container { padding-left: 1.25rem; padding-right: 1.25rem; }
   .intro-layout { grid-template-columns: 1fr; gap: 2.75rem; }
-  .intro-contact-panel { max-width: 38rem; width: 100%; }
-  .intro-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+    .intro-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
   .intro-subtext { font-size: 0.95rem; }
   .intro-note { margin-top: 2rem; }
 }
@@ -810,50 +809,12 @@
   to { transform: translate3d(12px, 10px, 0) scale(1.04); }
 }
 
-.intro-main, .intro-contact-panel { position: relative; z-index: 1; }
+.intro-main { position: relative; z-index: 1; }
 
 .contact-eyebrow {
   padding: 0.48rem 0.75rem;
   border-radius: 9999px;
-  background: rgba(52, 211, 153, 0.07);
-  border: 1px solid rgba(52, 211, 153, 0.17);
-  letter-spacing: 0.09em;
-  font-size: 0.66rem;
-}
-
-.contact-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg, transparent 15%, rgba(255,255,255,0.035), transparent 65%);
-  transform: translateX(-100%);
-  transition: transform 0.55s ease;
-  pointer-events: none;
-}
-
-.contact-card:hover::before { transform: translateX(100%); }
-
-.contact-icon-wrap {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.contact-card:hover .contact-icon-wrap {
-  transform: scale(1.04);
-  box-shadow: 0 0 22px rgba(56, 189, 248, 0.12);
-}
-
-.intro-primary-btn, .intro-secondary-btn {
-  min-height: 46px;
-}
-
-
-
-/* LAPTOP + TECH CONSTELLATION HERO */
+  back+ TECH CONSTELLATION HERO */
 .intro-tech-scene { position: relative; width: 100%; display:flex; align-items:center; justify-content:center; isolation:isolate; }
 .tech-scene-label { position:absolute; top:1rem; left:50%; transform:translateX(-50%); z-index:3; display:flex; align-items:center; gap:.55rem; color:#7dd3fc; font-size:.68rem; font-weight:700; letter-spacing:.14em; white-space:nowrap; }
 .tech-orbit { position:absolute; left:50%; top:50%; border:1px solid rgba(125,211,252,.1); border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; }
