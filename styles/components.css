@@ -2697,3 +2697,15 @@
 @media (prefers-reduced-motion: reduce) {
   .solar-planet-surface, .solar-planet-atmosphere, .solar-planet-ring { animation: none !important; }
 }
+
+/* Keep the detail card aligned with the full solar-system column. */
+.skills-solar-layout .solar-detail-panel {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+@media (max-width: 900px) {
+  .skills-solar-layout .solar-detail-panel {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
