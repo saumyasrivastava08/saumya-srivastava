@@ -63,7 +63,7 @@ const filteredProjects =
         {/* Grid */}
         <div className="projects-grid">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.title}
                 layout
@@ -79,7 +79,7 @@ const filteredProjects =
                     <span className="project-year">{(project as any).year}</span>
                   )
                 }
-                <ProjectCard {...project} />
+                <ProjectCard {...project} index={index} />
               </motion.div>
             ))}
           </AnimatePresence>
