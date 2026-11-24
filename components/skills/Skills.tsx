@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import {
   Code2, Monitor, Server, Database, Cloud, FlaskConical,
   Sparkles, ArrowUpRight, Orbit, Cpu,
@@ -87,7 +87,7 @@ export default function Skills() {
             </p>
             <div className="skills-detail-tags">
               {selected.skills.map((skill, index) => (
-                <span key={skill} style={{ "--skill-index": index } as React.CSSProperties}>{skill}</span>
+                <span key={skill} style={{ "--skill-index": index } as CSSProperties}>{skill}</span>
               ))}
             </div>
             <div className="skills-detail-footer"><span><span className="skills-live-dot" /> CLUSTER IN VIEW</span><span>{String(active + 1).padStart(2, "0")} / 06</span></div>
