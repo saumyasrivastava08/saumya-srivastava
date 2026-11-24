@@ -3324,3 +3324,55 @@
 @media(prefers-reduced-motion:reduce) {
   .orbit-planet-texture > span { animation:none !important; }
 }
+
+
+/* True 3D orbital system: the sun stays fixed while each world travels on a
+   differently inclined orbital plane, creating a spherical/globe-like volume. */
+.skill-orbit-path {
+  --tilt-x: 58deg;
+  --tilt-y: 0deg;
+  transform:translate(-50%,-50%) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  animation:skill-orbit-3d var(--orbit-duration) linear infinite;
+  transform-style:preserve-3d;
+}
+.skill-orbit-path-1 { --tilt-x:48deg; --tilt-y:-12deg; }
+.skill-orbit-path-2 { --tilt-x:66deg; --tilt-y:18deg; }
+.skill-orbit-path-3 { --tilt-x:39deg; --tilt-y:31deg; }
+.skill-orbit-path-4 { --tilt-x:72deg; --tilt-y:-24deg; }
+.skill-orbit-path-5 { --tilt-x:53deg; --tilt-y:42deg; }
+.skill-orbit-path-6 { --tilt-x:31deg; --tilt-y:-38deg; }
+.skill-orbit-path-7 { --tilt-x:78deg; --tilt-y:12deg; }
+.skill-orbit-path-8 { --tilt-x:44deg; --tilt-y:-49deg; }
+.skill-orbit-path-9 { --tilt-x:61deg; --tilt-y:55deg; }
+.skill-orbit-path:nth-of-type(4n) { animation-direction:normal; }
+@keyframes skill-orbit-3d {
+  from { transform:translate(-50%,-50%) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) rotateZ(0deg); }
+  to { transform:translate(-50%,-50%) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) rotateZ(360deg); }
+}
+.skill-orbiting-world {
+  animation:skill-world-counterspin-3d var(--orbit-duration) linear infinite;
+}
+@keyframes skill-world-counterspin-3d {
+  from { transform:translateX(-50%) rotateX(calc(-1 * var(--tilt-x))) rotateY(calc(-1 * var(--tilt-y))) rotateZ(0deg); }
+  to { transform:translateX(-50%) rotateX(calc(-1 * var(--tilt-x))) rotateY(calc(-1 * var(--tilt-y))) rotateZ(-360deg); }
+}
+/* Keep the planet artwork spherical and clean; the planet itself does not spin. */
+.orbit-planet-texture > span { display:none; animation:none !important; background:none !important; }
+.orbit-planet-texture.world-planet-saturn:before { z-index:1; }
+.orbit-planet-texture.world-planet-saturn:after { z-index:2; }
+.orbit-sun { z-index:8; }
+.skill-orbit-track { border-color:rgba(159,181,244,.13); }
+@media(max-width:620px) {
+  .skill-orbit-path-1 { --tilt-x:48deg; --tilt-y:-12deg; }
+  .skill-orbit-path-2 { --tilt-x:66deg; --tilt-y:18deg; }
+  .skill-orbit-path-3 { --tilt-x:39deg; --tilt-y:31deg; }
+  .skill-orbit-path-4 { --tilt-x:72deg; --tilt-y:-24deg; }
+  .skill-orbit-path-5 { --tilt-x:53deg; --tilt-y:42deg; }
+  .skill-orbit-path-6 { --tilt-x:31deg; --tilt-y:-38deg; }
+  .skill-orbit-path-7 { --tilt-x:78deg; --tilt-y:12deg; }
+  .skill-orbit-path-8 { --tilt-x:44deg; --tilt-y:-49deg; }
+  .skill-orbit-path-9 { --tilt-x:61deg; --tilt-y:55deg; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .skill-orbit-path,.skill-orbiting-world { animation:none !important; }
+}
