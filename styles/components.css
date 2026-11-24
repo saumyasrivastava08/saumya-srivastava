@@ -1457,3 +1457,40 @@
 @media (prefers-reduced-motion: reduce) {
   .project-card, .projects-grid > div { transition: none; }
 }
+
+
+/* PROJECTS — prevent nested motion wrappers and percentage heights from collapsing grid rows */
+.projects-grid {
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  column-gap: 1.15rem;
+  row-gap: 1.35rem;
+}
+.projects-grid > div {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  transform: none;
+  box-shadow: none;
+  transition: none;
+}
+.projects-grid > div:hover {
+  transform: none;
+  box-shadow: none;
+}
+.projects-grid > div > .project-card {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+.project-content {
+  min-height: 0;
+  box-sizing: border-box;
+}
+@media (max-width: 1024px) {
+  .projects-grid { row-gap: 1.1rem; }
+}
+@media (max-width: 640px) {
+  .projects-grid { row-gap: .9rem; }
+}
