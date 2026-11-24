@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import {
   Code2, Monitor, Server, Database, Cloud, Workflow, Network,
-  FlaskConical, Wrench, Sparkles, ArrowUpRight, Orbit, Sun,
+  FlaskConical, Wrench, Sparkles, ArrowUpRight, Sun,
 } from "lucide-react";
 
 const groups = [
@@ -18,17 +18,7 @@ const groups = [
   { title: "Developer Tools", short: "WORKFLOW", icon: Wrench, color: "silver", planet: "pluto", skills: ["Git", "Biome", "Husky", "Linux", "Jira", "Agile/Scrum"], description: "The everyday tools and practices that keep engineering work efficient and collaborative." },
 ];
 
-const planets = [
-  { group: 0, diameter: "24%", size: "1.45rem", duration: "72s", phase: "0deg" },
-  { group: 1, diameter: "31.75%", size: "1.6rem", duration: "72s", phase: "40deg" },
-  { group: 2, diameter: "39.5%", size: "1.7rem", duration: "72s", phase: "80deg" },
-  { group: 3, diameter: "47.25%", size: "1.45rem", duration: "72s", phase: "120deg" },
-  { group: 4, diameter: "55%", size: "1.95rem", duration: "72s", phase: "160deg" },
-  { group: 5, diameter: "62.75%", size: "1.8rem", duration: "72s", phase: "200deg" },
-  { group: 6, diameter: "70.5%", size: "1.65rem", duration: "72s", phase: "240deg" },
-  { group: 7, diameter: "78.25%", size: "1.7rem", duration: "72s", phase: "280deg" },
-  { group: 8, diameter: "86%", size: "1.35rem", duration: "72s", phase: "320deg" },
-];
+
 
 export default function Skills() {
   const [active, setActive] = useState(0);
@@ -48,70 +38,62 @@ export default function Skills() {
         </div>
 
         <div className="skills-solar-layout">
-        <div className="skills-solar-system" aria-label="Interactive nine-planet engineering solar system">
-          <div className="solar-starfield" />
-          <div className="solar-sun" aria-label="Engineering core">
-            <span className="solar-sun-corona" />
-            <Sun size={29} strokeWidth={1.1} />
-            <strong>ENGINEERING</strong>
-            <small>THE CORE</small>
-          </div>
-          {planets.map((planet) => {
-            const group = groups[planet.group];
-            return (
-              <div
-                key={group.planet}
-                className="solar-orbit-path"
-                style={{ "--orbit-diameter": planet.diameter, "--orbit-duration": planet.duration, "--orbit-phase": planet.phase } as CSSProperties}
-              >
-                <button
-                  type="button"
-                  className={`solar-planet solar-planet-${group.planet} ${active === planet.group ? "is-selected" : ""}`}
-                  style={{ "--planet-size": planet.size } as CSSProperties}
-                  onClick={() => setActive(planet.group)}
-                  aria-label={`Explore ${group.title}`}
-                  aria-pressed={active === planet.group}
-                >
-                  <span className="solar-planet-surface" />
-                  <span className="solar-planet-atmosphere" />
-                  {group.planet === "saturn" && <span className="solar-planet-ring" />}
-                </button>
+          <div className="skills-universe-panel">
+            <div className="universe-panel-topline"><span>INTERACTIVE SYSTEM MAP</span><span>09 WORLDS ONLINE</span></div>
+            <div className="universe-core-stage" aria-hidden="true">
+              <span className="universe-core-orbit universe-core-orbit-one" />
+              <span className="universe-core-orbit universe-core-orbit-two" />
+              <span className="universe-core-orbit universe-core-orbit-three" />
+              <div className="solar-sun universe-sun">
+                <span className="solar-sun-corona" />
+                <Sun size={25} strokeWidth={1.1} />
+                <strong>DEV</strong>
+                <small>CORE</small>
               </div>
-            );
-          })}
-        </div>
-        <div className="solar-system-caption"><Orbit size={13} /> SELECT A PLANET TO EXPLORE ITS WORLD</div>
+              <span className="universe-core-caption">THE ENGINEERING STAR</span>
+            </div>
+            <div className="skills-world-grid" aria-label="Explore engineering skill worlds">
+              {groups.map((group, index) => {
+                const Icon = group.icon;
+                return (
+                  <button
+                    key={group.planet}
+                    type="button"
+                    className={`skills-world-node tone-${group.color} ${active === index ? "active" : ""}`}
+                    onClick={() => setActive(index)}
+                    aria-label={`Explore ${group.title}`}
+                    aria-pressed={active === index}
+                  >
+                    <span className={`world-planet world-planet-${group.planet}`}><span /></span>
+                    <span className="world-node-copy"><strong>{group.title}</strong><small>{String(group.skills.length).padStart(2, "0")} SKILLS</small></span>
+                    <Icon className="world-node-icon" size={15} />
+                    <span className="world-node-index">0{index + 1}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="universe-panel-foot"><span><i /> LIVE ORBITAL NETWORK</span><span>SELECT A WORLD TO EXPLORE</span></div>
+          </div>
 
-        <div className={`skills-detail-panel tone-${selected.color} solar-detail-panel`}>
-          <div className="skills-detail-topline">
-            <span>PLANET {String(active + 1).padStart(2, "0")} / 09 · {selected.short}</span>
-            <span>{String(selected.skills.length).padStart(2, "0")} TECHNOLOGIES</span>
+          <div className={`skills-detail-panel tone-${selected.color} solar-detail-panel`}>
+            <div className="skills-detail-topline">
+              <span>WORLD {String(active + 1).padStart(2, "0")} / 09 · {selected.short}</span>
+              <span>{String(selected.skills.length).padStart(2, "0")} TECHNOLOGIES</span>
+            </div>
+            <div className="skills-detail-heading">
+              <span className="skills-detail-icon"><SelectedIcon size={22} strokeWidth={1.7} /></span>
+              <div><span className="skills-detail-kicker">{selected.short}</span><h3>{selected.title}</h3></div>
+            </div>
+            <p className="skills-detail-description">{selected.description}</p>
+            <div className="skills-detail-tags">
+              {selected.skills.map((skill, index) => (
+                <span key={skill} style={{ "--skill-index": index } as CSSProperties}>{skill}</span>
+              ))}
+            </div>
+            <div className="skills-detail-footer"><span><span className="skills-live-dot" /> WORLD IN VIEW</span><span>{String(active + 1).padStart(2, "0")} / 09</span></div>
           </div>
-          <div className="skills-detail-heading">
-            <span className="skills-detail-icon"><SelectedIcon size={22} strokeWidth={1.7} /></span>
-            <div><span className="skills-detail-kicker">{selected.short}</span><h3>{selected.title}</h3></div>
-          </div>
-          <p className="skills-detail-description">{selected.description}</p>
-          <div className="skills-detail-tags">
-            {selected.skills.map((skill, index) => (
-              <span key={skill} style={{ "--skill-index": index } as CSSProperties}>{skill}</span>
-            ))}
-          </div>
-          <div className="skills-detail-footer"><span><span className="skills-live-dot" /> PLANET IN VIEW</span><span>{String(active + 1).padStart(2, "0")} / 09</span></div>
-        </div>
         </div>
 
-        <div className="skills-cluster-nav solar-planet-nav" aria-label="Choose a planet">
-          {groups.map((group, index) => {
-            const Icon = group.icon;
-            return (
-              <button key={group.title} type="button" className={`skills-cluster-button tone-${group.color} ${active === index ? "active" : ""}`} onClick={() => setActive(index)} aria-pressed={active === index}>
-                <Icon size={16} /><span>{group.title}</span><span className="skills-cluster-number">0{index + 1}</span>
-                <ArrowUpRight className="skills-cluster-arrow" size={14} />
-              </button>
-            );
-          })}
-        </div>
         <div className="skills-total-line"><span>MY TOOLKIT</span><span>09 PLANETS <i /> {String(totalSkills).padStart(2, "0")} SKILLS</span></div>
       </div>
     </section>
