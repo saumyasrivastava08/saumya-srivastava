@@ -2651,3 +2651,49 @@
 @media (max-width: 640px) {
   .skills-solar-layout { margin-top: 2rem; gap: 1rem; }
 }
+
+/* Solar system caption sits below the planet field, never beneath a planet. */
+.skills-solar-layout .solar-system-caption {
+  position: static;
+  grid-column: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  margin: -1.45rem 0 0;
+  padding: .65rem .5rem .2rem;
+  color: #a6a4c3;
+  font-size: .58rem;
+  font-weight: 750;
+  letter-spacing: .13em;
+  text-align: center;
+  pointer-events: none;
+}
+/* Slow axial rotation gives each world a subtle living surface. */
+.solar-planet-surface {
+  animation: solar-surface-turn 34s linear infinite;
+  transform-origin: center;
+}
+.solar-planet-atmosphere { animation: solar-atmosphere-breathe 6s ease-in-out infinite; }
+.solar-planet-ring { animation: solar-ring-drift 22s linear infinite; }
+.solar-planet-mercury .solar-planet-surface { animation-duration: 28s; }
+.solar-planet-venus .solar-planet-surface { animation-duration: 42s; }
+.solar-planet-earth .solar-planet-surface { animation-duration: 30s; }
+.solar-planet-mars .solar-planet-surface { animation-duration: 36s; }
+.solar-planet-jupiter .solar-planet-surface { animation-duration: 48s; }
+.solar-planet-saturn .solar-planet-surface { animation-duration: 52s; }
+.solar-planet-uranus .solar-planet-surface { animation-duration: 39s; }
+.solar-planet-neptune .solar-planet-surface { animation-duration: 45s; }
+.solar-planet-pluto .solar-planet-surface { animation-duration: 32s; }
+@keyframes solar-surface-turn { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes solar-ring-drift { from { transform: rotate(-24deg); } to { transform: rotate(336deg); } }
+@keyframes solar-atmosphere-breathe {
+  0%,100% { opacity: .55; }
+  50% { opacity: 1; }
+}
+@media (max-width: 900px) {
+  .skills-solar-layout .solar-system-caption { grid-column: 1; margin-top: -.7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .solar-planet-surface, .solar-planet-atmosphere, .solar-planet-ring { animation: none !important; }
+}
