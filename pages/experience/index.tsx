@@ -39,10 +39,7 @@ export default function ExperiencePage() {
             <span className="experience-page-section-dot" />
             CAREER TIMELINE
           </div>
-          <div className="experience-timeline-layout">
-            <div className="experience-timeline-main"><ExperienceTimeline /></div>
-            <div className="experience-scroll-planet" aria-hidden="true"><span className="experience-scroll-planet-ring" /><span className="experience-scroll-planet-glow" /></div>
-          </div>
+          <div className="experience-timeline-main"><ExperienceTimeline /></div>
         </div>
       </div>
     </section>
