@@ -2316,3 +2316,34 @@
 @media(max-width:900px){.skills-universe{grid-template-columns:1fr}.skills-orbit-stage{max-height:none;aspect-ratio:1.3}.skills-detail-panel{min-height:23rem}}
 @media(max-width:640px){.skills-section{padding:4.8rem 0}.skills-container{padding:0 1.1rem}.skills-universe{margin-top:2rem;gap:1rem}.skills-orbit-stage{aspect-ratio:1;max-height:29rem;border-radius:1.1rem}.skills-core{width:7.4rem;height:7.4rem}.skills-core-icon{width:2.2rem;height:2.2rem;margin-bottom:.4rem}.skills-core strong{font-size:.56rem}.skills-core>span{font-size:.46rem}.skills-feature{padding:.42rem .56rem;font-size:.62rem}.feature-one{top:13%;left:5%}.feature-two{top:17%;right:3%}.feature-three{top:46%;left:1%}.feature-four{top:47%;right:1%}.feature-five{bottom:19%;left:4%}.feature-six{bottom:14%;right:3%}.feature-seven{bottom:5%;left:39%}.skills-stage-caption{bottom:.65rem;font-size:.44rem;letter-spacing:.08em}.skills-detail-panel{min-height:25rem;padding:1.25rem}.skills-detail-footer{right:1.25rem;left:1.25rem}.skills-cluster-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}.skills-cluster-button{padding:.75rem .65rem;gap:.45rem}.skills-cluster-button>span:nth-child(2){font-size:.68rem}.skills-total-line{font-size:.5rem;letter-spacing:.1em}}
 @media(prefers-reduced-motion:reduce){.skills-core-halo,.skills-detail-tags span{animation:none}.skills-feature,.skills-cluster-button{transition:none}}
+
+
+/* SKILLS OVERLAP FIX — let dense clusters grow naturally */
+.skills-detail-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 25rem;
+  height: auto;
+  overflow: visible;
+}
+.skills-detail-description { min-height: 0; }
+.skills-detail-tags { flex: 0 0 auto; }
+.skills-detail-footer {
+  position: static;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  margin-top: auto;
+  padding-top: .9rem;
+  padding-bottom: .05rem;
+}
+.skills-stage-caption {
+  top: 1rem;
+  bottom: auto;
+}
+@media (max-width: 640px) {
+  .skills-detail-panel { min-height: 0; }
+  .skills-detail-footer { margin-top: 1.5rem; }
+  .skills-stage-caption { top: .65rem; bottom: auto; }
+  .feature-seven { bottom: 7%; }
+}
