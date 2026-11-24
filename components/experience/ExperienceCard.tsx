@@ -7,6 +7,7 @@ interface ExperienceCardProps {
   location?: string;
   highlights: string[];
   tech: string[];
+  compact?: boolean;
 }
 
 export default function ExperienceCard({
@@ -16,14 +17,15 @@ export default function ExperienceCard({
   location,
   highlights,
   tech,
+  compact = false,
 }: ExperienceCardProps) {
   return (
     <TimelineCard
       heading={role}
       subheading={company}
       meta={`${duration}${location ? ` • ${location}` : ""}`}
-      highlights={highlights}
-      tags={tech}
+      highlights={compact ? highlights.slice(0, 3) : highlights}
+      tags={compact ? tech.slice(0, 8) : tech}
     />
   );
 }
