@@ -851,7 +851,6 @@
 }
 
 .timeline { position: relative; margin-top: 4rem; }
-.timeline-year { margin-bottom: 0.75rem; }
 .timeline-line {
   position: absolute;
   left: 18px;
