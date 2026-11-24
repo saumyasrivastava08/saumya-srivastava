@@ -19,15 +19,15 @@ const groups = [
 ];
 
 const planets = [
-  { group: 0, diameter: "24%", size: "1.35rem", duration: "18s", phase: "-20deg" },
-  { group: 1, diameter: "31.75%", size: "1.45rem", duration: "23s", phase: "-110deg" },
-  { group: 2, diameter: "39.5%", size: "1.55rem", duration: "29s", phase: "-205deg" },
-  { group: 3, diameter: "47.25%", size: "1.3rem", duration: "35s", phase: "-290deg" },
-  { group: 4, diameter: "55%", size: "1.8rem", duration: "43s", phase: "-35deg" },
-  { group: 5, diameter: "62.75%", size: "1.65rem", duration: "51s", phase: "-145deg" },
-  { group: 6, diameter: "70.5%", size: "1.5rem", duration: "59s", phase: "-225deg" },
-  { group: 7, diameter: "78.25%", size: "1.55rem", duration: "68s", phase: "-315deg" },
-  { group: 8, diameter: "86%", size: "1.25rem", duration: "78s", phase: "-255deg" },
+  { group: 0, diameter: "24%", size: "1.35rem", duration: "18s", phase: "-90deg" },
+  { group: 1, diameter: "31.75%", size: "1.45rem", duration: "23s", phase: "-50deg" },
+  { group: 2, diameter: "39.5%", size: "1.55rem", duration: "29s", phase: "-10deg" },
+  { group: 3, diameter: "47.25%", size: "1.3rem", duration: "35s", phase: "30deg" },
+  { group: 4, diameter: "55%", size: "1.8rem", duration: "43s", phase: "70deg" },
+  { group: 5, diameter: "62.75%", size: "1.65rem", duration: "51s", phase: "110deg" },
+  { group: 6, diameter: "70.5%", size: "1.5rem", duration: "59s", phase: "150deg" },
+  { group: 7, diameter: "78.25%", size: "1.55rem", duration: "68s", phase: "190deg" },
+  { group: 8, diameter: "86%", size: "1.25rem", duration: "78s", phase: "230deg" },
 ];
 
 export default function Skills() {
@@ -50,9 +50,6 @@ export default function Skills() {
         <div className="skills-solar-layout">
         <div className="skills-solar-system" aria-label="Interactive nine-planet engineering solar system">
           <div className="solar-starfield" />
-          <div className="solar-orbit solar-orbit-outer" />
-          <div className="solar-orbit solar-orbit-middle" />
-          <div className="solar-orbit solar-orbit-inner" />
           <div className="solar-sun" aria-label="Engineering core">
             <span className="solar-sun-corona" />
             <Sun size={29} strokeWidth={1.1} />
