@@ -485,8 +485,6 @@
 .experience-subtitle { @apply mt-3 text-slate-400; }
 .experience-grid { margin-top: 3rem; }
 .experience-grid > * + * { margin-top: 1.5rem; }
-.experience-card { @apply rounded-2xl bg-slate-800/80 border border-slate-700/70 p-6; }
-
 .experience-role {
   font-size: 1.125rem;
   font-weight: 600;
