@@ -2614,3 +2614,40 @@
   .solar-planet-nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 @media(prefers-reduced-motion:reduce) { .solar-planet { transition:none; } }
+
+/* Desktop: keep the solar system and selected planet detail side by side. */
+.skills-solar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(20rem, .92fr);
+  align-items: center;
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  margin-top: 2.7rem;
+}
+.skills-solar-layout .skills-solar-system {
+  width: 100%;
+  max-width: 43rem;
+  margin: 0;
+  justify-self: center;
+}
+.skills-solar-layout .solar-detail-panel {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 24rem;
+}
+.skills-solar-layout .solar-detail-panel .skills-detail-footer {
+  margin-top: auto;
+}
+@media (max-width: 900px) {
+  .skills-solar-layout {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 44rem;
+    margin-inline: auto;
+    gap: 1.25rem;
+  }
+  .skills-solar-layout .skills-solar-system { max-width: 40rem; }
+  .skills-solar-layout .solar-detail-panel { min-height: 0; }
+}
+@media (max-width: 640px) {
+  .skills-solar-layout { margin-top: 2rem; gap: 1rem; }
+}
