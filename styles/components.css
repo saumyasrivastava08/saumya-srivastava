@@ -3376,3 +3376,124 @@
 @media(prefers-reduced-motion:reduce) {
   .skill-orbit-path,.skill-orbiting-world { animation:none !important; }
 }
+
+
+/* Skills galaxy redesign: a legible, top-down solar system.
+   Fixed central sun, visible circular tracks, and one clearly visible planet per orbit. */
+.skills-orbit-universe {
+  aspect-ratio:1/1;
+  min-height:36rem;
+  perspective:none;
+  transform:none;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(255,157,102,.13),transparent 17%),
+    radial-gradient(circle at 50% 50%,rgba(65,93,190,.16),transparent 62%),
+    linear-gradient(145deg,#080d24,#05091b);
+}
+.orbit-nebula-glow { inset:12%; }
+.orbit-sun {
+  left:50%; top:50%; z-index:20;
+  width:5.6rem; height:5.6rem;
+  transform:translate(-50%,-50%);
+}
+.skill-orbit-path {
+  --orbit-size:96%;
+  --orbit-height:96%;
+  position:absolute;
+  left:50%; top:50%;
+  width:var(--orbit-size); height:var(--orbit-height);
+  transform:translate(-50%,-50%);
+  transform-style:flat;
+  animation:solar-orbit var(--orbit-duration) linear infinite;
+}
+.skill-orbit-path-1 { --orbit-size:25%; --orbit-height:25%; --orbit-duration:13s; animation-delay:-2s; }
+.skill-orbit-path-2 { --orbit-size:35%; --orbit-height:35%; --orbit-duration:17s; animation-delay:-8s; }
+.skill-orbit-path-3 { --orbit-size:45%; --orbit-height:45%; --orbit-duration:21s; animation-delay:-4s; }
+.skill-orbit-path-4 { --orbit-size:55%; --orbit-height:55%; --orbit-duration:25s; animation-delay:-17s; }
+.skill-orbit-path-5 { --orbit-size:65%; --orbit-height:65%; --orbit-duration:29s; animation-delay:-11s; }
+.skill-orbit-path-6 { --orbit-size:75%; --orbit-height:75%; --orbit-duration:33s; animation-delay:-25s; }
+.skill-orbit-path-7 { --orbit-size:85%; --orbit-height:85%; --orbit-duration:37s; animation-delay:-13s; }
+.skill-orbit-path-8 { --orbit-size:95%; --orbit-height:95%; --orbit-duration:41s; animation-delay:-31s; }
+.skill-orbit-path-9 { --orbit-size:105%; --orbit-height:105%; --orbit-duration:45s; animation-delay:-21s; }
+.skill-orbit-path:nth-of-type(4n) { animation-direction:normal; }
+.skill-orbit-track {
+  position:absolute; inset:0;
+  border:1px solid rgba(153,177,245,.23);
+  border-radius:50%;
+  box-shadow:0 0 16px rgba(102,143,239,.055),inset 0 0 14px rgba(102,143,239,.025);
+}
+.skill-orbit-path:nth-of-type(3n) .skill-orbit-track {
+  border-style:solid;
+  border-color:rgba(190,157,255,.24);
+}
+.skill-orbiting-world {
+  top:-1.45rem; left:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  width:6.7rem; max-width:6.7rem; gap:.35rem; padding:0;
+  border:0; border-radius:0; background:transparent; box-shadow:none;
+  transform:translateX(-50%);
+  animation:solar-world-counterspin var(--orbit-duration) linear infinite;
+}
+.skill-orbiting-world:hover,.skill-orbiting-world.active {
+  border:0; background:transparent; box-shadow:none;
+}
+.skill-orbiting-world .orbit-planet-texture {
+  width:2.35rem; height:2.35rem;
+  border:1px solid rgba(237,242,255,.62);
+  box-shadow:inset -9px -8px 13px rgba(2,5,20,.72),inset 4px 4px 8px rgba(255,255,255,.28),0 0 16px rgba(129,169,255,.32);
+}
+.skill-orbit-path-5 .orbit-planet-texture { width:2.8rem; height:2.8rem; }
+.skill-orbit-path-6 .orbit-planet-texture { width:2.5rem; height:2.5rem; }
+.orbit-world-label {
+  display:block; width:max-content; max-width:6.7rem; min-height:0;
+  padding:.2rem .42rem; border:1px solid rgba(153,174,234,.3);
+  border-radius:999px; color:#f0f3ff; background:rgba(5,10,29,.94);
+  box-shadow:0 3px 12px rgba(0,0,0,.42);
+  font-size:.54rem; line-height:1.25; text-align:center; white-space:normal;
+  backdrop-filter:blur(7px);
+}
+.orbit-world-label svg { display:none; }
+.skill-orbiting-world:hover .orbit-world-label,.skill-orbiting-world.active .orbit-world-label {
+  border-color:rgba(192,216,255,.9); background:rgba(28,43,88,.97);
+}
+.skill-orbiting-world:hover .orbit-planet-texture,.skill-orbiting-world.active .orbit-planet-texture {
+  transform:scale(1.12);
+}
+.orbit-planet-texture > span { display:none !important; }
+.orbit-planet-texture.world-planet-saturn:before { z-index:1; }
+.orbit-planet-texture.world-planet-saturn:after { z-index:2; }
+.orbit-scene-caption { bottom:.55rem; z-index:22; }
+@keyframes solar-orbit {
+  from { transform:translate(-50%,-50%) rotate(0deg); }
+  to { transform:translate(-50%,-50%) rotate(360deg); }
+}
+@keyframes solar-world-counterspin {
+  from { transform:translateX(-50%) rotate(0deg); }
+  to { transform:translateX(-50%) rotate(-360deg); }
+}
+@media(max-width:620px) {
+  .skills-orbit-universe { min-height:25rem; aspect-ratio:1/1; }
+  .orbit-sun { width:3.9rem; height:3.9rem; }
+  .orbit-sun svg { width:20px; height:20px; }
+  .orbit-sun strong { font-size:.62rem; }
+  .orbit-sun small { font-size:.38rem; }
+  .skill-orbit-path-1 { --orbit-size:25%; --orbit-height:25%; }
+  .skill-orbit-path-2 { --orbit-size:36%; --orbit-height:36%; }
+  .skill-orbit-path-3 { --orbit-size:47%; --orbit-height:47%; }
+  .skill-orbit-path-4 { --orbit-size:58%; --orbit-height:58%; }
+  .skill-orbit-path-5 { --orbit-size:69%; --orbit-height:69%; }
+  .skill-orbit-path-6 { --orbit-size:80%; --orbit-height:80%; }
+  .skill-orbit-path-7 { --orbit-size:91%; --orbit-height:91%; }
+  .skill-orbit-path-8 { --orbit-size:102%; --orbit-height:102%; }
+  .skill-orbit-path-9 { --orbit-size:113%; --orbit-height:113%; }
+  .skill-orbiting-world { top:-1.1rem; width:5.2rem; max-width:5.2rem; gap:.2rem; }
+  .skill-orbiting-world .orbit-planet-texture { width:1.55rem; height:1.55rem; }
+  .skill-orbit-path-5 .orbit-planet-texture { width:1.9rem; height:1.9rem; }
+  .skill-orbit-path-6 .orbit-planet-texture { width:1.7rem; height:1.7rem; }
+  .orbit-world-label { max-width:5.2rem; padding:.13rem .3rem; font-size:.39rem; }
+  .orbit-scene-caption { font-size:.34rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .skill-orbit-path,.skill-orbiting-world { animation:none !important; }
+}
