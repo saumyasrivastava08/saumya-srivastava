@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import {
   Code2, Monitor, Server, Database, Cloud, Workflow, Network,
-  FlaskConical, Wrench, Sparkles, ArrowUpRight, Sun,
+  FlaskConical, Wrench, Sparkles, Sun,
 } from "lucide-react";
 
 const groups = [
@@ -22,7 +22,6 @@ const groups = [
 export default function Skills() {
   const [active, setActive] = useState(0);
   const selected = groups[active];
-  const SelectedIcon = selected.icon;
   const totalSkills = groups.reduce((sum, group) => sum + group.skills.length, 0);
 
   return (
