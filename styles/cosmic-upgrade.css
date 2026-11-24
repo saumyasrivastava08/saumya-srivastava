@@ -1,0 +1,319 @@
+/* Cosmic Interactive v2 — focused visual upgrade for the existing portfolio theme. */
+
+:root {
+  --cosmic-ink: #070817;
+  --cosmic-panel: rgba(15, 17, 43, 0.72);
+  --cosmic-line: rgba(196, 165, 255, 0.2);
+  --cosmic-lilac: #c6a5ff;
+  --cosmic-pink: #ff9bd5;
+  --cosmic-blue: #72d5ff;
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 12% 18%, rgba(88, 70, 175, 0.08), transparent 34rem),
+    var(--color-space);
+}
+
+/* Navigation: quieter glass surface, clearer active state. */
+.navbar {
+  background: rgba(5, 7, 22, 0.78);
+  border-bottom: 1px solid rgba(196, 165, 255, 0.13);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+.navbar-container {
+  max-width: 90rem;
+  height: 4.5rem;
+}
+
+.navbar-logo-icon {
+  background: linear-gradient(135deg, #75d8ff, #c6a5ff 58%, #ff9bd5);
+  box-shadow: 0 0 22px rgba(198, 165, 255, 0.22);
+}
+
+.navbar-link {
+  border-radius: 999px;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.navbar-link:hover,
+.navbar-link-active {
+  color: #f4d7ff;
+  background: rgba(198, 165, 255, 0.08);
+}
+
+.navbar-underline {
+  display: none;
+}
+
+/* Hero: keep the existing starfield, planets and technology constellation. */
+.intro {
+  min-height: min(850px, calc(100svh - 4.5rem));
+  padding: clamp(3rem, 7vh, 5.5rem) 0 3rem;
+}
+
+.intro-bg {
+  background:
+    radial-gradient(ellipse at 73% 34%, rgba(108, 82, 214, 0.23), transparent 38%),
+    radial-gradient(ellipse at 90% 76%, rgba(239, 105, 190, 0.16), transparent 34%),
+    radial-gradient(ellipse at 12% 78%, rgba(65, 123, 220, 0.14), transparent 34%),
+    linear-gradient(135deg, #080b20 0%, #050616 54%, #10071e 100%);
+}
+
+.intro-container {
+  max-width: 84rem;
+  width: min(94vw, 84rem);
+}
+
+.intro-layout {
+  align-items: center;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+}
+
+.intro-main {
+  max-width: 43rem;
+}
+
+.intro-title {
+  font-size: clamp(3rem, 5.2vw, 5.1rem);
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.intro-name {
+  background-image: linear-gradient(105deg, #77d9ff 2%, #c6a5ff 48%, #ff9bd5 92%);
+}
+
+.intro-subtitle {
+  gap: 0.7rem;
+  margin-top: 1.7rem;
+}
+
+.role-line {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: #d4c9ed;
+  font-size: clamp(0.82rem, 1vw, 0.96rem);
+}
+
+.role-line svg {
+  color: var(--cosmic-lilac);
+}
+
+.intro-subtext {
+  max-width: 40rem;
+  margin-top: 1.6rem;
+  color: #b8b4ce;
+  font-size: clamp(0.98rem, 1.08vw, 1.08rem);
+  line-height: 1.85;
+}
+
+.intro-actions {
+  margin-top: 2rem;
+  gap: 0.85rem;
+}
+
+.intro-primary-btn {
+  background: linear-gradient(110deg, #79d8ff, #c6a5ff 62%, #f4a4d6);
+  box-shadow: 0 10px 32px rgba(126, 116, 235, 0.2);
+}
+
+.intro-primary-btn:hover {
+  box-shadow: 0 14px 38px rgba(126, 116, 235, 0.32);
+}
+
+.intro-secondary-btn {
+  border-color: rgba(198, 165, 255, 0.32);
+  background: rgba(13, 13, 35, 0.58);
+}
+
+.intro-note {
+  color: #aaa3c6;
+  margin-top: 2rem;
+}
+
+/* Technology scene: make the existing laptop/orbits feel like a deliberate focal point. */
+.intro-tech-scene {
+  min-height: clamp(390px, 40vw, 520px);
+  filter: drop-shadow(0 18px 42px rgba(73, 57, 156, 0.14));
+}
+
+.tech-orbit {
+  border-color: rgba(198, 165, 255, 0.2);
+  box-shadow: inset 0 0 34px rgba(111, 92, 210, 0.035);
+}
+
+.tech-orbit-one {
+  border-color: rgba(114, 213, 255, 0.24);
+}
+
+.tech-orbit-two {
+  border-color: rgba(255, 155, 213, 0.17);
+}
+
+.tech-float {
+  border: 1px solid rgba(198, 165, 255, 0.22);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(18, 22, 52, 0.92), rgba(34, 17, 49, 0.88));
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.26), 0 0 22px rgba(154, 118, 232, 0.09);
+  backdrop-filter: blur(14px);
+}
+
+.tech-scene-caption {
+  color: #c4b8e4;
+  letter-spacing: 0.04em;
+}
+
+/* Contact strip: one cohesive glass panel instead of a separate footer-like block. */
+.hero-contact-section {
+  border: 1px solid rgba(198, 165, 255, 0.22);
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(110deg, rgba(17, 20, 51, 0.88), rgba(31, 13, 43, 0.78)),
+    rgba(9, 11, 30, 0.8);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(18px);
+}
+
+.hero-contact-heading {
+  color: #e8b4ed;
+  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.hero-contact-grid a {
+  min-width: 0;
+  border: 1px solid transparent;
+  border-radius: 0.9rem;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.hero-contact-grid a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(198, 165, 255, 0.2);
+  background: rgba(198, 165, 255, 0.07);
+}
+
+.hero-contact-icon {
+  border: 1px solid rgba(198, 165, 255, 0.16);
+  background: linear-gradient(135deg, rgba(114, 213, 255, 0.13), rgba(255, 155, 213, 0.13));
+}
+
+.hero-contact-copy strong {
+  color: #f4efff;
+}
+
+.hero-contact-copy small {
+  color: #aaa3c6;
+}
+
+.hero-contact-arrow {
+  color: #c6a5ff;
+}
+
+/* Mobile layout keeps the visual scene, but reduces competing motion and density. */
+@media (max-width: 900px) {
+  .intro {
+    min-height: auto;
+    padding-top: 3.5rem;
+  }
+
+  .intro-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .intro-main {
+    max-width: 48rem;
+  }
+
+  .intro-tech-scene {
+    min-height: 410px;
+    width: min(100%, 38rem);
+  }
+}
+
+@media (max-width: 720px) {
+  .navbar-container {
+    padding-inline: 1.1rem;
+  }
+
+  .intro {
+    padding: 2.8rem 0 2rem;
+  }
+
+  .intro-container {
+    width: 100%;
+    padding-inline: 1.1rem;
+  }
+
+  .intro-title {
+    font-size: clamp(2.55rem, 10vw, 3.8rem);
+  }
+
+  .intro-subtitle {
+    margin-top: 1.2rem;
+  }
+
+  .intro-subtext {
+    margin-top: 1.1rem;
+    font-size: 0.96rem;
+    line-height: 1.72;
+  }
+
+  .intro-actions {
+    margin-top: 1.5rem;
+  }
+
+  .intro-tech-scene {
+    min-height: 360px;
+  }
+
+  .hero-contact-section {
+    margin-top: 1rem;
+    padding: 0.9rem;
+  }
+
+  .hero-contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .intro-tech-scene {
+    min-height: 315px;
+  }
+
+  .hero-contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .intro-primary-btn,
+  .intro-secondary-btn {
+    padding: 0.78rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-starfield,
+  .cosmic-planet,
+  .intro-orb,
+  .navbar-logo-icon {
+    animation: none !important;
+  }
+
+  .hero-contact-grid a,
+  .intro-primary-btn,
+  .intro-secondary-btn {
+    transition: none !important;
+  }
+}
