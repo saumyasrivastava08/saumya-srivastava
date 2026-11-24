@@ -60,6 +60,7 @@ export default function ExperiencePreview() {
                     <li key={highlight}>{highlight}</li>
                   ))}
                 </ul>
+                <Link href={`/experience#${exp.company.toLowerCase()}`} className="experience-stop-more">More about this role <ArrowUpRight size={14} aria-hidden="true" /></Link>
                 <div className="experience-stop-tech">
                   {exp.tech.slice(0, 6).map((technology) => (
                     <span key={technology}>{technology}</span>
