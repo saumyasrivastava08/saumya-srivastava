@@ -17,38 +17,65 @@ interface TimelineProps {
 export default function Timeline({ entries }: TimelineProps) {
   const experienceEntries = entries.filter((entry) => entry.id);
   const [activeExperience, setActiveExperience] = useState(experienceEntries[0]?.id ?? "");
-  const [planetTop, setPlanetTop] = useState(0);
   const timelineRef = useRef<HTMLDivElement>(null);
+  const planetRef = useRef<HTMLDivElement>(null);
+  const activeExperienceRef = useRef(experienceEntries[0]?.id ?? "");
 
   useEffect(() => {
     const timeline = timelineRef.current;
-    if (!timeline || experienceEntries.length === 0) return;
+    const planet = planetRef.current;
+    if (!timeline || !planet || experienceEntries.length === 0) return;
 
-    const updatePlanetPosition = (item: Element) => {
-      const timelineBounds = timeline.getBoundingClientRect();
-      const itemBounds = item.getBoundingClientRect();
-      setPlanetTop(itemBounds.top - timelineBounds.top + timeline.scrollTop + 8);
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const items = Array.from(timeline.querySelectorAll<HTMLElement>(".timeline-item[id]"));
+        if (items.length === 0) return;
+
+        const focusY = window.innerHeight * 0.46;
+        const activeItem = items.reduce((closest, item) => {
+          const bounds = item.getBoundingClientRect();
+          const distance = focusY < bounds.top
+            ? bounds.top - focusY
+            : focusY > bounds.bottom
+              ? focusY - bounds.bottom
+              : 0;
+          const closestBounds = closest.getBoundingClientRect();
+          const closestDistance = focusY < closestBounds.top
+            ? closestBounds.top - focusY
+            : focusY > closestBounds.bottom
+              ? focusY - closestBounds.bottom
+              : 0;
+          return distance < closestDistance ? item : closest;
+        }, items[0]);
+
+        const nextId = activeItem.id;
+        const timelineBounds = timeline.getBoundingClientRect();
+        const itemBounds = activeItem.getBoundingClientRect();
+        const top = itemBounds.top - timelineBounds.top + timeline.scrollTop + 8;
+        planet.style.transform = `translate3d(0, ${top}px, 0)`;
+
+        if (nextId !== activeExperienceRef.current) {
+          activeExperienceRef.current = nextId;
+          setActiveExperience(nextId);
+        }
+      });
     };
 
-    const firstItem = timeline.querySelector(".timeline-item[id]");
-    if (firstItem) updatePlanetPosition(firstItem);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    const resizeObserver = new ResizeObserver(update);
+    resizeObserver.observe(timeline);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      resizeObserver.disconnect();
+    };
+  }, [entries.length]);
 
-    const observer = new IntersectionObserver(
-      (observations) => {
-        const visible = observations
-          .filter((observation) => observation.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) {
-          setActiveExperience(visible.target.id);
-          updatePlanetPosition(visible.target);
-        }
-      },
-      { rootMargin: "-38% 0px -48% 0px", threshold: [0, 0.15, 0.35, 0.6] }
-    );
-
-    timeline.querySelectorAll(".timeline-item[id]").forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
-  }, [entries]);
   const fadeUp = {
     hidden: { opacity: 0, y: 24 },
     show: (i = 0) => ({
@@ -70,7 +97,7 @@ export default function Timeline({ entries }: TimelineProps) {
       />
 
       {experienceEntries.length > 0 && (
-        <div className="timeline-scroll-planet" style={{ top: planetTop }} aria-live="polite">
+        <div ref={planetRef} className="timeline-scroll-planet" aria-live="polite">
           <span className="timeline-scroll-planet-ring" />
           <span className="timeline-scroll-planet-label">{activeExperience.replace(/-/g, " ")}</span>
         </div>
