@@ -2102,62 +2102,59 @@
 .experience-stop-more:hover { color: #9de4ff; gap: .65rem; }
 .timeline-item[id] { scroll-margin-top: 7rem; }
 
-/* EXPERIENCE PAGE — a large planet that stays alongside the timeline as it scrolls */
-.experience-timeline-layout {
-  position: relative;
-}
-.experience-timeline-main {
-  position: relative;
-  z-index: 2;
-  width: min(100%, 58rem);
-}
-.experience-scroll-planet {
+/* EXPERIENCE TIMELINE — the active planet travels down the central rail */
+.cosmic-experience-page .timeline { position: relative; }
+.cosmic-experience-page .timeline-scroll-planet {
   position: sticky;
-  z-index: 1;
-  float: right;
-  top: 34vh;
-  width: clamp(9rem, 17vw, 15rem);
-  height: clamp(9rem, 17vw, 15rem);
-  margin-top: -32rem;
-  margin-right: -1rem;
+  z-index: 4;
+  top: 42vh;
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  margin: 0 0 -3.6rem 0;
+  border: 1px solid rgba(225,202,255,.72);
   border-radius: 50%;
   background:
-    radial-gradient(ellipse at 28% 24%, rgba(255,255,255,.75), transparent 8%),
-    radial-gradient(circle at 32% 30%, #e5c7ff 0%, #a879db 28%, #63439b 58%, #241b50 100%);
-  box-shadow: inset -28px -22px 36px rgba(4,7,25,.72), 0 0 55px rgba(168,121,229,.24), 0 0 100px rgba(104,78,181,.1);
-  animation: experience-scroll-planet-turn 35s linear infinite;
+    radial-gradient(ellipse at 29% 24%, rgba(255,255,255,.9), transparent 9%),
+    radial-gradient(circle at 32% 30%, #f1d7ff 0%, #b58be8 34%, #7650b0 65%, #30205e 100%);
+  box-shadow: inset -10px -8px 14px rgba(4,7,25,.65), 0 0 0 7px rgba(178,137,235,.1), 0 0 30px rgba(185,143,255,.72);
+  animation: timeline-planet-pulse 3.8s ease-in-out infinite;
+  pointer-events: none;
 }
-.experience-scroll-planet-ring {
+.cosmic-experience-page .timeline-scroll-planet-ring {
   position: absolute;
-  inset: 22% -24%;
-  border: 2px solid rgba(222,198,255,.55);
+  inset: 29% -22%;
+  border: 1px solid rgba(225,210,255,.82);
   border-radius: 50%;
-  transform: rotate(-25deg);
-  box-shadow: 0 0 14px rgba(198,165,255,.18);
+  transform: rotate(-28deg);
+  box-shadow: 0 0 10px rgba(198,165,255,.42);
 }
-.experience-scroll-planet-glow {
+.cosmic-experience-page .timeline-scroll-planet-label {
   position: absolute;
-  inset: -20%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(168,121,229,.12), transparent 66%);
-  filter: blur(12px);
+  left: calc(100% + 1rem);
+  top: 50%;
+  min-width: max-content;
+  padding: .38rem .65rem;
+  border: 1px solid rgba(198,165,255,.28);
+  border-radius: 999px;
+  background: rgba(12,15,37,.9);
+  color: #ead8ff;
+  font-size: .64rem;
+  font-weight: 750;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 22px rgba(0,0,0,.2);
+  transform: translateY(-50%);
 }
-@keyframes experience-scroll-planet-turn {
-  from { rotate: 0deg; }
-  to { rotate: 360deg; }
+@keyframes timeline-planet-pulse {
+  0%, 100% { box-shadow: inset -10px -8px 14px rgba(4,7,25,.65), 0 0 0 7px rgba(178,137,235,.1), 0 0 26px rgba(185,143,255,.55); }
+  50% { box-shadow: inset -10px -8px 14px rgba(4,7,25,.65), 0 0 0 10px rgba(178,137,235,.08), 0 0 38px rgba(185,143,255,.82); }
 }
-@media (max-width: 1100px) {
-  .experience-scroll-planet {
-    width: 8rem;
-    height: 8rem;
-    margin-right: -.5rem;
-    opacity: .6;
-  }
-}
-@media (max-width: 760px) {
-  .experience-scroll-planet { display: none; }
-  .experience-timeline-main { width: 100%; }
+@media (max-width: 640px) {
+  .cosmic-experience-page .timeline-scroll-planet { width: 2.8rem; height: 2.8rem; margin-bottom: -2.8rem; top: 40vh; }
+  .cosmic-experience-page .timeline-scroll-planet-label { left: calc(100% + .65rem); font-size: .56rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .experience-scroll-planet { animation: none; }
+  .cosmic-experience-page .timeline-scroll-planet { animation: none; }
 }
