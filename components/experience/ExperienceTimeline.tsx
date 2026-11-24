@@ -10,6 +10,7 @@ export default function ExperienceTimeline() {
     // full-time
     ...EXPERIENCE_PREVIEW.map((exp, i) => ({
       key: `ft-${i}`,
+      id: exp.company.toLowerCase(),
       duration: exp.duration,
       content: <ExperienceCard {...exp} />,
     })),
