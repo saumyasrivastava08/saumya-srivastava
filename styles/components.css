@@ -2114,7 +2114,7 @@
   width: 3.6rem;
   height: 3.6rem;
   margin: 0;
-  transition: transform 140ms linear;
+  transition: none;
   border: 1px solid rgba(225,202,255,.72);
   border-radius: 50%;
   background:
