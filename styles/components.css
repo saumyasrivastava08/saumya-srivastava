@@ -2449,3 +2449,89 @@
 @media (max-width: 900px) {
   .skills-detail-panel.tone-gold { align-self: stretch; }
 }
+
+
+/* SKILLS — compare both centre planet directions; stack the cluster beneath. */
+.skills-universe {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 1.65rem;
+}
+.skills-stage-wrap {
+  width: min(100%, 39rem);
+  margin-inline: auto;
+}
+.skills-stage-wrap .skills-orbit-stage {
+  width: 100%;
+}
+.skills-universe > .skills-detail-panel {
+  width: min(100%, 52rem);
+  max-width: 52rem;
+  justify-self: center;
+}
+.skills-core {
+  gap: .1rem;
+}
+.skills-core-planets {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  width: 100%;
+  margin-bottom: .55rem;
+}
+.skills-core-planet {
+  position: relative;
+  display: block;
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+.skills-core-planet-tech {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 28% 24%,rgba(255,255,255,.95),transparent 10%),
+    repeating-linear-gradient(35deg,transparent 0 6px,rgba(125,211,252,.16) 6.5px 7.5px,transparent 8px 12px),
+    radial-gradient(circle at 35% 30%,#a5e8ff 0%,#397dbd 32%,#27346f 67%,#111936 100%);
+  border: 1px solid rgba(151,226,255,.8);
+  box-shadow: inset -8px -7px 12px rgba(4,10,35,.65),0 0 18px rgba(82,190,255,.55);
+}
+.planet-circuit {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(191,241,255,.7);
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+.planet-circuit-one { inset: 27% -8%; }
+.planet-circuit-two { inset: 8% 28%; transform: rotate(42deg); border-color:rgba(191,241,255,.45); }
+.skills-core-planet-cosmic {
+  background:
+    radial-gradient(ellipse at 29% 23%,rgba(255,255,255,.95),transparent 10%),
+    radial-gradient(circle at 34% 30%,#e4c7ff 0%,#a779d8 35%,#5b438e 67%,#211d4a 100%);
+  box-shadow: inset -9px -7px 13px rgba(4,7,25,.62),0 0 20px rgba(185,143,255,.65);
+}
+.skills-core-planet-cosmic .planet-ring {
+  position: absolute;
+  inset: 27% -28%;
+  border: 1px solid rgba(233,213,255,.88);
+  border-radius: 50%;
+  transform: rotate(-28deg);
+  box-shadow: 0 0 8px rgba(198,165,255,.45);
+}
+.skills-core strong { margin-top: .05rem; }
+.skills-core > span { margin-top: .12rem; }
+@media (max-width: 900px) {
+  .skills-universe { grid-template-columns: minmax(0,1fr); }
+  .skills-stage-wrap { width: min(100%, 39rem); }
+}
+@media (max-width: 640px) {
+  .skills-universe { gap: 1.15rem; }
+  .skills-stage-wrap { width: 100%; }
+  .skills-core { width: 7.4rem; height: 7.4rem; }
+  .skills-core-planets { gap: .45rem; margin-bottom: .32rem; }
+  .skills-core-planet { width: 1.8rem; height: 1.8rem; }
+  .skills-universe > .skills-detail-panel { width: 100%; }
+}
