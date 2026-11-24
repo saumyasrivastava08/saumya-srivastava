@@ -1099,3 +1099,32 @@
 .cosmic-experience-section .experience-subtitle { color:#a9a4c5; }
 @keyframes experience-nebula-drift { from{background-position:0% 20%}to{background-position:100% 80%} }
 
+/* HERO — editorial eyebrow and compact mobile role wrapping */
+.intro-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1.15rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(198, 165, 255, 0.24);
+  border-radius: 999px;
+  background: linear-gradient(110deg, rgba(56, 189, 248, 0.08), rgba(198, 165, 255, 0.1), rgba(244, 114, 182, 0.08));
+  color: #d8c2ff;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+.intro-eyebrow svg { color: #f4a6de; }
+.intro-eyebrow span { color: rgba(198, 165, 255, 0.55); }
+.intro-main .role-line { flex-wrap: wrap; }
+
+@media (max-width: 480px) {
+  .intro-eyebrow {
+    gap: 0.4rem;
+    padding: 0.48rem 0.68rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+  }
+}
+
