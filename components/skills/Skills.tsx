@@ -19,15 +19,15 @@ const groups = [
 ];
 
 const planets = [
-  { group: 0, radius: "15%", size: "2.6rem", duration: "18s", phase: "-20deg" },
-  { group: 1, radius: "20%", size: "3.2rem", duration: "25s", phase: "-110deg" },
-  { group: 2, radius: "25%", size: "3.5rem", duration: "32s", phase: "-205deg" },
-  { group: 3, radius: "30%", size: "2.5rem", duration: "39s", phase: "-290deg" },
-  { group: 4, radius: "36%", size: "4.3rem", duration: "52s", phase: "-35deg" },
-  { group: 5, radius: "42%", size: "3.7rem", duration: "64s", phase: "-145deg" },
-  { group: 6, radius: "34%", size: "2.9rem", duration: "46s", phase: "-225deg" },
-  { group: 7, radius: "27%", size: "3.1rem", duration: "35s", phase: "-315deg" },
-  { group: 8, radius: "18%", size: "2.2rem", duration: "22s", phase: "-255deg" },
+  { group: 0, diameter: "30%", size: "2.6rem", duration: "18s", phase: "-20deg" },
+  { group: 1, diameter: "40%", size: "3.2rem", duration: "25s", phase: "-110deg" },
+  { group: 2, diameter: "50%", size: "3.5rem", duration: "32s", phase: "-205deg" },
+  { group: 3, diameter: "60%", size: "2.5rem", duration: "39s", phase: "-290deg" },
+  { group: 4, diameter: "72%", size: "4.3rem", duration: "52s", phase: "-35deg" },
+  { group: 5, diameter: "84%", size: "3.7rem", duration: "64s", phase: "-145deg" },
+  { group: 6, diameter: "68%", size: "2.9rem", duration: "46s", phase: "-225deg" },
+  { group: 7, diameter: "54%", size: "3.1rem", duration: "35s", phase: "-315deg" },
+  { group: 8, diameter: "36%", size: "2.2rem", duration: "22s", phase: "-255deg" },
 ];
 
 export default function Skills() {
@@ -65,7 +65,7 @@ export default function Skills() {
               <div
                 key={group.planet}
                 className="solar-orbit-path"
-                style={{ "--orbit-radius": planet.radius, "--orbit-duration": planet.duration, "--orbit-phase": planet.phase } as CSSProperties}
+                style={{ "--orbit-diameter": planet.diameter, "--orbit-duration": planet.duration, "--orbit-phase": planet.phase } as CSSProperties}
               >
                 <button
                   type="button"
