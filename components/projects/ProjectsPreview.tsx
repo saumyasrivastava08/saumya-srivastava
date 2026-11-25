@@ -1,73 +1,59 @@
 "use client";
 
 import { motion } from "framer-motion";
-import ProjectCard from "./ProjectCard";
 import Link from "next/link";
-import { projects } from "./projectDir";
+import { FolderKanban, Sparkles } from "lucide-react";
+import MissionArchive from "./MissionArchive";
+import { projects, projectsCountLabel } from "./projectDir";
+import { useWandererOptional } from "@/components/voyage/WandererContext";
+
+const ease = [0.22, 0.8, 0.24, 1] as const;
 
 export default function ProjectPreview() {
-  const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    show: (i = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.55, delay: i * 0.12 },
-    }),
-  };
+  const wanderer = useWandererOptional();
 
   return (
-    <section className="projects-section">
+    <section className="projects-section cosmic-projects-section" id="projects">
+      <div className="projects-starfield" aria-hidden="true" />
+      <div className="projects-nebula projects-nebula-a" aria-hidden="true" />
+      <div className="projects-nebula projects-nebula-b" aria-hidden="true" />
+      <div id="projects-wanderer-slot" className="wanderer-slot" aria-hidden="true" />
+
       <div className="projects-container">
         <motion.div
           className="projects-heading-row"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.55, ease }}
         >
-          <div>
-            <p className="projects-kicker">BUILT WITH INTENT</p>
-            <h2 className="projects-title">Selected projects</h2>
-            <p className="projects-subtitle">
-              A closer look at products, interfaces, and systems I’ve helped bring to life.
-            </p>
+          <p className="projects-kicker">
+            <FolderKanban size={13} aria-hidden="true" /> MISSION ARCHIVE
+          </p>
+          <div className="projects-title-row">
+            <h2 className="projects-title">Project dossiers</h2>
+            <span className="projects-count">{projectsCountLabel} PROJECTS</span>
           </div>
-          <span className="projects-count">{String(projects.length).padStart(2, "0")} PROJECTS</span>
+          <p className="projects-subtitle">
+            Each folder is one project. Pull one forward to read its brief.
+          </p>
         </motion.div>
 
-        <div className="projects-grid">
-          {projects.map((project, i) => (
-            <motion.div
-              key={project.title}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.15 }}
-              custom={i + 1}
-            >
-              <ProjectCard {...project} index={i} />
-            </motion.div>
-          ))}
-        </div>
+        <MissionArchive items={projects} reveal={wanderer ? wanderer.armed : undefined} />
 
         <motion.div
           className="projects-footer"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          custom={projects.length + 1}
+          transition={{ duration: 0.45, delay: 0.12, ease }}
         >
-          <p>Want to explore more of the work?</p>
+          <p>Filter the full archive by category, from backend and cloud to AI.</p>
           <Link href="/projects" className="intro-primary-btn">
-            Explore all projects <ArrowRightFallback />
+            Open full archive <Sparkles size={14} aria-hidden="true" />
           </Link>
         </motion.div>
       </div>
     </section>
   );
-}
-
-function ArrowRightFallback() {
-  return <span aria-hidden="true">↗</span>;
 }

@@ -5,12 +5,12 @@ export const EXPERIENCE_PREVIEW = [
     duration: "Jul 2025 – Present",
     location: "Pune",
     highlights: [
-      "Architected and implemented a TypeScript microservice (Bun, Elysia, Drizzle ORM) serving paginated and filtered APIs over a 50+ table PostgreSQL schema with read replicas — processed 1.8M+ records and achieved sub‑200ms p95 response times.",
-      "Delivered 3 React micro‑frontends using Rspack and Module Federation with shared Zustand state and auto‑generated OpenAPI TypeScript contracts, cutting frontend build times by ~40% and enabling independent deployments.",
-      "Automated the maintenance ticket lifecycle across 5 status transitions by integrating enterprise work‑order and asset‑management APIs, eliminating ~200 manual hours/month and reducing routing errors.",
-      "Built dual‑mode authentication middleware (JWT + API‑key) with scoped RBAC controls, centralizing secure access for 10+ internal service integrations.",
-      "Migrated 8 monolithic cron workflows to CloudBees CI pipelines, reducing deployment cycle time from ~45 minutes to <10 minutes while improving observability and failure recovery.",
-      "Managed AWS infrastructure and Kubernetes deployments with stage/production isolation and CI‑gated rollouts, enabling automated scaling and near zero‑downtime releases.",
+      "Designed and built a TypeScript microservice (Bun, Elysia, Drizzle ORM) serving paginated, filterable APIs over a 50+ table PostgreSQL schema with read replicas, handling 1.8M+ records at sub-200ms p95 latency.",
+      "Shipped 3 React micro-frontends on Rspack and Module Federation, with shared Zustand state and auto-generated OpenAPI TypeScript contracts. Frontend build times dropped ~40% and each app now deploys independently.",
+      "Automated the maintenance ticket lifecycle across 5 status transitions by integrating enterprise work-order and asset-management APIs, saving ~200 manual hours a month and cutting routing errors.",
+      "Built dual-mode authentication middleware (JWT and API key) with scoped RBAC, giving 10+ internal services one secure access layer.",
+      "Moved 8 monolithic cron workflows onto CloudBees CI pipelines, cutting deployment time from ~45 minutes to under 10 and improving observability and failure recovery.",
+      "Managed AWS infrastructure and Kubernetes deployments with isolated stage and production environments and CI-gated rollouts, enabling automated scaling and near zero-downtime releases.",
     ],
     tech: [
       "TypeScript",
@@ -41,10 +41,10 @@ export const EXPERIENCE_PREVIEW = [
     duration: "Aug 2023 – Jul 2025",
     location: "Bengaluru",
     highlights: [
-      "Led development of React.js dashboards with scalable state management and reusable component architecture.",
-      "Developed and optimized GoLang and PostgreSQL APIs, achieving 25% lower latency.",
-      "Automated infrastructure provisioning using Terraform and integrated Vault for secrets and certificate management.",
-      "Deployed and monitored Dockerized services on Kubernetes, enabling 40% faster deployments and scaling.",
+      "Led development of React.js dashboards, with scalable state management and a reusable component architecture.",
+      "Built and optimized GoLang and PostgreSQL APIs, reducing latency by 25%.",
+      "Automated infrastructure provisioning with Terraform and managed secrets and certificates with Vault.",
+      "Deployed and monitored Dockerized services on Kubernetes, making deployments and scaling 40% faster.",
       "Integrated Swagger and MQTT for device-to-cloud communication in MicroEdge.",
     ],
     tech: [
@@ -66,13 +66,13 @@ export const EXPERIENCE_PREVIEW_EXT = [
   {
     role: "Software Developer Intern",
     company: "Privafy",
-    duration: "Jul 2023 - March 2022",
+    duration: "Mar 2022 – Jul 2023",
     location: "Pune",
     highlights: [
-      "Designed frontend for Microedge (an iot based product) using React.js and deploying images using Go-Lang in docker and Kubernetes.",
-      "Automated the microservices using robot-framework.",
-      "Created database for microservice using postgress-sql and written unit test cases for them in Go-lang.",
-      "Created and deployed kubernetes pods"
+      "Designed the frontend for MicroEdge, an IoT product, in React.js, and packaged Go services as Docker images for Kubernetes.",
+      "Automated microservice testing with Robot Framework.",
+      "Designed the PostgreSQL database for a microservice and wrote its unit tests in Go.",
+      "Created and deployed Kubernetes pods.",
     ],
     tech: [
       "React.js",
@@ -89,11 +89,11 @@ export const EXPERIENCE_PREVIEW_EXT = [
    {
     role: "Frontend Developer Intern",
     company: "Ethical Learner",
-    duration: "July 2021 - May 2021",
+    duration: "May 2021 – Jul 2021",
     location: "Remote",
     highlights: [
-      "Roles:- Improved 20% site experience, Developed admin panel to upload blogs,posts & courses, added site components.",
-      "Learning Outcome:- Context API , Material-UI, Styled-Components, React-Router.",
+      "Role: Improved the site experience by 20%, built an admin panel for publishing blogs, posts and courses, and added new site components.",
+      "Learned: Context API, Material-UI, Styled-Components and React Router.",
     ],
     tech: [
       'React.js',
@@ -110,11 +110,11 @@ export const EXPERIENCE_PREVIEW_EXT = [
      {
     role: "Frontend Developer Intern",
     company: "FutureBoxLabs",
-    duration: "Jan 2021 - Apr 2021",
+    duration: "Jan 2021 – Apr 2021",
     location: "Remote",
     highlights: [
-      'Roles:- Single-Handledly managed all the ongoing clients projects, Enhanced 80% site experience.',
-      'Learning Outcome:- Bootstrap, JavaScript , Advance-CSS'
+      'Role: Independently managed all ongoing client projects and improved the site experience by 80%.',
+      'Learned: Bootstrap, JavaScript and advanced CSS.',
     ],
     tech: [
       'HTML',
@@ -125,4 +125,3 @@ export const EXPERIENCE_PREVIEW_EXT = [
   },
  
 ];
-

@@ -1,0 +1,881 @@
+/* =====================================================
+   SCROLL WANDERER
+   Jupiter-style planet: travels diagonally behind the hero,
+   collides on Creospan → Privafy, then becomes a dossier.
+===================================================== */
+
+.home-scroll-story {
+  position: relative;
+}
+
+/* Hero layer: lives inside .intro, behind the hero content */
+.hero-wanderer-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Per-section layers: above the section background/stars, behind its content */
+.wanderer-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* while the paper is pulled out of the shelf it rises in front of the projects content, so it can be seen */
+html[data-wp-front] #projects-wanderer-slot {
+  z-index: 30;
+}
+
+/* the dossiers have all left: an empty bay would just be a hollow frame, so the bay (and its hint) is not shown */
+#projects .mission-bay,
+#projects .mission-shelf-hint {
+  transition: opacity 0.35s ease;
+}
+
+/* (the hint is animated by framer-motion with an inline opacity, hence the !important below) */
+
+html[data-wp-bay-gone] #projects .mission-bay,
+html[data-wp-bay-gone] #projects .mission-shelf-hint {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* the first dossier is the one that comes out of the bay: the traveller takes its place on the shelf */
+html[data-wp-lift] #projects .mission-shelf > .mission-folder:first-child {
+  opacity: 0 !important;
+  transition: none !important;
+}
+
+.scroll-wanderer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4.8rem;
+  height: 4.8rem;
+  margin: -2.4rem 0 0 -2.4rem;
+  will-change: transform, opacity;
+}
+
+.wp-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+/* ---- Planet (same look as the hero planet, plus a Jupiter ring) ---- */
+
+.wp-planet {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 24px rgba(190, 120, 255, 0.3));
+}
+
+.wp-sphere {
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 28% 25%,
+    #fbd2ff 0,
+    #dc8cf4 18%,
+    #9354d7 48%,
+    #3a1d72 78%,
+    #171033 100%
+  );
+  box-shadow: inset -0.35rem -0.25rem 0.7rem rgba(10, 4, 28, 0.45);
+}
+
+.wp-ring {
+  position: absolute;
+  inset: 1.35rem -0.95rem;
+  border: 2px solid rgba(249, 190, 255, 0.55);
+  border-radius: 50%;
+  transform: rotate(-24deg);
+  box-shadow:
+    0 0 9px rgba(239, 154, 255, 0.22),
+    inset 0 0 0 4px rgba(249, 190, 255, 0.1);
+}
+
+.wp-ring-back {
+  z-index: 0;
+  opacity: 0.55;
+}
+
+.wp-sphere {
+  z-index: 1;
+}
+
+/* Front half of the ring passes in front of the planet */
+.wp-ring-front {
+  z-index: 2;
+  clip-path: inset(50% 0 0 0);
+}
+
+/* ---- Dossier form (planet morphs into this on the projects shelf) ---- */
+
+.wp-dossier {
+  position: relative;
+  display: block;
+  width: 3.9rem;
+  height: 4.4rem;
+  --d: #c6a5ff;
+}
+
+.wp-dossier-tab {
+  position: absolute;
+  top: 0;
+  left: 0.3rem;
+  z-index: 2;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--d) 45%, transparent);
+  border-bottom: 0;
+  border-radius: 0.5rem 0.5rem 0 0;
+  color: color-mix(in srgb, var(--d) 90%, white);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--d) 32%, #1a2040), #141a36);
+  font-size: 0.5rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.wp-dossier-body {
+  position: absolute;
+  top: 1.05rem;
+  left: 0;
+  right: 0.4rem;
+  bottom: 0;
+  border: 1px solid color-mix(in srgb, var(--d) 38%, rgba(150, 168, 230, 0.16));
+  border-radius: 0 0.5rem 0.3rem 0.4rem;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--d) 24%, #1a2248),
+    #121833 45%,
+    #0b1024
+  );
+  box-shadow:
+    0 0 22px color-mix(in srgb, var(--d) 28%, transparent),
+    inset 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.wp-dossier-body i {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.5rem;
+  right: 0.9rem;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--d) 55%, transparent);
+  box-shadow: 0 0.55rem 0 color-mix(in srgb, var(--d) 30%, transparent);
+}
+
+.wp-dossier-dot {
+  position: absolute;
+  left: 0.55rem;
+  bottom: 0.55rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: var(--d);
+  box-shadow: 0 0 10px var(--d);
+}
+
+/* ---- Page form: yellow paper (the colour of the sun it is about to become). A flat sheet is pulled out of
+   the first dossier, then scrunched up in stages - loosely crumpled, tightly crumpled, a paper ball.
+   --crumple runs 0 -> 1 with the scroll and cross-fades the stages. ---- */
+
+.wp-page {
+  position: relative;
+  display: block;
+  width: 4rem;
+  height: 5rem;
+  filter: drop-shadow(0 0 14px rgba(255, 166, 91, 0.6));
+}
+
+/* stage 0: the flat sheet */
+.wp-page-sheet {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0.7rem 0.55rem 0;
+  border: 1px solid rgba(245, 155, 69, 0.85);
+  border-radius: 0.3rem 0.8rem 0.3rem 0.3rem;
+  background: linear-gradient(160deg, #fff9dc 0%, #ffd27a 50%, #f59b45 100%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.8);
+  opacity: clamp(0, calc((0.16 - var(--crumple, 0)) * 14), 1);
+  transform: rotate(-7deg);
+}
+
+.wp-page-sheet i {
+  display: block;
+  height: 2px;
+  margin-bottom: 0.38rem;
+  border-radius: 999px;
+  background: rgba(158, 78, 82, 0.5);
+}
+
+.wp-page-sheet i:nth-child(2) { width: 80%; }
+.wp-page-sheet i:nth-child(3) { width: 55%; }
+
+.wp-page-sheet b {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 0 0.8rem 0 0.4rem;
+  background: linear-gradient(225deg, rgba(158, 78, 82, 0.4) 50%, rgba(255, 255, 255, 0.7) 50%);
+}
+
+/* the crumpled stages share one set-up: centred, irregular outline, creases drawn as thin light and dark lines */
+.wp-page-scrap,
+.wp-page-loose,
+.wp-page-tight,
+.wp-page-ball {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+}
+
+/* stage 0.5: scrap paper - the sheet has been pulled out and is starting to get screwed up: torn, wavy edges,
+   a fold across it and a few creases, but still mostly a flat page */
+.wp-page-scrap {
+  width: 4.4rem;
+  height: 5rem;
+  clip-path: polygon(4% 10%, 20% 3%, 38% 8%, 60% 1%, 82% 7%, 97% 15%, 93% 36%, 99% 58%, 91% 79%, 96% 96%, 71% 91%, 48% 99%, 27% 92%, 7% 98%, 2% 72%, 8% 50%, 1% 28%);
+  background:
+    linear-gradient(28deg, transparent 46%, rgba(158, 78, 82, 0.5) 47.5%, transparent 50%) 14% 24% / 52% 34% no-repeat,
+    linear-gradient(-50deg, transparent 46%, rgba(158, 78, 82, 0.45) 47.5%, transparent 50%) 84% 70% / 44% 40% no-repeat,
+    linear-gradient(60deg, transparent 46%, rgba(255, 255, 255, 0.85) 47.5%, transparent 50%) 40% 90% / 52% 30% no-repeat,
+    linear-gradient(142deg, rgba(255, 249, 220, 0.85) 0 46%, rgba(158, 78, 82, 0.4) 46.4% 48%, rgba(255, 190, 110, 0.2) 48.4% 100%),
+    repeating-linear-gradient(0deg, transparent 0 0.5rem, rgba(158, 78, 82, 0.28) 0.5rem calc(0.5rem + 2px)),
+    linear-gradient(160deg, #fff9dc 0%, #ffd27a 52%, #f59b45 100%);
+  opacity: clamp(0, min(calc((var(--crumple, 0) - 0.05) * 14), calc((0.4 - var(--crumple, 0)) * 10)), 1);
+  transform: translate(-50%, -50%) rotate(calc(var(--crumple, 0) * 50deg - 8deg)) skewX(calc(var(--crumple, 0) * -10deg))
+    scale(calc(1 - var(--crumple, 0) * 0.22));
+}
+/* stage 1: loosely crumpled, still a big sheet with folds and a ragged outline */
+.wp-page-loose {
+  width: 4.8rem;
+  height: 4.5rem;
+  clip-path: polygon(8% 30%, 22% 8%, 38% 16%, 55% 2%, 72% 14%, 94% 6%, 88% 34%, 98% 56%, 84% 70%, 90% 94%, 62% 86%, 44% 98%, 28% 84%, 6% 92%, 14% 64%, 2% 48%);
+  background:
+    linear-gradient(32deg, transparent 47%, rgba(158, 78, 82, 0.5) 48.5%, transparent 51%),
+    linear-gradient(-58deg, transparent 36%, rgba(158, 78, 82, 0.4) 37.5%, transparent 40%),
+    linear-gradient(80deg, transparent 60%, rgba(255, 255, 255, 0.8) 61.5%, transparent 64%),
+    linear-gradient(118deg, rgba(255, 249, 220, 0.9) 0 18%, transparent 18% 46%, rgba(200, 100, 70, 0.3) 46% 70%, transparent 70%),
+    linear-gradient(160deg, #fff9dc 0%, #ffd27a 50%, #f59b45 100%);
+  opacity: clamp(0, min(calc((var(--crumple, 0) - 0.24) * 12), calc((0.62 - var(--crumple, 0)) * 10)), 1);
+  transform: translate(-50%, -50%) rotate(calc(var(--crumple, 0) * 70deg - 6deg)) scale(calc(1.05 - var(--crumple, 0) * 0.2));
+}
+
+/* stage 2: tightly crumpled, smaller and lumpier with many short creases and faceted light / shade */
+.wp-page-tight {
+  width: 4.4rem;
+  height: 4.2rem;
+  clip-path: polygon(14% 22%, 26% 10%, 36% 14%, 50% 5%, 62% 12%, 76% 4%, 90% 20%, 96% 34%, 99% 52%, 90% 66%, 86% 82%, 70% 94%, 58% 88%, 46% 97%, 30% 92%, 18% 84%, 8% 72%, 3% 56%, 7% 40%);
+  background:
+    linear-gradient(24deg, transparent 46%, rgba(158, 78, 82, 0.55) 47.5%, transparent 50%) 10% 20% / 46% 40% no-repeat,
+    linear-gradient(-44deg, transparent 46%, rgba(158, 78, 82, 0.5) 47.5%, transparent 50%) 90% 30% / 40% 44% no-repeat,
+    linear-gradient(64deg, transparent 46%, rgba(255, 255, 255, 0.85) 47.5%, transparent 50%) 30% 80% / 50% 38% no-repeat,
+    linear-gradient(-12deg, transparent 46%, rgba(158, 78, 82, 0.5) 47.5%, transparent 50%) 70% 90% / 42% 36% no-repeat,
+    linear-gradient(110deg, transparent 46%, rgba(255, 255, 255, 0.8) 47.5%, transparent 50%) 60% 10% / 38% 42% no-repeat,
+    conic-gradient(from 25deg at 46% 52%, rgba(255, 249, 220, 0.75), transparent 14%, rgba(158, 78, 82, 0.38) 28%, transparent 42%, rgba(255, 249, 220, 0.55) 58%, transparent 72%, rgba(158, 78, 82, 0.34) 86%, rgba(255, 249, 220, 0.75)),
+    radial-gradient(circle at 28% 26%, rgba(255, 249, 220, 0.9) 0, transparent 38%),
+    linear-gradient(160deg, #fff3c8 0%, #ffbe6a 55%, #e8863f 100%);
+  opacity: clamp(0, min(calc((var(--crumple, 0) - 0.46) * 10), calc((0.86 - var(--crumple, 0)) * 10)), 1);
+  transform: translate(-50%, -50%) rotate(calc(var(--crumple, 0) * -110deg + 20deg)) scale(calc(1.05 - var(--crumple, 0) * 0.2));
+}
+/* stage 3: a crumpled paper ball, faceted like screwed-up paper */
+.wp-page-ball {
+  width: 5rem;
+  height: 5rem;
+  clip-path: polygon(50.0% 2.0%, 61.9% 5.6%, 74.5% 7.6%, 82.5% 17.5%, 90.7% 26.5%, 94.4% 38.1%, 99.0% 50.0%, 94.4% 61.9%, 91.6% 74.0%, 81.8% 81.8%, 74.5% 92.4%, 61.9% 94.4%, 50.0% 98.0%, 38.1% 94.4%, 25.5% 92.4%, 18.2% 81.8%, 9.3% 73.5%, 5.6% 61.9%, 1.0% 50.0%, 5.6% 38.1%, 8.4% 26.0%, 18.2% 18.2%, 25.5% 7.6%, 38.1% 5.6%);
+  background:
+    linear-gradient(30deg, transparent 46%, rgba(158, 78, 82, 0.6) 47.5%, transparent 50%) 8% 18% / 44% 36% no-repeat,
+    linear-gradient(-50deg, transparent 46%, rgba(158, 78, 82, 0.55) 47.5%, transparent 50%) 88% 24% / 40% 40% no-repeat,
+    linear-gradient(70deg, transparent 46%, rgba(255, 255, 255, 0.9) 47.5%, transparent 50%) 26% 76% / 46% 34% no-repeat,
+    linear-gradient(-18deg, transparent 46%, rgba(158, 78, 82, 0.55) 47.5%, transparent 50%) 78% 86% / 42% 34% no-repeat,
+    linear-gradient(120deg, transparent 46%, rgba(255, 255, 255, 0.85) 47.5%, transparent 50%) 58% 8% / 36% 40% no-repeat,
+    linear-gradient(-80deg, transparent 46%, rgba(158, 78, 82, 0.5) 47.5%, transparent 50%) 14% 56% / 32% 36% no-repeat,
+    conic-gradient(from 10deg at 44% 48%, rgba(255, 249, 220, 0.8), transparent 12%, rgba(158, 78, 82, 0.42) 24%, transparent 36%, rgba(255, 249, 220, 0.6) 48%, transparent 60%, rgba(158, 78, 82, 0.4) 72%, transparent 84%, rgba(255, 249, 220, 0.8)),
+    radial-gradient(circle at 30% 26%, rgba(255, 249, 220, 1) 0, rgba(255, 210, 122, 0.5) 26%, transparent 50%),
+    radial-gradient(circle at 72% 80%, rgba(158, 78, 82, 0.55) 0, transparent 58%),
+    radial-gradient(circle at 50% 50%, #ffc46a 0, #f08d42 100%);
+  opacity: clamp(0, calc((var(--crumple, 0) - 0.74) * 10), 1);
+  transform: translate(-50%, -50%) rotate(calc(var(--crumple, 0) * 160deg)) scale(calc(0.8 + var(--crumple, 0) * 0.25));
+}
+@media (max-width: 720px) {
+  .scroll-wanderer {
+    width: 3.6rem;
+    height: 3.6rem;
+    margin: -1.8rem 0 0 -1.8rem;
+  }
+
+  .wp-sphere { inset: 0.4rem; }
+  .wp-ring { inset: 1rem -0.7rem; }
+  .wp-dossier { transform: scale(0.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wanderer-slot,
+  .hero-wanderer-slot {
+    display: none;
+  }
+}
+
+/* ---- Traveller as a sun (reaches the skills core, then the real sun takes over) ---- */
+
+.wp-sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: clamp(5.8rem, 15vw, 7.8rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+.wp-sun-rays {
+  position: absolute;
+  inset: -28%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 20deg,
+    transparent 0 12%,
+    rgba(255, 200, 120, 0.2) 14% 18%,
+    transparent 20% 38%,
+    rgba(255, 170, 90, 0.16) 40% 45%,
+    transparent 47% 68%,
+    rgba(255, 210, 140, 0.18) 70% 74%,
+    transparent 76% 100%
+  );
+}
+
+.wp-sun-core {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 220, 164, 0.8);
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #fff9dc 0%, #ffd27a 14%, #f59b45 36%, #9e4e52 64%, #38254e 100%);
+  box-shadow:
+    inset -16px -12px 24px rgba(25, 9, 35, 0.5),
+    0 0 40px rgba(255, 166, 91, 0.5),
+    0 0 90px rgba(255, 128, 86, 0.22);
+}
+
+/* ---- The sun turns into the head (nose cone) of the big ship at the Education heading ----
+   The part is drawn at the exact size and shape of the ship's nose cone (the size comes from the
+   measured ship: --wp-head-w / --wp-head-h) and is scaled down while it is still a small part. */
+
+.wp-nose-part {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: var(--wp-head-w, 9rem);
+  height: var(--wp-head-h, 12.2rem);
+  margin: calc(var(--wp-head-h, 12.2rem) / -2) 0 0 calc(var(--wp-head-w, 9rem) / -2);
+}
+
+.wp-nose-glow {
+  /* no light spreading out of the head of the rocket */
+  display: none;
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249, 168, 212, 0.4), rgba(198, 165, 255, 0.16) 50%, transparent 70%);
+}
+
+/* lying on its side like the rocket on the homepage: the tip points right, towards the nose */
+.wp-nose-cone {
+  position: absolute;
+  inset: 0;
+  --nose-ht: calc(100% - calc(7.3rem * var(--wp-s, 1))) calc(50% - 42.7%), calc(100% - calc(5.9rem * var(--wp-s, 1))) calc(50% - 36.5%),
+    calc(100% - calc(4.8rem * var(--wp-s, 1))) calc(50% - 31%), calc(100% - calc(3.6rem * var(--wp-s, 1))) calc(50% - 25%), calc(100% - calc(2.7rem * var(--wp-s, 1))) calc(50% - 20%),
+    calc(100% - calc(1.8rem * var(--wp-s, 1))) calc(50% - 15%), calc(100% - calc(0.9rem * var(--wp-s, 1))) calc(50% - 8.9%), calc(100% - calc(0.45rem * var(--wp-s, 1))) calc(50% - 5.3%);
+  --nose-hb: calc(100% - calc(0.45rem * var(--wp-s, 1))) calc(50% + 5.3%), calc(100% - calc(0.9rem * var(--wp-s, 1))) calc(50% + 8.9%),
+    calc(100% - calc(1.8rem * var(--wp-s, 1))) calc(50% + 15%), calc(100% - calc(2.7rem * var(--wp-s, 1))) calc(50% + 20%), calc(100% - calc(3.6rem * var(--wp-s, 1))) calc(50% + 25%),
+    calc(100% - calc(4.8rem * var(--wp-s, 1))) calc(50% + 31%), calc(100% - calc(5.9rem * var(--wp-s, 1))) calc(50% + 36.5%), calc(100% - calc(7.3rem * var(--wp-s, 1))) calc(50% + 42.7%);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0 4%, transparent 4%),
+    linear-gradient(90deg, #383675, #80498d 40%, #d770ae);
+  clip-path: polygon(0 0, var(--nose-ht), 100% 50%, var(--nose-hb), 0 100%);
+}
+
+/* the Education page always shows the upright rocket, so its fly-in part is upright too */
+.edu-flyin .wp-nose-cone {
+  --nose-r: calc(50% + 5.3%) 0.7rem, calc(50% + 8.9%) 1.4rem, calc(50% + 15%) 2.8rem, calc(50% + 20%) 4.2rem,
+    calc(50% + 25%) 5.6rem, calc(50% + 31%) 7.4rem, calc(50% + 36.5%) 9.2rem, calc(50% + 42.7%) 11.4rem, 100% 100%;
+  --nose-l: 0 100%, calc(50% - 42.7%) 11.4rem, calc(50% - 36.5%) 9.2rem, calc(50% - 31%) 7.4rem,
+    calc(50% - 25%) 5.6rem, calc(50% - 20%) 4.2rem, calc(50% - 15%) 2.8rem, calc(50% - 8.9%) 1.4rem,
+    calc(50% - 5.3%) 0.7rem;
+  background:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0 4%, transparent 4%),
+    linear-gradient(180deg, #926899, #5a4281 55%, #2e2e6a);
+  clip-path: polygon(50% 0, var(--nose-r), var(--nose-l));
+}
+
+/* ---- Skills constellation: dormant until the planet ignites the sun ---- */
+
+.constellation-stage .constellation-sun,
+.constellation-stage .constellation-world,
+.constellation-stage .constellation-rings,
+.constellation-stage .constellation-haze,
+.constellation-stage .constellation-beam {
+  transition:
+    opacity 0.28s ease,
+    scale 0.28s ease;
+}
+
+.constellation-stage.is-dormant .constellation-sun {
+  opacity: 0;
+  scale: 0.15;
+}
+
+.constellation-stage.is-dormant .constellation-world {
+  opacity: 0;
+  scale: 0.2;
+  pointer-events: none;
+}
+
+.constellation-stage.is-dormant .constellation-rings,
+.constellation-stage.is-dormant .constellation-haze {
+  opacity: 0.12;
+}
+
+.constellation-stage.is-dormant .constellation-beam {
+  opacity: 0;
+}
+
+/* Skills page: a small sun drops into the core before it ignites. */
+.skills-fly-sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* The sun comes up first, with a flare... */
+.constellation-stage.is-lit .constellation-sun {
+  transition:
+    opacity 0.3s ease 0.05s,
+    scale 0.6s cubic-bezier(0.2, 1.35, 0.4, 1) 0.05s;
+}
+
+.constellation-stage.is-lit .constellation-sun-core {
+  animation:
+    constellation-sun-pulse 4.5s ease-in-out infinite,
+    wp-sun-ignite 0.9s ease-out 0.05s 1 backwards;
+}
+
+/* ...then the planets appear one after another around it. */
+.constellation-stage.is-lit .constellation-world {
+  transition:
+    opacity 0.3s ease calc(0.2s + var(--world-delay, 0s) * 0.45),
+    scale 0.45s cubic-bezier(0.2, 1.3, 0.4, 1) calc(0.2s + var(--world-delay, 0s) * 0.45);
+}
+
+.constellation-stage.is-lit .constellation-rings,
+.constellation-stage.is-lit .constellation-haze,
+.constellation-stage.is-lit .constellation-beam {
+  transition: opacity 0.5s ease 0.1s;
+}
+
+/* The sun has left the core (it is the little traveller now): the core fades out, the worlds stay. */
+.constellation-stage.is-sunless .constellation-sun {
+  opacity: 0;
+  scale: 1.35;
+  transition: opacity 0.4s ease, scale 0.5s ease;
+}
+
+.constellation-stage.is-sunless .constellation-beam {
+  opacity: 0;
+}
+
+@keyframes wp-sun-ignite {
+  0% { box-shadow: 0 0 0 0 rgba(255, 210, 140, 0.9), 0 0 120px 40px rgba(255, 190, 100, 0.85); filter: brightness(1.8); }
+  100% { box-shadow: inset -16px -12px 24px rgba(25, 9, 35, 0.5), 0 0 0 8px rgba(255, 190, 108, 0.06), 0 0 40px rgba(255, 166, 91, 0.42), 0 0 90px rgba(255, 128, 86, 0.16); filter: brightness(1); }
+}
+
+/* ---- Small sun leaving the core, then the spaceship (education) ---- */
+
+.wp-ship {
+  display: block;
+  width: 6.2rem;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.4)) drop-shadow(0 0 16px rgba(198, 165, 255, 0.5));
+}
+
+.wp-ship-flame {
+  transform-origin: 20px 28px;
+  animation: wp-ship-flicker 0.14s ease-in-out infinite alternate;
+}
+
+@keyframes wp-ship-flicker {
+  from { transform: scaleX(0.82); opacity: 0.85; }
+  to { transform: scaleX(1.12); opacity: 1; }
+}
+
+/* ---- Education: trail and cards wait for the spaceship ---- */
+
+.education-trajectory {
+  transition: opacity 0.6s ease;
+}
+
+.education-trajectory.is-off {
+  opacity: 0;
+}
+
+/* Fade in only after the last card has finished appearing; hide instantly on the way back. */
+.education-trajectory.is-on {
+  transition-delay: 0.8s;
+  transition-duration: 0.8s;
+}
+
+.cosmic-education-section .education-star-card .education-star-copy {
+  transition: transform 0.5s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+.cosmic-education-section .education-star-card:not(.is-open) .education-star-copy {
+  transform: translateY(18px);
+}
+
+.cosmic-education-section .education-star-card:not(.is-open) {
+  box-shadow: none;
+}
+
+.cosmic-education-section .education-star-card:not(.is-open) .education-star-glow {
+  opacity: 0.15;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-ship-flame {
+    animation: none;
+  }
+}
+/* ---- Smoke: exhaust while flying + a cloud at each star before its card appears ---- */
+
+.wp-ship-wrap {
+  position: relative;
+  display: block;
+}
+
+.wp-ship-smoke {
+  position: absolute;
+  top: 50%;
+  left: 12%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.wp-ship-smoke i {
+  position: absolute;
+  top: -0.45rem;
+  left: -0.45rem;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 228, 252, 0.75), rgba(168, 150, 214, 0.35) 60%, transparent 72%);
+  filter: blur(1.5px);
+  opacity: 0;
+  animation: wp-exhaust 1.25s ease-out infinite;
+}
+
+.wp-ship-smoke i:nth-child(2) { animation-delay: 0.25s; --wy: -0.5rem; }
+.wp-ship-smoke i:nth-child(3) { animation-delay: 0.5s; --wy: 0.45rem; }
+.wp-ship-smoke i:nth-child(4) { animation-delay: 0.75s; --wy: -0.25rem; }
+.wp-ship-smoke i:nth-child(5) { animation-delay: 1s; --wy: 0.3rem; }
+
+@keyframes wp-exhaust {
+  0% { opacity: 0.85; transform: translate(0, 0) scale(0.4); }
+  100% { opacity: 0; transform: translate(-4.2rem, var(--wy, 0rem)) scale(2.1); }
+}
+
+/* Exhaust trail: puffs are dropped behind the ship and stay put while they swell and fade. */
+.wp-trail-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wp-trail-puff {
+  position: absolute;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin: -0.85rem 0 0 -0.85rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 238, 255, 0.9), rgba(176, 156, 226, 0.45) 55%, transparent 72%);
+  filter: blur(2px);
+  opacity: 0;
+  animation: wp-trail-puff 1.35s ease-out forwards;
+}
+
+@keyframes wp-trail-puff {
+  0% { opacity: 0.9; transform: translate(0, 0) scale(calc(0.3 * var(--s, 1))); }
+  100% { opacity: 0; transform: translate(var(--dx, 0), var(--dy, 0)) scale(calc(2.7 * var(--s, 1))); }
+}
+
+.wp-smoke-burst {
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.wp-smoke-burst i {
+  position: absolute;
+  top: -1.4rem;
+  left: -1.4rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(238, 230, 255, 0.9), rgba(160, 140, 210, 0.45) 58%, transparent 72%);
+  filter: blur(3px);
+  opacity: 0;
+  animation: wp-smoke-puff 1.5s ease-out forwards;
+}
+
+.wp-smoke-burst i:nth-child(1) { --dx: -3.2rem; --dy: -1.2rem; animation-delay: 0s; }
+.wp-smoke-burst i:nth-child(2) { --dx: 3rem; --dy: -1.6rem; animation-delay: 0.04s; }
+.wp-smoke-burst i:nth-child(3) { --dx: -1.6rem; --dy: 2.4rem; animation-delay: 0.08s; }
+.wp-smoke-burst i:nth-child(4) { --dx: 2rem; --dy: 2rem; animation-delay: 0.12s; }
+.wp-smoke-burst i:nth-child(5) { --dx: 0rem; --dy: -2.8rem; animation-delay: 0.1s; }
+.wp-smoke-burst i:nth-child(6) { --dx: -4.2rem; --dy: 1rem; animation-delay: 0.16s; }
+.wp-smoke-burst i:nth-child(7) { --dx: 4.2rem; --dy: 0.6rem; animation-delay: 0.2s; }
+
+@keyframes wp-smoke-puff {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.3); }
+  18% { opacity: 0.95; }
+  100% { opacity: 0; transform: translate(var(--dx, 0), var(--dy, 0)) scale(2.5); }
+}
+
+/* The card's text rises out of the smoke slightly after the card fades in. */
+.cosmic-education-section .education-star-card.is-open .education-star-copy {
+  transition-delay: 0.35s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-trail-puff,
+  .wp-smoke-burst i {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ---- Resting spot of the planet inside the hero laptop (empty corner, away from the code) ---- */
+
+.laptop-planet {
+  position: absolute;
+  top: 66%;
+  left: 76%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+/* ---- Hero laptop: crisper, brighter, and not covered by the floating chips ---- */
+
+/* Filters and a strong 3D tilt re-rasterise the text and blur it, so drop them. */
+.intro-tech-scene {
+  filter: none;
+}
+
+.tech-laptop {
+  filter: none;
+  transform: perspective(1600px) rotateY(-4deg) rotateX(2deg);
+}
+
+.laptop-screen {
+  container-type: inline-size;
+  border-color: #2b3a52;
+  background: linear-gradient(160deg, #060e1c, #0a1627);
+  box-shadow:
+    0 0 0 1px rgba(148, 163, 184, 0.3),
+    0 0 36px rgba(56, 189, 248, 0.14),
+    0 26px 38px -14px rgba(0, 0, 0, 0.6);
+}
+
+.laptop-topbar {
+  height: 9cqw;
+  min-height: 24px;
+  background: #0f1a2c;
+  border-bottom-color: rgba(148, 163, 184, 0.18);
+}
+
+.laptop-topbar small {
+  font-size: clamp(8px, 2.3cqw, 11px);
+  color: #94a3b8;
+}
+
+.laptop-code {
+  padding: 4.6cqw 4cqw;
+  gap: 2.4cqw;
+  font-size: clamp(9px, 3cqw, 14px);
+  color: #e2e8f0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.code-line {
+  gap: 2cqw;
+}
+
+.code-line i {
+  width: 4.5cqw;
+  color: #55657d;
+}
+
+.code-line b {
+  color: #d8b4fe;
+  font-weight: 600;
+}
+
+.code-line em {
+  color: #7ee0ff;
+}
+
+.code-line strong {
+  color: #fbcfe8;
+  font-weight: 600;
+}
+
+/* Keep the glow soft so it does not wash the text out. */
+.laptop-screen-glow {
+  background: radial-gradient(ellipse at 80% 12%, rgba(56, 189, 248, 0.08), transparent 55%);
+}
+
+.laptop-base {
+  height: 14px;
+  background: linear-gradient(180deg, #8493a8, #3a475a 50%, #1a2638);
+}
+
+/* ---- Hero scene: one fixed layout that simply scales (same on desktop and phone) ----
+   The scene is a stage; the laptop sits in the middle and the technologies spiral out and rest
+   on an ellipse around it. Everything inside is sized in % / container units. */
+.intro-tech-scene {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: min(600px, 100%);
+  min-height: 0;
+  margin-inline: auto;
+  padding: 0;
+  aspect-ratio: 1 / 0.98;
+  container-type: inline-size;
+}
+
+.tech-laptop {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  width: 48%;
+  max-width: none;
+  transform: translate(-50%, -50%) perspective(1600px) rotateY(-4deg) rotateX(2deg);
+}
+
+.tech-spiral-slot {
+  position: absolute;
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.tech-spiral-slot .tech-float {
+  position: relative;
+  left: auto;
+  top: auto;
+  padding: 1.9cqw 2.6cqw;
+  gap: 1.3cqw;
+  font-size: clamp(8px, 2.15cqw, 13px);
+  pointer-events: auto;
+}
+
+.tech-spiral-slot .tech-float svg {
+  width: clamp(10px, 2.9cqw, 17px);
+  height: clamp(10px, 2.9cqw, 17px);
+}
+
+.tech-orbit-one {
+  width: 84%;
+  height: 70%;
+}
+
+.tech-orbit-two {
+  width: 98%;
+  height: 86%;
+}
+
+.tech-orbit-three {
+  width: 66%;
+  height: 96%;
+}
+
+.tech-scene-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: clamp(9px, 2.1cqw, 12px);
+}
+
+/* The planet rests in the empty lower-right of the screen, below the code. */
+.laptop-planet {
+  top: 76%;
+  left: 82%;
+}
+/* Small laptop: let the screen text shrink with the screen so every line still fits. */
+.tech-laptop {
+  width: 50%;
+}
+
+.laptop-topbar {
+  height: 7cqw;
+  min-height: 16px;
+}
+
+.laptop-topbar > span {
+  width: 3.2cqw;
+  height: 3.2cqw;
+  min-width: 4px;
+  min-height: 4px;
+}
+
+.laptop-code {
+  padding: 3.4cqw 4cqw;
+  gap: 1.5cqw;
+  font-size: clamp(5px, 3.5cqw, 14px);
+  line-height: 1.25;
+}
+
+.laptop-screen {
+  border-width: clamp(3px, 1.6cqw, 7px);
+  border-bottom-width: clamp(4px, 2cqw, 9px);
+}
+/* ---- Phone layout: the heading sparkle turns into the travelling planet ---- */
+.intro-sparkle {
+  display: inline-block;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+html[data-planet-home] .intro-sparkle {
+  opacity: 0;
+  transform: scale(0.4);
+}
+

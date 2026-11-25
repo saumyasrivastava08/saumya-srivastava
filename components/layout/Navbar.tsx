@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const links = [
-  { name: "Home", href: "/" },
+  { name: "Launchpad", href: "/" },
   { name: "Experience", href: "/experience" },
   { name: "Projects", href: "/projects" },
   { name: "Skills", href: "/skills" },

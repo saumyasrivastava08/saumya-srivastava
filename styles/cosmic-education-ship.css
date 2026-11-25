@@ -1,0 +1,2176 @@
+/* =====================================================
+   EDUCATION — the content lives inside a spaceship.
+   When the sun reaches this section it turns into the little ship, and the big ship scatters in
+   piece by piece (hull, nose cone, fins, engine, band, lights) and assembles itself. Each bay
+   (one per milestone) then opens in a puff of smoke; at the nose the little ship docks and the
+   engine ignites and sends out smoke.
+===================================================== */
+
+.education-ship-scene {
+  position: relative;
+  margin-top: 2.6rem;
+  padding: 3.2rem 2.6rem 3.4rem 0;
+}
+
+.edu-ship {
+  --hull-line: rgba(198, 165, 255, 0.5);
+  position: relative;
+  margin-left: 9.4rem;
+  /* every size inside the ship is a share of the ship's own width, so content always fits */
+  container-type: inline-size;
+}
+
+/* The tip of the nose: a fixed anchor so the little spaceship knows where to dock. */
+.education-ship-nose {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The head of the ship: the spot the sun flies to and becomes the nose cone. */
+.education-ship-head {
+  position: absolute;
+  top: 50%;
+  right: 4.5rem;
+  width: 0;
+  height: 0;
+}
+
+/* ---- loose parts: each one scatters far away when the ship is not built, then flies back ---- */
+
+.edu-part {
+  --edu-tr: 1.25s cubic-bezier(0.18, 0.9, 0.26, 1.08);
+  translate: none;
+  rotate: none;
+  scale: none;
+  opacity: 1;
+  transition:
+    translate var(--edu-tr) var(--bd, 0s),
+    rotate var(--edu-tr) var(--bd, 0s),
+    scale var(--edu-tr) var(--bd, 0s),
+    opacity 0.45s ease var(--bd, 0s),
+    box-shadow 0.9s ease,
+    border-color 0.9s ease,
+    filter 0.9s ease;
+}
+
+.edu-ship.is-hidden .edu-part {
+  --bd: 0s !important;
+  translate: var(--sx, 0) var(--sy, 0);
+  rotate: var(--sr, 0deg);
+  scale: 0.45;
+  opacity: 0;
+  transition-duration: 0.6s, 0.6s, 0.6s, 0.4s, 0.9s, 0.9s, 0.9s;
+  pointer-events: none;
+}
+
+/* ---- hull ---- */
+
+.edu-hull,
+.edu-nose-cone {
+  --nose: clamp(6.5rem, 15cqw, 12rem);
+}
+
+.edu-hull {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--hull-line);
+  border-radius: 2.4rem var(--nose) var(--nose) 2.4rem / 2.4rem 50% 50% 2.4rem;
+  background:
+    linear-gradient(180deg, rgba(120, 118, 230, 0.2), transparent 22%),
+    linear-gradient(160deg, rgba(34, 40, 104, 0.94), rgba(14, 18, 52, 0.97));
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.34),
+    inset 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 -18px 40px rgba(8, 10, 34, 0.5);
+}
+
+/* nose cone: its own part, tinted, closing the hull */
+.edu-nose-cone {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: var(--nose);
+  border: 1px solid rgba(249, 168, 212, 0.45);
+  border-left-width: 1px;
+  border-radius: 0 var(--nose) var(--nose) 0 / 0 50% 50% 0;
+  background: linear-gradient(135deg, rgba(249, 168, 212, 0.34), rgba(198, 165, 255, 0.22) 60%, rgba(125, 211, 252, 0.12));
+  pointer-events: none;
+}
+
+/* hull band */
+.edu-band {
+  position: absolute;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  left: 1.1rem;
+  z-index: 2;
+  width: 0.45rem;
+  border-left: 1px solid rgba(125, 211, 252, 0.4);
+  border-right: 1px solid rgba(125, 211, 252, 0.4);
+  pointer-events: none;
+}
+
+/* small running lights along the roof of the hull */
+.edu-light {
+  position: absolute;
+  top: 0.42rem;
+  left: var(--lx);
+  z-index: 2;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  background: #7dd3fc;
+  box-shadow: 0 0 6px 1px rgba(125, 211, 252, 0.8);
+  pointer-events: none;
+}
+
+.edu-bays {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: clamp(0.6rem, 1.5cqw, 1rem);
+  align-items: stretch;
+  /* the bays stay well inside the straight part of the hull, clear of the nose cone */
+  padding: clamp(1.5rem, 3.4cqw, 2.4rem) calc(var(--nose) + 1rem) clamp(1.5rem, 3.4cqw, 2.4rem)
+    clamp(2.2rem, 4.4cqw, 3.2rem);
+}
+
+/* each bay is a lit window in the hull */
+.edu-ship .education-star-card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  padding: 0.7rem 0.85rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--edu-accent) 40%, rgba(150, 168, 230, 0.16));
+  border-radius: 0.9rem;
+  background:
+    radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--edu-accent) 20%, transparent), transparent 55%),
+    linear-gradient(150deg, rgba(8, 11, 34, 0.82), rgba(10, 14, 40, 0.7));
+  box-shadow:
+    inset 0 0 22px color-mix(in srgb, var(--edu-accent) 12%, transparent),
+    0 0 0 3px rgba(8, 10, 30, 0.45);
+  backdrop-filter: none;
+  height: auto;
+}
+
+.edu-ship .education-star-card:hover {
+  transform: none;
+}
+
+/* the star marker shrinks into the corner of the bay (the little ship still flies to it) */
+.edu-ship .education-star-node {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.6rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  margin: 0;
+}
+
+.edu-ship .education-star-card.star-slot-1 .education-star-node {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.edu-ship .education-world-meta {
+  gap: 0.2rem 0.55rem;
+  padding-right: 1.2rem;
+  font-size: 0.56rem;
+}
+
+.edu-ship .education-star-card h3 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(0.82rem, 1.3cqw, 0.98rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.edu-ship .education-institute {
+  margin-top: 0.3rem;
+  gap: 0.3rem;
+  font-size: clamp(0.68rem, 1.05cqw, 0.76rem);
+}
+
+.edu-ship .education-institute svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.edu-ship .education-blurb {
+  margin-top: 0.4rem;
+  font-size: clamp(0.68rem, 1.05cqw, 0.74rem);
+  line-height: 1.45;
+}
+
+.edu-ship .education-score-row {
+  gap: 0.35rem 0.6rem;
+  margin-top: 0.55rem;
+}
+
+.edu-ship .education-score {
+  padding: 0.22rem 0.55rem;
+  font-size: 0.66rem;
+}
+
+.edu-ship .education-location {
+  flex-basis: 100%;
+  font-size: 0.68rem;
+}
+
+/* ---- fins (swept back, like the little ship's) ---- */
+
+.edu-fin {
+  position: absolute;
+  left: 9%;
+  width: 22%;
+  height: 3rem;
+  background: linear-gradient(90deg, #6d4bd6, #c6a5ff);
+  filter: drop-shadow(0 0 7px rgba(125, 211, 252, 0.4));
+}
+
+.edu-fin-top {
+  bottom: calc(100% - 1px);
+  clip-path: polygon(0 0, 32% 0, 100% 100%, 50% 100%);
+}
+
+.edu-fin-bottom {
+  top: calc(100% - 1px);
+  clip-path: polygon(50% 0, 100% 0, 32% 100%, 0 100%);
+}
+
+/* ---- engine: nozzle, flame and exhaust smoke ---- */
+
+.edu-engine {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 2.4rem;
+  height: 46%;
+  margin-right: -1px;
+  transform: translateY(-50%) scale(0.25);
+  transform-origin: 100% 50%;
+  /* hidden until the sun has locked in; then it pops out of the sun */
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.6s cubic-bezier(0.2, 1.3, 0.4, 1);
+}
+
+.edu-ship.is-docked .edu-engine {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+.edu-nozzle {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #1a2056, #0d1236);
+  border: 1px solid var(--hull-line);
+  border-right: 0;
+  clip-path: polygon(100% 0, 100% 100%, 0 84%, 0 16%);
+}
+
+.edu-flame {
+  position: absolute;
+  top: 24%;
+  right: 100%;
+  width: 9rem;
+  height: 52%;
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+  background: linear-gradient(270deg, #e6f9ff, #7dd3fc 40%, rgba(139, 92, 246, 0));
+  transform-origin: 100% 50%;
+  transform: scaleX(0.05);
+  opacity: 0;
+  filter: blur(0.6px);
+  transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+/* exhaust: puffs leave the nozzle one after another, swell, drift backwards and fade */
+.edu-exhaust {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 0;
+  height: 0;
+}
+
+.edu-exhaust i {
+  --es: 1;
+  --er: 1;
+  --et: 0.5;
+  position: absolute;
+  top: -3.5rem;
+  left: -3.5rem;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(248, 244, 255, 0.9),
+    color-mix(in srgb, rgba(176, 156, 230, 0.7) calc(var(--et) * 100%), rgba(226, 232, 255, 0.7)) 48%,
+    transparent 70%
+  );
+  filter: blur(5px);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* a big billowing cloud that swells, drifts far behind the ship and thins out */
+@keyframes edu-exhaust-drift {
+  0% { opacity: 0; transform: translate(0, 0) scale(calc(0.35 * var(--es))); }
+  8% { opacity: 0.95; }
+  50% { opacity: 0.55; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-24rem * var(--er)), calc(var(--ey, 0rem) * 2.4)) scale(calc(3.6 * var(--es)));
+  }
+}
+@keyframes edu-flame-flicker {
+  from { transform: scaleX(0.82); }
+  to { transform: scaleX(1.1); }
+}
+
+/* ---- states ---- */
+
+.edu-ship.is-hidden .education-ship-nose {
+  pointer-events: none;
+}
+
+/* Just assembled: the seams flash once. */
+.edu-ship:not(.is-hidden) .edu-hull {
+  animation: edu-weld 1.1s ease-out 1.5s 1 both;
+}
+
+@keyframes edu-weld {
+  0% { filter: brightness(1); }
+  35% { filter: brightness(1.7) drop-shadow(0 0 14px rgba(125, 211, 252, 0.7)); }
+  100% { filter: brightness(1); }
+}
+
+/* the head is the little ship itself (the flying part), so the ship has no nose-cone piece of its own */
+.edu-ship .edu-nose-cone,
+.edu-ship .edu-band,
+.edu-ship .edu-antenna {
+  display: none !important;
+}
+
+/* Docked: the little ship has flown into the nose - engines on. */
+.edu-ship.is-lit .edu-hull {
+  border-color: rgba(125, 211, 252, 0.7);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.34),
+    0 0 46px rgba(125, 211, 252, 0.24),
+    0 0 90px rgba(198, 165, 255, 0.18),
+    inset 0 1px rgba(255, 255, 255, 0.14),
+    inset 0 -18px 40px rgba(8, 10, 34, 0.5);
+}
+
+.edu-ship.is-lit .edu-nose-cone {
+  animation: edu-nose-flash 1.2s ease-out 1;
+}
+
+@keyframes edu-nose-flash {
+  0% { filter: brightness(2.6); }
+  100% { filter: brightness(1); }
+}
+
+.edu-ship.is-lit .edu-flame {
+  opacity: 0.95;
+  transform: scaleX(1);
+  animation: edu-flame-flicker 0.14s ease-in-out infinite alternate;
+}
+
+.edu-ship.is-lit .edu-exhaust i {
+  animation-name: edu-exhaust-drift;
+  animation-duration: 3.6s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+.edu-ship.is-lit .edu-light {
+  animation: edu-light-blink 1.4s ease-in-out infinite;
+}
+
+.edu-ship.is-lit .edu-light:nth-of-type(odd) {
+  animation-delay: 0.7s;
+}
+
+@keyframes edu-light-blink {
+  50% { opacity: 0.35; }
+}
+
+/* ---- upright ship (phones, tablets and the Education page): nose up, bays stacked inside ---- */
+.education-ship-scene.is-vertical {
+  padding: 0 0 3.4rem;
+}
+
+.edu-ship.is-vertical {
+    margin: 0 auto;
+    max-width: 38rem;
+  }
+
+.edu-ship.is-vertical .education-ship-nose {
+    top: 0;
+    right: auto;
+    left: 50%;
+  }
+
+.edu-ship.is-vertical .edu-hull {
+    border-radius: 50% 50% 2rem 2rem / 7.5rem 7.5rem 2rem 2rem;
+  }
+
+.edu-ship.is-vertical .edu-nose-cone {
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 7.6rem;
+  border-radius: 50% 50% 0 0 / 7.5rem 7.5rem 0 0;
+    background: linear-gradient(180deg, rgba(249, 168, 212, 0.34), rgba(198, 165, 255, 0.2) 70%, transparent);
+  }
+
+.edu-ship.is-vertical .edu-band,
+.edu-ship.is-vertical .edu-light {
+    display: none;
+  }
+
+.edu-ship.is-vertical .edu-bays {
+    grid-template-columns: 1fr;
+    padding: 8.4rem 1.1rem 1.4rem;
+  }
+
+.edu-ship.is-vertical .edu-fin {
+    top: auto;
+    bottom: 0.4rem;
+    left: auto;
+    width: 3.2rem;
+    height: 7rem;
+  }
+
+.edu-ship.is-vertical .edu-fin-top {
+    right: calc(100% - 1px);
+    bottom: 0.4rem;
+    clip-path: polygon(100% 0, 100% 100%, 0 100%, 100% 55%);
+  }
+
+.edu-ship.is-vertical .edu-fin-bottom {
+    left: calc(100% - 1px);
+    top: auto;
+    bottom: 0.4rem;
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 0 55%);
+}
+
+.edu-ship.is-vertical .edu-engine {
+  top: 100%;
+  right: auto;
+  left: 50%;
+  width: 46%;
+  height: 2.6rem;
+  margin: -1px 0 0;
+  transform: translateX(-50%) scale(0.25);
+  transform-origin: 50% 0;
+}
+
+.edu-ship.is-vertical.is-docked .edu-engine {
+  transform: translateX(-50%) scale(1);
+}
+
+.edu-ship.is-vertical .education-ship-head {
+  top: 7rem;
+    right: auto;
+    left: 50%;
+  }
+
+.edu-ship.is-vertical .edu-nozzle {
+    border: 1px solid var(--hull-line);
+    border-top: 0;
+    clip-path: polygon(0 0, 100% 0, 84% 100%, 16% 100%);
+  }
+
+.edu-ship.is-vertical .edu-flame {
+    top: 100%;
+    right: auto;
+    left: 24%;
+    width: 52%;
+  height: 8rem;
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    background: linear-gradient(180deg, #e6f9ff, #7dd3fc 40%, rgba(139, 92, 246, 0));
+    transform-origin: 50% 0;
+    transform: scaleY(0.05);
+  }
+
+.edu-ship.is-vertical.is-lit .edu-flame {
+    transform: scaleY(1);
+    animation-name: edu-flame-flicker-v;
+  }
+
+.edu-ship.is-vertical .edu-exhaust {
+    top: 100%;
+    right: auto;
+    left: 50%;
+  }
+
+.edu-ship.is-vertical.is-lit .edu-exhaust i {
+    animation-name: edu-exhaust-drift-v;
+  }
+
+.cosmic-education-page .education-ship-scene {
+  padding-bottom: 26rem;
+}
+
+/* Education page only (no travelling sun there): the engine part flies in on its own and attaches. */
+.edu-flyin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* the part is drawn at the exact size of the nose (the upright nose on this page), grows in and hands over */
+.edu-flyin {
+  --wp-head-w: 100cqw;
+  --wp-head-h: 14rem;
+}
+
+.edu-flyin .wp-nose-part {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: calc(var(--wp-head-h) / -2) 0 0 calc(var(--wp-head-w) / -2);
+  transform: translate(var(--fx, 0), var(--fy, 0)) rotate(var(--fr, 0deg)) scale(0.2);
+  opacity: 0;
+  transition: transform 1.3s cubic-bezier(0.2, 0.9, 0.25, 1), opacity 0.4s ease;
+  --fx: 22rem;
+  --fy: 18rem;
+  --fr: 200deg;
+}
+
+.edu-flyin.is-arriving .wp-nose-part {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.edu-flyin.is-attached .wp-nose-part {
+  opacity: 1;
+  transform: scale(1);
+}
+.edu-burst {
+  top: 42%;
+  left: 50%;
+}
+
+@keyframes edu-flame-flicker-v {
+  from { transform: scaleY(0.82); }
+  to { transform: scaleY(1.1); }
+}
+
+@keyframes edu-exhaust-drift-v {
+  0% { opacity: 0; transform: translate(0, 0) scale(calc(0.35 * var(--es))); }
+  8% { opacity: 0.95; }
+  50% { opacity: 0.55; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--ey, 0rem) * 2.4), calc(20rem * var(--er))) scale(calc(3.6 * var(--es)));
+  }
+}
+
+/* =====================================================
+   ROCKET: a pointed ogive nose, a porthole, a striped band, swept fins and a flared bell nozzle.
+   It always stands upright; the bays stack inside the body.
+===================================================== */
+
+.edu-ship.is-vertical {
+  --nose-h: 14rem;
+  --og-r: calc(50% + 5.3%) 0.7rem, calc(50% + 8.9%) 1.4rem, calc(50% + 15%) 2.8rem, calc(50% + 20%) 4.2rem,
+    calc(50% + 25%) 5.6rem, calc(50% + 31%) 7.4rem, calc(50% + 36.5%) 9.2rem, calc(50% + 42.7%) 11.4rem, 100% 14rem;
+  --og-l: 0 14rem, calc(50% - 42.7%) 11.4rem, calc(50% - 36.5%) 9.2rem, calc(50% - 31%) 7.4rem,
+    calc(50% - 25%) 5.6rem, calc(50% - 20%) 4.2rem, calc(50% - 15%) 2.8rem, calc(50% - 8.9%) 1.4rem,
+    calc(50% - 5.3%) 0.7rem;
+  max-width: 38rem;
+}
+
+/* body: an outline layer (the hull colour) with the skin inset by a hair on top of it */
+.edu-ship.is-vertical .edu-hull {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(180deg, #c6a5ff, rgba(125, 211, 252, 0.7) 40%, #8f78e8);
+  box-shadow: none;
+  padding: 0 1.5px 1.5px;
+  clip-path: polygon(0 calc(var(--nose-h) - 1px), 100% calc(var(--nose-h) - 1px), 100% max(var(--nose-h), calc(100% - 21rem)), 82% 100%, 74% calc(100% + 2.4rem), 26% calc(100% + 2.4rem), 18% 100%, 0 max(var(--nose-h), calc(100% - 21rem)));
+}
+
+.edu-hull-skin {
+  position: relative;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07), transparent 26%, transparent 70%, rgba(0, 0, 0, 0.28)),
+    linear-gradient(180deg, rgba(120, 118, 230, 0.24), transparent 18%),
+    linear-gradient(170deg, #20286e, #0e1236);
+}
+
+.edu-ship.is-vertical .edu-hull-skin {
+  min-height: 42rem;
+  clip-path: polygon(0 calc(var(--nose-h) - 1px), 100% calc(var(--nose-h) - 1px), 100% max(var(--nose-h), calc(100% - 21rem)), 82% 100%, 74% calc(100% + 2.4rem), 26% calc(100% + 2.4rem), 18% 100%, 0 max(var(--nose-h), calc(100% - 21rem)));
+}
+
+.edu-ship.is-vertical .edu-bays {
+  padding: calc(var(--nose-h) + 1.4rem) 1.2rem 1.6rem;
+}
+
+/* the nose cone is tinted, with a ring where it meets the body */
+.edu-ship.is-vertical .edu-nose-cone {
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  width: auto;
+  height: var(--nose-h);
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(249, 168, 212, 0.55), rgba(236, 150, 230, 0.32) 55%, rgba(198, 165, 255, 0.14));
+  clip-path: polygon(50% 0, var(--og-r), 100% 100%, 0 100%, var(--og-l));
+}
+
+.edu-ship.is-vertical .edu-band {
+  display: block;
+  top: calc(var(--nose-h) - 0.25rem);
+  right: 0;
+  bottom: auto;
+  left: 0;
+  width: auto;
+  height: 0.7rem;
+  border: 0;
+  border-top: 1px solid rgba(249, 168, 212, 0.7);
+  border-bottom: 1px solid rgba(125, 211, 252, 0.5);
+  background: linear-gradient(90deg, rgba(249, 168, 212, 0.45), rgba(198, 165, 255, 0.3) 50%, rgba(249, 168, 212, 0.45));
+}
+
+/* the porthole */
+.edu-window {
+  position: absolute;
+  top: 6.4rem;
+  left: 50%;
+  z-index: 3;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-left: -1.7rem;
+  border: 3px solid #d9c8ff;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #f2fbff, #7dd3fc 34%, #2a3a92 78%);
+  box-shadow:
+    0 0 0 3px rgba(14, 18, 52, 0.85),
+    0 0 18px rgba(125, 211, 252, 0.45),
+    inset 0 0 10px rgba(8, 10, 34, 0.6);
+  pointer-events: none;
+}
+
+.edu-ship.is-lit .edu-window {
+  animation: edu-window-glow 2.2s ease-in-out infinite;
+}
+
+@keyframes edu-window-glow {
+  50% { box-shadow: 0 0 0 3px rgba(14, 18, 52, 0.85), 0 0 30px rgba(125, 211, 252, 0.9), inset 0 0 8px rgba(8, 10, 34, 0.4); }
+}
+
+/* big swept fins low on the body, their tips dropping below the tail (behind the hull, like the sample) */
+.edu-ship.is-vertical .edu-fin {
+  width: 7.4rem;
+  height: 15rem;
+  bottom: -2.2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0 3%, transparent 3%),
+    linear-gradient(170deg, #c6a5ff, #7d5fe0 55%, #5a3fc4);
+}
+
+.edu-ship.is-vertical .edu-fin-top {
+  right: calc(100% - 12%);
+  bottom: -2.2rem;
+  clip-path: polygon(100% 4%, 0 88%, 18% 100%, 100% 72%);
+}
+
+.edu-ship.is-vertical .edu-fin-bottom {
+  left: calc(100% - 12%);
+  bottom: -2.2rem;
+  clip-path: polygon(0 4%, 100% 88%, 82% 100%, 0 72%);
+}
+/* bell nozzle: flares out; the flame and the smoke come out of its mouth */
+.edu-ship.is-vertical .edu-engine {
+  width: 38%;
+  height: 3.2rem;
+}
+
+.edu-ship.is-vertical .edu-nozzle {
+  border: 0;
+  background: linear-gradient(90deg, #0d1236, #5a55c4 48%, #0d1236);
+  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+}
+
+.edu-ship.is-vertical .edu-flame {
+  left: 14%;
+  width: 72%;
+  height: 11rem;
+  clip-path: polygon(0 0, 100% 0, 88% 30%, 64% 68%, 50% 100%, 36% 68%, 12% 30%);
+}
+
+/* a soft halo behind the body once the engine is lit */
+.edu-ship.is-vertical::before {
+  content: "";
+  position: absolute;
+  inset: 6% -18% -4%;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 55%, rgba(125, 211, 252, 0.2), rgba(198, 165, 255, 0.1) 45%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.edu-ship.is-vertical.is-lit::before {
+  opacity: 1;
+}
+
+.education-ship-scene.is-vertical {
+  padding: 1rem 0 5rem;
+}
+
+.cosmic-education-page .education-ship-scene.is-vertical {
+  padding-bottom: 26rem;
+}
+
+/* =====================================================
+   ROCKET lying on its side (homepage on wide screens): nose pointing right, swept fins on top and
+   below at the back, a bell nozzle with the flame on the left.
+===================================================== */
+
+.edu-ship:not(.is-vertical) {
+  --nose-l: 9rem;
+  --og-ht: calc(100% - 7.3rem) calc(50% - 42.7%), calc(100% - 5.9rem) calc(50% - 36.5%),
+    calc(100% - 4.8rem) calc(50% - 31%), calc(100% - 3.6rem) calc(50% - 25%), calc(100% - 2.7rem) calc(50% - 20%),
+    calc(100% - 1.8rem) calc(50% - 15%), calc(100% - 0.9rem) calc(50% - 8.9%), calc(100% - 0.45rem) calc(50% - 5.3%);
+  --og-hb: calc(100% - 0.45rem) calc(50% + 5.3%), calc(100% - 0.9rem) calc(50% + 8.9%),
+    calc(100% - 1.8rem) calc(50% + 15%), calc(100% - 2.7rem) calc(50% + 20%), calc(100% - 3.6rem) calc(50% + 25%),
+    calc(100% - 4.8rem) calc(50% + 31%), calc(100% - 5.9rem) calc(50% + 36.5%), calc(100% - 7.3rem) calc(50% + 42.7%);
+  /* the nose cone on its own (straight back edge) ... */
+  --og-hn: polygon(0 0, calc(100% - 9rem) 0, var(--og-ht), 100% 50%, var(--og-hb), calc(100% - 9rem) 100%, 0 100%);
+  /* ... and the whole body, which tapers towards the tail like the sample */
+  --og-h: polygon(0 17%, 52% 0, calc(100% - 9rem + 1px) 0, calc(100% - 9rem + 1px) 100%, 52% 100%, 0 83%);
+  max-width: 49rem;
+  /* centred on the page; the engine (nozzle + flame) sticks out to the left */
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.education-ship-scene:not(.is-vertical) {
+  padding-left: 2.6rem;
+}
+
+.edu-ship:not(.is-vertical) .edu-hull {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(90deg, #8f78e8, rgba(125, 211, 252, 0.7) 60%, #c6a5ff);
+  box-shadow: none;
+  padding: 1.5px 0 1.5px 1.5px;
+  clip-path: var(--og-h);
+}
+
+.edu-ship:not(.is-vertical) .edu-hull-skin {
+  position: relative;
+  min-height: 20rem;
+  /* keep the windows centred on the (now taller) body */
+  display: grid;
+  align-items: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 26%, transparent 70%, rgba(0, 0, 0, 0.28)),
+    linear-gradient(90deg, rgba(120, 118, 230, 0.24), transparent 18%),
+    linear-gradient(160deg, #20286e, #0e1236);
+  clip-path: var(--og-h);
+}
+
+.edu-ship:not(.is-vertical) .edu-bays {
+  padding: clamp(1.4rem, 3cqw, 2rem) calc(var(--nose-l) + 0.4rem) clamp(1.4rem, 3cqw, 2rem) clamp(2.2rem, 4cqw, 3rem);
+}
+
+.edu-ship:not(.is-vertical) .edu-nose-cone {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  width: var(--nose-l);
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(90deg, rgba(198, 165, 255, 0.2), rgba(236, 120, 200, 0.5) 40%, rgba(249, 128, 190, 0.85));
+  clip-path: var(--og-hn);
+}
+
+.edu-ship:not(.is-vertical) .edu-band {
+  top: 0;
+  right: calc(var(--nose-l) - 0.25rem);
+  bottom: 0;
+  left: auto;
+  width: 0.7rem;
+  border: 0;
+  border-left: 1px solid rgba(249, 168, 212, 0.7);
+  border-right: 1px solid rgba(125, 211, 252, 0.5);
+  background: linear-gradient(180deg, rgba(249, 168, 212, 0.45), rgba(198, 165, 255, 0.3) 50%, rgba(249, 168, 212, 0.45));
+}
+
+.edu-ship:not(.is-vertical) .edu-window {
+  top: 50%;
+  left: auto;
+  right: 2.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin: -1.2rem 0 0;
+  border-width: 2px;
+}
+
+/* swept fins, top and bottom at the back — top fin is the “view more” CTA */
+.edu-ship:not(.is-vertical) .edu-fin {
+  left: 1%;
+  width: 21%;
+  height: 7rem;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 4%, transparent 4%),
+    linear-gradient(100deg, #5a3fc4, #8f78e8 45%, #c6a5ff);
+}
+
+.edu-ship:not(.is-vertical) .edu-fin-top {
+  bottom: calc(100% - 15%);
+  clip-path: polygon(0 0, 24% 0, 100% 100%, 20% 100%);
+}
+
+.edu-ship:not(.is-vertical) .edu-fin-bottom {
+  top: calc(100% - 15%);
+  clip-path: polygon(20% 0, 100% 0, 24% 100%, 0 100%);
+}
+
+/* ribbed ring at the tail, like the sample's engine skirt */
+.edu-ship:not(.is-vertical) .edu-skirt {
+  top: 17%;
+  right: auto;
+  bottom: 17%;
+  left: 0;
+  width: 2.3rem;
+  height: auto;
+  clip-path: none;
+  background:
+    repeating-linear-gradient(180deg, rgba(8, 10, 34, 0.75) 0 0.28rem, transparent 0.28rem 0.56rem),
+    linear-gradient(90deg, #4a3fb0, #6d4bd6 60%, #8f78e8);
+  border-right: 2px solid rgba(198, 165, 255, 0.55);
+}
+/* bell nozzle that flares towards the back, flame and smoke leave to the left */
+.edu-ship:not(.is-vertical) .edu-nozzle {
+  border: 0;
+  background: linear-gradient(180deg, #0d1236, #5a55c4 48%, #0d1236);
+  clip-path: polygon(100% 20%, 100% 80%, 0 100%, 0 0);
+}
+
+.edu-ship:not(.is-vertical) .edu-flame {
+  top: 12%;
+  height: 76%;
+  width: 7rem;
+  clip-path: polygon(100% 0, 100% 100%, 70% 88%, 32% 64%, 0 50%, 32% 36%, 70% 12%);
+}
+
+/* ---- reference rocket: two round portholes, centre hatch, skirt & antenna ---- */
+
+.edu-win.tone-cyan,
+.edu-modal-card.tone-cyan {
+  --edu-accent: #7dd3fc;
+}
+
+.edu-win.tone-lilac,
+.edu-modal-card.tone-lilac {
+  --edu-accent: #c6a5ff;
+}
+
+.edu-win.tone-pink,
+.edu-modal-card.tone-pink {
+  --edu-accent: #f9a8d4;
+}
+
+.edu-skirt {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.55rem;
+  z-index: 0;
+  height: 1.1rem;
+  background: linear-gradient(90deg, #6d4bd6, #5a55c4 45%, #6d4bd6);
+  clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+  opacity: 0.92;
+}
+
+.edu-antenna {
+  position: absolute;
+  top: 18%;
+  right: calc(var(--nose-l, 9rem) + 18%);
+  z-index: 4;
+  width: 0.2rem;
+  height: 2.2rem;
+  background: linear-gradient(180deg, #d9c8ff, #7dd3fc);
+  border-radius: 1rem;
+  transform-origin: 50% 100%;
+  transform: rotate(-18deg);
+}
+
+.edu-antenna::after {
+  content: "";
+  position: absolute;
+  top: -0.35rem;
+  left: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-left: -0.275rem;
+  border-radius: 50%;
+  background: #f9a8d4;
+  box-shadow: 0 0 10px rgba(249, 168, 212, 0.9);
+}
+
+.edu-ship.is-vertical .edu-antenna {
+  top: 12%;
+  right: 58%;
+  transform: rotate(-8deg);
+}
+
+/* sample layout: both windows sit near the nose, side by side — one large, one small */
+.edu-ship:not(.is-vertical) .edu-bays {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(0.55rem, 1.4cqw, 0.9rem);
+  padding-right: calc(var(--nose-l) + 1.6rem);
+  padding-left: clamp(2rem, 5cqw, 4rem);
+}
+
+.edu-win {
+  position: relative;
+  flex: 0 0 auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid color-mix(in srgb, var(--edu-accent) 70%, #d9c8ff);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(242, 251, 255, 0.22), transparent 42%),
+    radial-gradient(circle at 50% 55%, rgba(8, 11, 34, 0.95), rgba(14, 18, 52, 0.88) 70%);
+  box-shadow:
+    0 0 0 4px rgba(14, 18, 52, 0.9),
+    inset 0 0 22px rgba(8, 10, 34, 0.85),
+    0 0 24px color-mix(in srgb, var(--edu-accent) 25%, transparent);
+}
+
+.edu-win-lg {
+  width: clamp(11rem, 25cqw, 15.4rem);
+}
+
+.edu-win-sm {
+  width: clamp(7rem, 15cqw, 9.8rem);
+  border-width: 2.5px;
+}
+
+.edu-win-glass {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, rgba(125, 211, 252, 0.35), transparent 55%);
+  pointer-events: none;
+}
+
+.edu-win.is-open {
+  border-color: color-mix(in srgb, var(--edu-accent) 90%, white);
+  box-shadow:
+    0 0 0 4px rgba(14, 18, 52, 0.9),
+    inset 0 0 18px color-mix(in srgb, var(--edu-accent) 22%, transparent),
+    0 0 32px color-mix(in srgb, var(--edu-accent) 45%, transparent);
+}
+
+.edu-win .education-star-node {
+  top: 0.35rem;
+  right: 0.4rem;
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.edu-win-copy {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.35rem 0.65rem 0.75rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.edu-win-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--edu-accent) 85%, white);
+}
+
+.edu-win-sm .edu-win-tag {
+  font-size: 0.48rem;
+}
+
+.edu-win h3 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(0.72rem, 1.7cqw, 0.92rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.edu-win-sm h3 {
+  font-size: clamp(0.6rem, 1.25cqw, 0.74rem);
+  margin-top: 0.25rem;
+}
+
+.edu-win-school {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  margin: 0.35rem 0 0;
+  font-size: 0.62rem;
+  color: rgba(226, 232, 255, 0.82);
+}
+
+.edu-win-score {
+  margin-top: 0.35rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--edu-accent) 45%, transparent);
+  background: color-mix(in srgb, var(--edu-accent) 14%, rgba(8, 11, 34, 0.7));
+}
+
+.edu-win-sm .edu-win-score {
+  font-size: 0.5rem;
+  margin-top: 0.25rem;
+  padding: 0.1rem 0.35rem;
+}
+
+/* third (centre) fin: sits behind the windows, towards the tail, and says view more education */
+.edu-fin-center {
+  position: absolute;
+  top: 50%;
+  left: -1.3rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  width: max(10.4rem, calc(100% - 33.2rem));
+  height: 2.7rem;
+  margin-top: -1.35rem;
+  padding: 0 1rem 0 2rem;
+  border: 0;
+  color: #0e1236;
+  font: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #5b3fc4, #8f78e8 40%, #c6a5ff);
+  border-radius: 0.9rem 999px 999px 0.9rem;
+  clip-path: none;
+  transition: filter 0.25s ease;
+}
+
+.edu-fin-center:disabled {
+  cursor: default;
+}
+
+.edu-fin-center.is-open:hover {
+  filter: brightness(1.15) drop-shadow(0 0 10px rgba(125, 211, 252, 0.6));
+}
+
+.edu-fin-center .education-star-node {
+  top: 50%;
+  left: 0.55rem;
+  right: auto;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-top: -0.4rem;
+}
+
+.edu-fin-center-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: clamp(0.56rem, 1.15cqw, 0.68rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* the centre fin, as on the reference: a slim rounded blade standing in front of the lower body, starting
+   just under the windows and running down past the tail */
+.edu-ship.is-vertical .edu-fin-center {
+  top: auto;
+  bottom: -1.3rem;
+  left: 50%;
+  justify-content: center;
+  align-items: flex-start;
+  width: 3rem;
+  height: 9.4rem;
+  margin: 0 0 0 -1.5rem;
+  padding: 2rem 0 0;
+  text-align: center;
+  background: linear-gradient(90deg, #7d63e0, #c6a5ff 50%, #7d63e0);
+  border-radius: 999px 999px 0.9rem 0.9rem;
+  clip-path: none;
+}
+
+.edu-ship.is-vertical .edu-fin-center .education-star-node {
+  top: 0.55rem;
+  left: 50%;
+  margin-left: -0.4rem;
+  margin-top: 0;
+}
+
+.edu-ship.is-vertical .edu-fin-center-label {
+  display: block;
+  writing-mode: vertical-rl;
+  max-height: 6.9rem;
+  font-size: 0.56rem;
+  line-height: 1.25;
+  white-space: normal;
+  color: #0e1236;
+  transform: rotate(180deg);
+}
+.edu-ship.is-vertical .edu-bays {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: calc(var(--nose-h) + 2.8rem) 1rem 9.2rem;
+}
+
+.edu-ship.is-vertical .edu-win-lg {
+  width: clamp(10rem, 40cqw, 15rem);
+}
+
+.edu-ship.is-vertical .edu-win-sm {
+  width: clamp(6.2rem, 25cqw, 9.4rem);
+}
+
+.edu-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(4, 6, 22, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.edu-modal-panel {
+  width: min(38rem, 100%);
+  max-height: min(85vh, 42rem);
+  overflow: auto;
+  padding: 1.35rem 1.35rem 1.5rem;
+  border: 1px solid rgba(198, 165, 255, 0.35);
+  border-radius: 1.35rem;
+  background: linear-gradient(165deg, rgba(20, 26, 72, 0.98), rgba(10, 14, 40, 0.98));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.edu-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.edu-modal-kicker {
+  margin: 0;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: rgba(198, 165, 255, 0.9);
+}
+
+.edu-modal-head h2 {
+  margin: 0.35rem 0 0;
+  font-size: 1.35rem;
+}
+
+.edu-modal-close {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(150, 168, 230, 0.25);
+  border-radius: 50%;
+  background: rgba(8, 11, 34, 0.7);
+  color: #e2e8ff;
+  cursor: pointer;
+}
+
+.edu-modal-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.edu-modal-card {
+  padding: 1rem 1.05rem;
+  border: 1px solid color-mix(in srgb, var(--edu-accent) 35%, rgba(150, 168, 230, 0.2));
+  border-radius: 1rem;
+  background: linear-gradient(150deg, rgba(8, 11, 34, 0.85), rgba(10, 14, 40, 0.75));
+}
+
+.edu-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--edu-accent) 80%, white);
+}
+
+.edu-modal-card h3 {
+  margin: 0.45rem 0 0;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.edu-modal-school {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
+  color: rgba(226, 232, 255, 0.88);
+}
+
+.edu-modal-blurb {
+  margin: 0.55rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: rgba(196, 204, 240, 0.88);
+}
+
+.edu-modal-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.edu-modal-score {
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  border: 1px solid color-mix(in srgb, var(--edu-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--edu-accent) 12%, transparent);
+}
+
+.edu-modal-loc {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  color: rgba(196, 204, 240, 0.82);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edu-flame,
+  .edu-exhaust i,
+  .edu-hull,
+  .edu-nose-cone,
+  .edu-light {
+    animation: none !important;
+  }
+
+  .edu-part {
+    transition: none !important;
+}
+}
+
+/* small screens: stack the two windows so each one is big and the text inside stays readable */
+@media (max-width: 640px) {
+  .edu-ship.is-vertical .edu-bays {
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .edu-ship.is-vertical .edu-win-lg {
+    width: clamp(11rem, 66cqw, 15rem);
+  }
+
+  .edu-ship.is-vertical .edu-win-sm {
+    width: clamp(8.4rem, 52cqw, 11.4rem);
+  }
+}
+
+/* =====================================================
+   Plain hull: one flat colour inside the rocket, no running lights
+===================================================== */
+.edu-ship .edu-hull-skin,
+.edu-ship:not(.is-vertical) .edu-hull-skin,
+.edu-ship.is-vertical .edu-hull-skin {
+  background: #151b58;
+}
+
+.edu-ship .edu-light {
+  display: none !important;
+}
+
+/* =====================================================
+   Centre (third) fin: a swept blade that comes out of the tail, half inside the body, half outside
+===================================================== */
+.edu-fin-wrap {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  --fw: max(15rem, calc(60% - 12rem));
+  left: calc(var(--fw) / -2);
+  width: var(--fw);
+  height: 4.6rem;
+  margin-top: -2.3rem;
+  filter: drop-shadow(0 0 7px rgba(125, 211, 252, 0.28));
+}
+
+.edu-ship .edu-fin-wrap .edu-fin-center {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0 12% 0 27%;
+  justify-content: flex-start;
+  background: linear-gradient(90deg, #4b34b0, #7d63e0 30%, #b79cff 75%, #c6a5ff);
+  border-radius: 0;
+  clip-path: polygon(0 50%, 19% 9%, 60% 0, 88% 0, 100% 28%, 100% 72%, 88% 100%, 60% 100%, 19% 91%);
+}
+
+.edu-ship .edu-fin-wrap .edu-fin-center .education-star-node {
+  top: 50%;
+  left: 19%;
+  margin: -0.4rem 0 0;
+}
+
+.edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+  margin-left: 0;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap {
+  top: auto;
+  bottom: -7rem;
+  left: 50%;
+  width: 5.6rem;
+  height: 14rem;
+  margin: 0 0 0 -2.8rem;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center {
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3.2rem 0.5rem 0;
+  background: linear-gradient(0deg, #4b34b0, #7d63e0 30%, #b79cff 75%, #c6a5ff);
+  clip-path: polygon(30% 0, 70% 0, 100% 12%, 100% 40%, 92% 80%, 50% 100%, 8% 80%, 0 40%, 0 12%);
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center .education-star-node {
+  top: 0.8rem;
+  left: 50%;
+  margin: 0 0 0 -0.4rem;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center-label {
+  max-height: 7.2rem;
+}
+/* =====================================================
+   3D look: the body reads as a rounded tube (light along the top, shade underneath), the fins as folded
+   metal with a crease, the centre fin as a ridge that points out of the tail towards the viewer
+===================================================== */
+.edu-ship:not(.is-vertical) .edu-hull-skin {
+  background:
+    linear-gradient(180deg, rgba(200, 210, 255, 0.3) 0, rgba(200, 210, 255, 0.1) 16%, transparent 38%, transparent 58%, rgba(2, 4, 24, 0.6) 100%),
+    #1a2166;
+}
+
+.edu-ship.is-vertical .edu-hull-skin {
+  background:
+    linear-gradient(90deg, rgba(190, 200, 255, 0.2) 0, rgba(190, 200, 255, 0.05) 14%, transparent 34%, transparent 62%, rgba(2, 4, 24, 0.5) 100%),
+    #1a2166;
+}
+
+/* side fins: a lit face and a shaded face meeting in a crease */
+.edu-ship:not(.is-vertical) .edu-fin-top {
+  background:
+    linear-gradient(180deg, transparent 52%, rgba(14, 10, 70, 0.4) 52%),
+    linear-gradient(100deg, #5a3fc4, #8f78e8 45%, #c6a5ff);
+}
+
+.edu-ship:not(.is-vertical) .edu-fin-bottom {
+  background:
+    linear-gradient(0deg, transparent 52%, rgba(14, 10, 70, 0.4) 52%),
+    linear-gradient(100deg, #5a3fc4, #8f78e8 45%, #c6a5ff);
+}
+
+/* centre fin: two faces (light above the ridge, dark below) so it looks like it points at the viewer */
+.edu-ship .edu-fin-wrap .edu-fin-center {
+  background:
+    linear-gradient(180deg, transparent 64%, rgba(14, 10, 70, 0.34) 64%),
+    linear-gradient(90deg, #4b34b0, #7d63e0 30%, #b79cff 75%, #c6a5ff);
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center {
+  background:
+    linear-gradient(90deg, transparent 66%, rgba(14, 10, 70, 0.34) 66%),
+    linear-gradient(0deg, #4b34b0, #7d63e0 30%, #b79cff 75%, #c6a5ff);
+}
+/* =====================================================
+   Centre fin, third of three (about 120 degrees apart): it points out of the tail along the rocket's axis.
+   Layers, back to front: flame > nozzle > CENTRE FIN > hull. The root is tucked behind the hull and the
+   outer half sticks out clearly past the tail.
+===================================================== */
+.edu-engine {
+  z-index: 0;
+}
+
+.edu-ship .edu-hull {
+  z-index: 2;
+}
+
+.edu-ship .edu-fin-wrap {
+  z-index: 1;
+  --fw: 21rem;
+  left: calc(var(--fw) / -2);
+  width: var(--fw);
+  height: 6.2rem;
+  margin-top: -3.1rem;
+  filter: drop-shadow(-3px 6px 8px rgba(2, 3, 22, 0.55)) drop-shadow(0 0 8px rgba(125, 211, 252, 0.25));
+}
+
+.edu-ship .edu-fin-wrap .edu-fin-center {
+  padding: 0 0 0 23%;
+  background:
+    linear-gradient(90deg, transparent 36%, rgba(4, 5, 28, 0.55) 50%),
+    linear-gradient(180deg, transparent 62%, rgba(14, 10, 70, 0.36) 62%),
+    linear-gradient(90deg, #4b34b0, #7d63e0 28%, #b79cff 60%, #c6a5ff);
+}
+
+.edu-ship .edu-fin-wrap .edu-fin-center .education-star-node {
+  left: 14%;
+}
+
+.edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+  white-space: normal;
+  max-width: 5.6rem;
+  line-height: 1.15;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap {
+  bottom: calc(var(--fh) / -2);
+  --fh: 16rem;
+  width: 6rem;
+  height: var(--fh);
+  margin: 0 0 0 -3rem;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center {
+  padding: 9.2rem 0.5rem 0;
+  background:
+    linear-gradient(0deg, transparent 36%, rgba(4, 5, 28, 0.55) 50%),
+    linear-gradient(90deg, transparent 66%, rgba(14, 10, 70, 0.36) 66%),
+    linear-gradient(0deg, #4b34b0, #7d63e0 28%, #b79cff 60%, #c6a5ff);
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center .education-star-node {
+  top: 8.3rem;
+  left: 50%;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center-label {
+  max-height: 4.8rem;
+}
+/* centre fin geometry: a real swept stabiliser (broad at the tail, narrowing to a blunt tip) */
+.edu-ship .edu-fin-wrap {
+  --fw: 22rem;
+  height: 8.8rem;
+  margin-top: -4.4rem;
+}
+
+.edu-ship .edu-fin-wrap .edu-fin-center {
+  padding: 0 0 0 20%;
+  clip-path: polygon(0 34%, 50% 0, 100% 0, 100% 100%, 50% 100%, 0 66%);
+}
+
+.edu-ship .edu-fin-wrap .edu-fin-center .education-star-node {
+  left: 9%;
+}
+
+.edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+  max-width: 6.2rem;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap {
+  --fh: 17rem;
+  width: 7rem;
+  margin: 0 0 0 -3.5rem;
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center {
+  padding: 9.8rem 0.5rem 0;
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 68% 100%, 32% 100%, 0 50%);
+}
+
+.edu-ship.is-vertical .edu-fin-wrap .edu-fin-center .education-star-node {
+  top: 8.9rem;
+  left: 50%;
+}
+/* =====================================================================================================
+   THREE FINS, 120 degrees apart around the rocket's long axis (three-quarter view)
+     - upper fin   (0 degrees)    the existing top fin, straight up in the silhouette
+     - far fin     (240 degrees)  the existing bottom fin; it is behind the hull, so the body covers its root
+     - near fin    (120 degrees)  the "view more education" fin: it stands out of the body towards the viewer,
+                                   in FRONT of the hull, rooted on the same rear section as the other two
+   Every fin is perpendicular to the axis; nothing points back towards the exhaust.
+===================================================================================================== */
+.education-ship-scene .edu-ship .edu-fin-bottom {
+  /* the far-side fin sits a little darker, further from the light */
+  filter: brightness(0.82) drop-shadow(0 0 7px rgba(125, 211, 252, 0.3));
+}
+
+.education-ship-scene .edu-ship .edu-fin-wrap {
+  position: absolute;
+  z-index: 3;
+  top: 74%;
+  bottom: auto;
+  left: 5%;
+  width: 22%;
+  height: calc(26% + 3.6rem);
+  margin: 0;
+  /* the near fin throws a soft shadow on the hull */
+  filter: drop-shadow(0 7px 7px rgba(2, 3, 22, 0.55)) drop-shadow(0 0 8px rgba(125, 211, 252, 0.25));
+}
+
+.education-ship-scene .edu-ship .edu-fin-wrap .edu-fin-center {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2.2rem 18% 0 24%;
+  text-align: center;
+  border-radius: 0;
+  /* the same swept shape as the other fins: broad root on the body, tip swept back */
+  clip-path: polygon(20% 0, 100% 0, 24% 100%, 0 100%);
+  background:
+    linear-gradient(180deg, rgba(4, 5, 28, 0.5), transparent 16%),
+    linear-gradient(180deg, transparent 60%, rgba(14, 10, 70, 0.4) 60%),
+    linear-gradient(100deg, #5a3fc4, #8f78e8 45%, #c6a5ff);
+}
+
+.education-ship-scene .edu-ship .edu-fin-wrap .edu-fin-center .education-star-node {
+  top: 0.55rem;
+  left: 50%;
+  right: auto;
+  margin: 0 0 0 -0.4rem;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 5.6rem;
+  margin: 0;
+  white-space: normal;
+  line-height: 1.2;
+  font-size: 0.6rem;
+}
+
+/* upright rocket: the same three-fin arrangement turned a quarter: left fin = upper, right fin = far side,
+   the near fin stands on the front of the body at the rear */
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap {
+  top: auto;
+  bottom: -1.8rem;
+  left: 68%;
+  width: 9.4rem;
+  height: 13.5rem;
+  margin: 0;
+}
+
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap .edu-fin-center {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 3.8rem 0 0 1.1rem;
+  clip-path: polygon(0 0, 100% 62%, 76% 100%, 0 100%);
+  background:
+    linear-gradient(90deg, rgba(4, 5, 28, 0.5), transparent 14%),
+    linear-gradient(90deg, transparent 56%, rgba(14, 10, 70, 0.4) 56%),
+    linear-gradient(170deg, #c6a5ff, #7d5fe0 55%, #5a3fc4);
+}
+
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap .edu-fin-center .education-star-node {
+  top: 1rem;
+  left: 1.5rem;
+  margin: 0;
+}
+
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap .edu-fin-center-label {
+  display: block;
+  margin: 0 0 0 0.5rem;
+  max-height: 7.4rem;
+  font-size: 0.58rem;
+}
+/* near fin: moved a little towards the nose (three-quarter view) so the far fin stays visible beside it,
+   plus a thickness wall so it reads as a solid plate and not a flat sticker */
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap {
+  left: 11%;
+  width: 21%;
+}
+
+.education-ship-scene .edu-ship .edu-fin-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translate(0.5rem, 0.42rem);
+  background: linear-gradient(180deg, #1c1360, #0d0a3a);
+  clip-path: polygon(20% 0, 100% 0, 24% 100%, 0 100%);
+}
+
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap::before {
+  clip-path: polygon(0 0, 100% 62%, 76% 100%, 0 100%);
+  transform: translate(0.42rem, 0.5rem);
+}
+/* =====================================================
+   CTA fin: a little wider than the other two, label centred on its face, glows and nudges outward on hover
+===================================================== */
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap {
+  left: 9%;
+  width: 25%;
+  transition:
+    translate var(--edu-tr) var(--bd, 0s),
+    rotate var(--edu-tr) var(--bd, 0s),
+    scale var(--edu-tr) var(--bd, 0s),
+    opacity 0.45s ease var(--bd, 0s),
+    transform 0.25s ease,
+    filter 0.3s ease;
+}
+
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap {
+  width: 10.4rem;
+  transition:
+    translate var(--edu-tr) var(--bd, 0s),
+    rotate var(--edu-tr) var(--bd, 0s),
+    scale var(--edu-tr) var(--bd, 0s),
+    opacity 0.45s ease var(--bd, 0s),
+    transform 0.25s ease,
+    filter 0.3s ease;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center {
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 15% 0 11%;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+  max-width: 6.2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+}
+
+.education-ship-scene .edu-ship .edu-fin-wrap .edu-fin-center:focus-visible {
+  outline: none;
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(198, 165, 255, 0.9));
+}
+
+/* hover: purple glow + a small move outward (away from the body), only when the fin is live */
+.education-ship-scene .edu-ship .edu-fin-wrap:has(.edu-fin-center:not(:disabled):hover),
+.education-ship-scene .edu-ship .edu-fin-wrap:has(.edu-fin-center:not(:disabled):focus-visible) {
+  transform: translate(-0.3rem, 0.4rem);
+  filter: drop-shadow(0 8px 8px rgba(2, 3, 22, 0.55)) drop-shadow(0 0 14px rgba(167, 139, 250, 0.85));
+}
+
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap:has(.edu-fin-center:not(:disabled):hover),
+.education-ship-scene .edu-ship.is-vertical .edu-fin-wrap:has(.edu-fin-center:not(:disabled):focus-visible) {
+  transform: translate(0.35rem, 0.4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .education-ship-scene .edu-ship .edu-fin-wrap {
+    transition: none !important;
+  }
+}
+/* centre the label on the lit face of the fin (the face narrows towards the tip, so the text sits up and in) */
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center {
+  padding: 0.8rem 27% 1.3rem 6%;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+  display: block;
+  max-width: 7.4rem;
+  text-align: center;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label svg {
+  display: inline;
+  margin-left: 0.2rem;
+  vertical-align: -0.12rem;
+}
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+  width: 5.4rem;
+  max-width: 5.4rem;
+}
+/* windows sit a little further towards the middle of the body */
+.edu-ship:not(.is-vertical) .edu-bays {
+  padding-right: calc(var(--nose-l) + 4.6rem);
+}
+/* no "+" markers on the windows or the fin (kept in layout, so the voyage can still measure them) */
+.education-ship-scene .edu-ship .education-star-node {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* senior secondary window: a little larger so its text fits comfortably */
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm {
+  width: clamp(9rem, 20cqw, 12.4rem);
+  border-width: 3px;
+}
+.education-ship-scene .edu-ship .edu-win-sm .edu-win-copy {
+  padding: 0.9rem 0.8rem 0.8rem;
+}
+.education-ship-scene .edu-ship .edu-win-sm .edu-win-tag {
+  font-size: 0.56rem;
+}
+.education-ship-scene .edu-ship .edu-win-sm h3 {
+  font-size: clamp(0.7rem, 1.45cqw, 0.84rem);
+  margin-top: 0.3rem;
+}
+.education-ship-scene .edu-ship .edu-win-sm .edu-win-score {
+  font-size: 0.58rem;
+  margin-top: 0.35rem;
+  padding: 0.12rem 0.5rem;
+}
+.education-ship-scene .edu-ship.is-vertical .edu-win-sm {
+  width: clamp(7.4rem, 30cqw, 10.6rem);
+}
+@media (max-width: 640px) {
+  .education-ship-scene .edu-ship.is-vertical .edu-win-sm {
+    width: clamp(9.4rem, 58cqw, 12.4rem);
+  }
+}
+
+/* =====================================================
+   The rocket always lies on its side. When the screen is narrower than the rocket, the whole rocket
+   is scaled down to fit (see --edu-fit in EducationShip.tsx); phones also get a more compact rocket.
+===================================================== */
+.education-ship-scene:not(.is-vertical) {
+  --edu-natural: 61rem;
+  padding: 0;
+}
+
+.education-ship-scene:not(.is-vertical) .edu-fit {
+  box-sizing: border-box;
+  width: var(--edu-natural);
+  margin-inline: auto;
+  /* room on the left for the engine fire */
+  padding: 3.2rem 2.6rem 3.4rem 5.5rem;
+  transform-origin: 0 0;
+}
+
+@media (max-width: 700px) {
+  .education-ship-scene:not(.is-vertical) {
+    --edu-natural: 35rem;
+    margin-top: 1.2rem;
+  }
+
+  .education-ship-scene:not(.is-vertical) .edu-fit {
+    padding: 2.4rem 1.6rem 2.8rem 0;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) {
+    margin-left: 5rem;
+    max-width: 28.4rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-hull-skin {
+    min-height: 13.5rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-bays {
+    gap: 0.5rem;
+    padding: 1.2rem calc(var(--nose-l) + 0.5rem) 1.2rem 1.6rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-lg {
+    width: 9.4rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm {
+    width: 6.4rem;
+    border-width: 2.5px;
+  }
+
+  /* inside the windows: the title and the score; the full details are one tap away on the mission log */
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-tag,
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-school {
+    display: none;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-copy {
+    padding: 0.7rem 0.6rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win h3 {
+    margin-top: 0;
+    font-size: 0.82rem;
+    line-height: 1.15;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm h3 {
+    font-size: 0.7rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-score {
+    margin-top: 0.3rem;
+    font-size: 0.66rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm .edu-win-score {
+    font-size: 0.56rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-flame {
+    width: 3.6rem;
+  }
+}
+
+
+/* both windows read the same: tag, title, school, score - in the same sizes */
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm .edu-win-copy {
+  padding: 1.35rem 0.65rem 0.75rem;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm .edu-win-tag {
+  font-size: 0.6rem;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm h3 {
+  margin-top: 0.35rem;
+  font-size: clamp(0.72rem, 1.7cqw, 0.92rem);
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm .edu-win-school {
+  font-size: 0.62rem;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm .edu-win-score {
+  margin-top: 0.35rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.6rem;
+}
+
+/* the fire needs no smoke */
+.education-ship-scene .edu-ship .edu-exhaust {
+  display: none;
+}
+
+/* small screens: the fin says one word; no CBSE or CGPA inside the windows */
+@media (max-width: 700px) {
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-score,
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label svg {
+    display: none;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+    width: auto;
+    max-width: none;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win h3,
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm h3 {
+    font-size: 0.95rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm .edu-win-tag,
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-win-sm .edu-win-school {
+    display: none;
+  }
+}
+
+/* ---- engine fire: soft layered flames in the site's own cyan / violet / pink, a violet glow, and a few small wisps ---- */
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-flame-glow {
+  position: absolute;
+  top: -35%;
+  right: 100%;
+  width: 15rem;
+  height: 170%;
+  background: radial-gradient(ellipse at 100% 50%, rgba(167, 139, 250, 0.5), rgba(236, 121, 197, 0.14) 48%, transparent 72%);
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.education-ship-scene .edu-ship.is-lit:not(.is-vertical) .edu-flame-glow {
+  opacity: 1;
+  animation: edu-fire-glow 1.6s ease-in-out infinite alternate;
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-flame {
+  top: 14%;
+  height: 72%;
+  width: 10rem;
+  /* it starts a little inside the nozzle, so its cut edge is hidden behind the bell */
+  right: calc(100% - 1.6rem);
+  /* a flame: wide at the nozzle, tapering to a point behind it */
+  clip-path: polygon(0.0% 50.0%, 4.0% 45.1%, 10.0% 40.5%, 18.0% 35.5%, 28.0% 30.0%, 40.0% 24.2%, 52.0% 18.8%, 64.0% 13.7%, 76.0% 9.0%, 88.0% 4.4%, 100.0% 0.0%, 100.0% 100.0%, 88.0% 95.6%, 76.0% 91.0%, 64.0% 86.3%, 52.0% 81.2%, 40.0% 75.8%, 28.0% 70.0%, 18.0% 64.5%, 10.0% 59.5%, 4.0% 54.9%, 0.0% 50.0%);
+  border-radius: 0;
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.95) 0,
+    rgba(190, 225, 255, 0.9) 14%,
+    rgba(139, 140, 250, 0.82) 42%,
+    rgba(192, 132, 252, 0.42) 72%,
+    rgba(236, 121, 197, 0) 100%
+  );
+  filter: blur(1px);
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-flame.edu-flame-mid {
+  top: 22%;
+  height: 56%;
+  width: 6rem;
+  background: linear-gradient(270deg, #ffffff 0, #aeeaff 34%, rgba(125, 211, 252, 0.5) 70%, rgba(125, 211, 252, 0) 100%);
+}
+
+.education-ship-scene .edu-ship:not(.is-vertical) .edu-flame.edu-flame-in {
+  top: 36%;
+  height: 28%;
+  width: 3.4rem;
+  filter: none;
+  background: linear-gradient(270deg, #ffffff 0, rgba(255, 255, 255, 0.85) 45%, rgba(255, 255, 255, 0) 100%);
+}
+
+.education-ship-scene .edu-ship.is-lit:not(.is-vertical) .edu-flame {
+  animation: edu-fire-a 0.2s ease-in-out infinite alternate;
+}
+
+.education-ship-scene .edu-ship.is-lit:not(.is-vertical) .edu-flame.edu-flame-mid {
+  animation: edu-fire-b 0.15s ease-in-out infinite alternate;
+}
+
+.education-ship-scene .edu-ship.is-lit:not(.is-vertical) .edu-flame.edu-flame-in {
+  animation: edu-fire-b 0.11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes edu-fire-a {
+  from { transform: scale(0.88, 0.95); }
+  to { transform: scale(1.06, 1.04); }
+}
+
+@keyframes edu-fire-b {
+  from { transform: scale(0.8, 0.92); }
+  to { transform: scale(1.12, 1.06); }
+}
+
+@keyframes edu-fire-glow {
+  from { opacity: 0.72; }
+  to { opacity: 1; }
+}
+
+/* a few small wisps that leave the flame, drift back and melt away */
+.edu-wisps {
+  --wr: 14rem;
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.edu-wisps i {
+  position: absolute;
+  top: -1.3rem;
+  left: -1.3rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 208, 255, 0.5), rgba(165, 145, 235, 0.2) 55%, transparent 72%);
+  filter: blur(3px);
+  opacity: 0;
+}
+
+.edu-ship.is-lit .edu-wisps i {
+  animation: edu-wisp 2.8s ease-out infinite;
+  animation-delay: calc(var(--i) * 0.47s);
+}
+
+@keyframes edu-wisp {
+  0% {
+    opacity: 0;
+    transform: translate(calc(var(--wr) * -0.3), 0) scale(0.5);
+  }
+  15% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--wr) * -1), calc((var(--i) - 2.5) * 0.9rem)) scale(1.9);
+  }
+}
+
+@media (max-width: 700px) {
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-flame {
+    width: 5rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-flame.edu-flame-mid {
+    width: 3.6rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-flame.edu-flame-in {
+    width: 2rem;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-flame-glow {
+    width: 8rem;
+  }
+
+  .edu-wisps {
+    --wr: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edu-ship .edu-flame,
+  .edu-ship .edu-flame-glow,
+  .edu-wisps i {
+    animation: none !important;
+  }
+}
+/* phones: a wider fin so the one-word label sits whole on the blade, with a comfortable tap area */
+@media (max-width: 700px) {
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap {
+    left: 7%;
+    width: 29%;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center {
+    /* the hull covers the upper part of the blade, so the label sits in the part that shows below it */
+    padding: 0 0 4.4rem 12.5%;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+    text-align: center;
+  }
+}
+
+/* phones and small screens: once the ship is scaled down the fin label is too small, so "View full education" is a real button under the rocket */
+.edu-explore-pill {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+    display: none;
+  }
+
+  .edu-explore-pill {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.9rem;
+    margin: 0.4rem auto 0;
+    padding: 0.7rem 1.7rem;
+    border: 1px solid rgba(198, 165, 255, 0.5);
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(125, 211, 252, 0.22), rgba(198, 165, 255, 0.28));
+    box-shadow: 0 0 24px rgba(198, 165, 255, 0.22);
+    max-width: 100%;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .edu-explore-pill.is-on {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+/* the fin label is the same pill as the "View full education" button (same border, fill and type),
+   sized to sit wholly inside the slanted blade, and filled with the button's own tint only so the fin's
+   colour shows through instead of a separate dark chip */
+@media (min-width: 861px) {
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label {
+    position: absolute;
+    top: 30%;
+    left: 43%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    width: auto;
+    max-width: none;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid rgba(198, 165, 255, 0.5);
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(135deg, rgba(125, 211, 252, 0.22), rgba(198, 165, 255, 0.28));
+    box-shadow: none;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+    text-shadow: none;
+    white-space: nowrap;
+  }
+
+  .education-ship-scene .edu-ship:not(.is-vertical) .edu-fin-wrap .edu-fin-center-label svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin: 0;
+  }
+}
+/* The windows are loose parts of the ship too (content already inside): they fly in a little quicker and
+   settle into the hull just as it arrives, so nothing waits for the assembly to finish. */
+.edu-ship .edu-win.edu-part {
+  --edu-tr: 0.75s cubic-bezier(0.18, 0.9, 0.26, 1.08);
+}

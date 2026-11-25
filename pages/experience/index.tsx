@@ -26,7 +26,7 @@ export default function ExperiencePage() {
             The journey so far
           </h1>
           <p className="experience-subtitle">
-            Every role is another orbit — from early frontend foundations to building and operating production systems.
+            From frontend internships to building and running production systems, every role added a new layer.
           </p>
           <div className="experience-page-stats">
             <span><Sparkles size={14} aria-hidden="true" /> Product engineering</span>
