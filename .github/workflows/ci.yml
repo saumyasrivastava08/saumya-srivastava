@@ -1,0 +1,36 @@
+name: Portfolio CI
+
+on:
+  push:
+    branches:
+      - feature/hero-contact-panel
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Report dependency audit
+        run: |
+          npm audit --json > npm-audit.json || true
+          node -e 'const a=require("./npm-audit.json"); for (const [name, item] of Object.entries(a.vulnerabilities || {})) { const fix = item.fixAvailable; console.log(JSON.stringify({ name, severity: item.severity, direct: item.isDirect, range: item.range, fixAvailable: fix })); }'

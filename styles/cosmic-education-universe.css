@@ -1,0 +1,1133 @@
+﻿/* =====================================================
+   EDUCATION UNIVERSE — a vertical rocket inside a planetary system
+   Desktop: planets orbit the rocket. Tablet: rearranged, compact.
+   Phone: rocket first, planets flow around and below it.
+===================================================== */
+
+.uni-intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.uni-intro .education-subtitle {
+  margin-inline: auto;
+}
+
+/* ---- Stage ---- */
+
+.uni {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 70rem;
+  margin: clamp(0.6rem, 2vw, 1.6rem) auto 5.2rem;
+  aspect-ratio: 4 / 3;
+}
+
+.uni-stars {
+  position: absolute;
+  inset: -4% -2%;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.4px 1.4px at 6% 12%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 14% 78%, #cfe0ff 98%, transparent),
+    radial-gradient(1.2px 1.2px at 33% 8%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 41% 90%, #e5d9ff 98%, transparent),
+    radial-gradient(1.6px 1.6px at 58% 16%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 63% 84%, #bfe3ff 98%, transparent),
+    radial-gradient(1.3px 1.3px at 78% 8%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 93% 38%, #e5d9ff 98%, transparent),
+    radial-gradient(1.2px 1.2px at 96% 92%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 22% 46%, #cfe0ff 98%, transparent),
+    radial-gradient(1px 1px at 52% 52%, #fff 98%, transparent),
+    radial-gradient(1.2px 1.2px at 86% 62%, #fff 98%, transparent);
+  animation: education-star-twinkle 5s ease-in-out infinite alternate;
+}
+
+.uni-glow {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  z-index: 0;
+  width: 56%;
+  height: 96%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(110, 96, 255, 0.34), rgba(56, 110, 240, 0.14) 38%, transparent 68%),
+    radial-gradient(ellipse at 50% 92%, rgba(167, 139, 250, 0.3), transparent 42%);
+  filter: blur(10px);
+}
+
+/* orbital rings */
+.uni-rings {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.uni-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(125, 211, 252, 0.26);
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg));
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+}
+
+.uni-ring-a {
+  --r: -12deg;
+  width: 50%;
+  height: 90%;
+  box-shadow: 0 0 22px rgba(125, 211, 252, 0.08);
+}
+
+.uni-ring-b {
+  --r: 13deg;
+  width: 82%;
+  height: 64%;
+  border-color: rgba(198, 165, 255, 0.26);
+  box-shadow: 0 0 22px rgba(198, 165, 255, 0.08);
+}
+
+.uni-ring-c {
+  --r: -26deg;
+  width: 98%;
+  height: 94%;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* constellation paths */
+.uni-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.uni-lines path {
+  animation: uni-dots 14s linear infinite;
+}
+
+.uni-lines-t,
+.uni-lines-m {
+  display: none;
+}
+
+@keyframes uni-dots {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+
+/* ---- Rocket: the homepage rocket, upright, built from loose parts that assemble ---- */
+
+.uni-rocket {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 4;
+  height: 100%;
+  aspect-ratio: 340 / 660;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.uni-rocket-float {
+  container-type: inline-size;
+  width: 100%;
+  height: 100%;
+  animation: uni-bob 6.5s ease-in-out infinite alternate;
+}
+
+.uni-ship {
+  --hull-line: rgba(198, 165, 255, 0.5);
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* every loose part scatters when the rocket is not built, then flies back into place */
+.uni-p {
+  --uni-tr: 1.5s cubic-bezier(0.18, 0.9, 0.26, 1.08);
+  translate: none;
+  rotate: none;
+  scale: none;
+  opacity: 1;
+  transition:
+    translate var(--uni-tr) var(--bd, 0s),
+    rotate var(--uni-tr) var(--bd, 0s),
+    scale var(--uni-tr) var(--bd, 0s),
+    opacity 0.45s ease var(--bd, 0s),
+    box-shadow 0.5s ease,
+    border-color 0.5s ease,
+    filter 0.5s ease;
+}
+
+.uni.is-hidden .uni-p {
+  --bd: 0s !important;
+  translate: var(--sx, 0) var(--sy, 0);
+  rotate: var(--sr, 0deg);
+  scale: 0.45;
+  opacity: 0;
+  transition-duration: 0.6s, 0.6s, 0.6s, 0.4s, 0.5s, 0.5s, 0.5s;
+}
+
+/* hull: flat navy, like the homepage ship */
+.uni-hull {
+  position: absolute;
+  left: 25%;
+  top: 22%;
+  z-index: 3;
+  width: 50%;
+  height: 62%;
+  border: 1px solid var(--hull-line);
+  border-radius: 0 0 1rem 1rem;
+  background:
+    linear-gradient(90deg, rgba(6, 9, 38, 0.5), transparent 28%, transparent 60%, rgba(4, 6, 28, 0.6)),
+    linear-gradient(180deg, rgba(120, 118, 230, 0.2), transparent 22%),
+    linear-gradient(160deg, #232b7c, #151b5c 60%, #0e1348);
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.34),
+    inset 1px 0 rgba(255, 255, 255, 0.08),
+    inset -9px 0 20px rgba(192, 132, 252, 0.12),
+    inset 0 -18px 40px rgba(8, 10, 34, 0.5);
+}
+
+/* the hull band: two thin lines below the nose */
+.uni-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 3.6%;
+  height: 2.6%;
+  border-top: 1px solid rgba(125, 211, 252, 0.45);
+  border-bottom: 1px solid rgba(125, 211, 252, 0.45);
+  pointer-events: none;
+}
+
+/* ribbed engine skirt */
+.uni-skirt {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 11%;
+  border-top: 1px solid var(--hull-line);
+  border-radius: 0 0 0.9rem 0.9rem;
+  background: repeating-linear-gradient(90deg, rgba(198, 165, 255, 0.55) 0 1px, rgba(10, 14, 50, 0.72) 1px 6px);
+  pointer-events: none;
+}
+
+/* portholes — one per planet, lit up when that planet is hovered */
+.uni-window {
+  position: absolute;
+  left: calc((100% - var(--w)) / 2);
+  width: var(--w);
+  aspect-ratio: 1;
+  border: 3px solid color-mix(in srgb, var(--a) 72%, #d9c8ff);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(242, 251, 255, 0.22), transparent 42%),
+    radial-gradient(circle at 50% 55%, rgba(8, 11, 34, 0.95), rgba(14, 18, 52, 0.88) 70%);
+  box-shadow:
+    0 0 0 3px rgba(14, 18, 52, 0.9),
+    inset 0 0 14px rgba(8, 10, 34, 0.85),
+    0 0 16px color-mix(in srgb, var(--a) 26%, transparent);
+}
+
+.uni-window-0 {
+  --w: 64%;
+  top: 8%;
+  --t: 4cqw;
+  --l: 2.6cqw;
+}
+.uni-window-1 {
+  --w: 50%;
+  top: 36.5%;
+  --t: 3.1cqw;
+  --l: 2.3cqw;
+}
+.uni-window-2 {
+  --w: 40%;
+  top: 59.7%;
+  --t: 2.8cqw;
+  --l: 2.1cqw;
+}
+
+.uni-window.is-lit {
+  border-color: #fff;
+  box-shadow:
+    0 0 0 3px rgba(14, 18, 52, 0.9),
+    inset 0 0 18px color-mix(in srgb, var(--a) 55%, transparent),
+    0 0 30px color-mix(in srgb, var(--a) 75%, transparent);
+}
+
+.uni-window-glass {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, rgba(125, 211, 252, 0.35), transparent 55%);
+}
+
+.uni-window-copy {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18em;
+  padding: 0 12%;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.uni-window-copy b {
+  font-size: clamp(0.56rem, var(--t), 1.25rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #fff;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--a) 60%, transparent);
+}
+
+.uni-window-copy i {
+  font-size: clamp(0.46rem, var(--l), 0.85rem);
+  font-style: normal;
+  color: rgba(226, 232, 255, 0.82);
+}
+
+.uni-window-copy i:last-child {
+  color: color-mix(in srgb, var(--c) 92%, white);
+  font-weight: 600;
+}
+
+/* nose cone: pink, like the head on the homepage */
+.uni-nose {
+  position: absolute;
+  left: 25%;
+  top: 1%;
+  z-index: 4;
+  width: 50%;
+  height: 23.5%;
+  filter: drop-shadow(0 6px 10px rgba(2, 3, 22, 0.5));
+}
+
+.uni-nose i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0 3%, transparent 3%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent 36%, rgba(24, 8, 70, 0.3)),
+    linear-gradient(0deg, #383675, #80498d 40%, #d770ae);
+}
+
+/* nozzle */
+.uni-nozzle {
+  position: absolute;
+  left: 39%;
+  top: 82.5%;
+  z-index: 1;
+  width: 22%;
+  height: 7.5%;
+}
+
+.uni-nozzle i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(180deg, transparent 62%, rgba(125, 211, 252, 0.55)),
+    linear-gradient(90deg, #0d1236, #2c3690 45%, #0d1236);
+  clip-path: polygon(16% 0, 84% 0, 100% 100%, 0 100%);
+}
+
+/* fins: flat swept purple, with a dark edge for thickness */
+.uni-fin {
+  --fin-clip: polygon(100% 0, 72% 28%, 40% 62%, 0 100%, 42% 100%, 100% 80%);
+  position: absolute;
+  z-index: 2;
+  filter: drop-shadow(0 6px 7px rgba(2, 3, 22, 0.55)) drop-shadow(0 0 8px rgba(125, 211, 252, 0.22));
+}
+
+.uni-fin i,
+.uni-fin::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  clip-path: var(--fin-clip);
+}
+
+.uni-fin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #231475;
+  transform: translate(0.22rem, 0.3rem);
+}
+
+.uni-fin-l {
+  left: 1%;
+  top: 62%;
+  width: 25%;
+  height: 26%;
+}
+
+.uni-fin-l i {
+  background: linear-gradient(90deg, #6d4bd6, #c6a5ff);
+}
+
+.uni-fin-r {
+  left: 74%;
+  top: 62%;
+  width: 25%;
+  height: 26%;
+}
+
+.uni-fin-r i {
+  transform: scaleX(-1);
+  background: linear-gradient(90deg, #5a3cc0, #a98af0);
+}
+
+.uni-fin-r::before {
+  transform: scaleX(-1) translate(0.22rem, 0.3rem);
+}
+
+/* the third fin faces us: two tones give it an edge */
+.uni-fin-c {
+  --fin-clip: polygon(0 0, 100% 0, 100% 64%, 50% 100%, 0 64%);
+  left: 43%;
+  top: 73%;
+  z-index: 6;
+  width: 14%;
+  height: 17%;
+}
+
+.uni-fin-c i {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0 2%, transparent 2%),
+    linear-gradient(90deg, #9a7df5 0 50%, #5636c2 50%);
+}
+
+.uni-fin-c::before {
+  background: #1c0f66;
+  transform: translate(0.18rem, 0.25rem);
+}
+
+/* exhaust: lights once the rocket is assembled */
+.uni-exhaust {
+  position: absolute;
+  left: 50%;
+  top: 89.5%;
+  z-index: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease 0s;
+  pointer-events: none;
+}
+
+.uni.is-built .uni-exhaust {
+  opacity: 1;
+  transition-delay: 2.5s;
+}
+
+.uni-exhaust-glow {
+  position: absolute;
+  left: -32cqw;
+  top: -4cqw;
+  width: 64cqw;
+  height: 90cqw;
+  background: radial-gradient(ellipse at 50% 10%, rgba(167, 139, 250, 0.55), rgba(109, 92, 240, 0.2) 45%, transparent 70%);
+  filter: blur(6px);
+  animation: uni-glow-pulse 1.8s ease-in-out infinite alternate;
+}
+
+.uni-flame-out,
+.uni-flame-in {
+  position: absolute;
+  top: 0;
+  transform-origin: 50% 0;
+  filter: blur(0.6px);
+}
+
+.uni-flame-out {
+  left: -8cqw;
+  width: 16cqw;
+  height: 42cqw;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: linear-gradient(180deg, #e6f9ff, #7dd3fc 38%, rgba(139, 92, 246, 0));
+  animation: uni-flicker 0.22s ease-in-out infinite alternate;
+}
+
+.uni-flame-in {
+  left: -4cqw;
+  width: 8cqw;
+  height: 28cqw;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: linear-gradient(180deg, #ffffff, #a6ecff 60%, rgba(125, 211, 252, 0));
+  animation: uni-flicker 0.16s ease-in-out infinite alternate-reverse;
+}
+
+.uni-exhaust i {
+  position: absolute;
+  left: -5cqw;
+  top: 6cqw;
+  width: 10cqw;
+  height: 10cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(248, 244, 255, 0.85), rgba(176, 156, 230, 0.5) 50%, transparent 70%);
+  filter: blur(3px);
+  opacity: 0;
+  animation: uni-puff 2.4s linear infinite;
+  animation-delay: calc(var(--i) * 0.6s);
+}
+
+@keyframes uni-puff {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  12% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc((var(--i) - 1.5) * 4cqw), 44cqw) scale(2.6);
+  }
+}
+
+@keyframes uni-bob {
+  from {
+    transform: translateY(0.5rem);
+  }
+  to {
+    transform: translateY(-0.7rem);
+  }
+}
+
+@keyframes uni-flicker {
+  from {
+    transform: scale(0.94, 0.9);
+  }
+  to {
+    transform: scale(1.04, 1.08);
+  }
+}
+
+@keyframes uni-glow-pulse {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- Planets ---- */
+
+.uni .tone-cyan,
+.uni-modal .tone-cyan {
+  --a: #38bdf8;
+  --b: #072a63;
+  --c: #d4f4ff;
+}
+.uni .tone-violet,
+.uni-modal .tone-violet {
+  --a: #9b6cff;
+  --b: #220e66;
+  --c: #e6d9ff;
+}
+.uni .tone-lavender,
+.uni-modal .tone-lavender {
+  --a: #c6a5ff;
+  --b: #3a2874;
+  --c: #f5edff;
+}
+.uni .tone-indigo,
+.uni-modal .tone-indigo {
+  --a: #6d8cff;
+  --b: #16226e;
+  --c: #dbe3ff;
+}
+.uni .tone-rose,
+.uni-modal .tone-rose {
+  --a: #f472b6;
+  --b: #561646;
+  --c: #ffdcee;
+}
+.uni .tone-mint,
+.uni-modal .tone-mint {
+  --a: #5eead4;
+  --b: #0b4653;
+  --c: #d6fff6;
+}
+
+.uni-planet {
+  --size: max(3.6rem, calc(var(--s) * 1cqw));
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  z-index: 5;
+  width: var(--size);
+  height: var(--size);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* the planets appear after the rocket has assembled */
+.uni.is-hidden .uni-planet {
+  opacity: 0;
+  scale: 0.55;
+}
+
+.uni.is-built .uni-planet {
+  animation: uni-in 1s cubic-bezier(0.22, 0.8, 0.24, 1) calc(var(--delay) + 2.4s) both;
+}
+
+.uni-planet:focus-visible {
+  outline: none;
+}
+
+.uni-planet.depth-mid {
+  z-index: 3;
+}
+
+.uni-planet.depth-bg {
+  z-index: 2;
+  opacity: 0.92;
+}
+
+@keyframes uni-in {
+  from {
+    opacity: 0;
+    scale: 0.55;
+  }
+}
+
+.uni-float {
+  position: absolute;
+  inset: 0;
+  isolation: isolate;
+  animation: uni-float var(--dur, 7s) ease-in-out var(--delay) infinite alternate;
+}
+
+@keyframes uni-float {
+  from {
+    transform: translateY(calc(var(--size) * 0.03));
+  }
+  to {
+    transform: translateY(calc(var(--size) * -0.05));
+  }
+}
+
+/* the glass sphere */
+.uni-orb {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 33% 27%,
+    color-mix(in srgb, var(--c) 82%, var(--a)) 0%,
+    var(--a) 30%,
+    color-mix(in srgb, var(--a) 42%, var(--b)) 62%,
+    var(--b) 100%
+  );
+  box-shadow:
+    inset calc(var(--size) * -0.07) calc(var(--size) * -0.09) calc(var(--size) * 0.2) rgba(2, 3, 26, 0.62),
+    inset calc(var(--size) * 0.03) calc(var(--size) * 0.04) calc(var(--size) * 0.1) rgba(255, 255, 255, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 0 calc(var(--size) * 0.32) color-mix(in srgb, var(--a) 38%, transparent),
+    0 calc(var(--size) * 0.07) calc(var(--size) * 0.18) rgba(2, 3, 26, 0.5);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 0.8, 0.24, 1),
+    box-shadow 0.4s ease,
+    filter 0.4s ease;
+}
+
+.uni-orb > span {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* soft banding, like cloud layers seen through glass */
+.uni-orb-tex {
+  inset: 0;
+  opacity: 0.7;
+  mix-blend-mode: soft-light;
+  background:
+    repeating-linear-gradient(-16deg, rgba(255, 255, 255, 0.16) 0 5%, transparent 5% 12%),
+    radial-gradient(circle at 72% 74%, rgba(0, 0, 40, 0.5), transparent 58%);
+}
+
+/* glossy window light */
+.uni-orb-shine {
+  top: 5%;
+  left: 13%;
+  width: 52%;
+  height: 33%;
+  transform: rotate(-26deg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  filter: blur(0.6px);
+}
+
+/* light bounced back up from below */
+.uni-orb-bounce {
+  inset: 0;
+  background: radial-gradient(circle at 64% 98%, color-mix(in srgb, var(--c) 75%, transparent), transparent 40%);
+  opacity: 0.8;
+}
+
+.uni-orb .uni-orb-text {
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: calc(var(--size) * 0.17);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 0 calc(var(--size) * 0.1) color-mix(in srgb, var(--b) 80%, transparent);
+}
+
+/* luminous outline, shown on hover / focus / selection */
+.uni-halo {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--c) 85%, transparent);
+  box-shadow:
+    0 0 calc(var(--size) * 0.18) color-mix(in srgb, var(--a) 65%, transparent),
+    inset 0 0 calc(var(--size) * 0.12) color-mix(in srgb, var(--a) 40%, transparent);
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s cubic-bezier(0.22, 0.8, 0.24, 1);
+  pointer-events: none;
+}
+
+.uni-planet:hover .uni-halo,
+.uni-planet:focus-visible .uni-halo,
+.uni-planet.is-active .uni-halo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.uni-planet:hover .uni-orb,
+.uni-planet:focus-visible .uni-orb,
+.uni-planet.is-active .uni-orb {
+  transform: translateY(-0.2rem) scale(1.07);
+  filter: brightness(1.12) saturate(1.1);
+  box-shadow:
+    inset calc(var(--size) * -0.07) calc(var(--size) * -0.09) calc(var(--size) * 0.2) rgba(2, 3, 26, 0.55),
+    inset calc(var(--size) * 0.03) calc(var(--size) * 0.04) calc(var(--size) * 0.1) rgba(255, 255, 255, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 0 calc(var(--size) * 0.6) color-mix(in srgb, var(--a) 60%, transparent),
+    0 calc(var(--size) * 0.07) calc(var(--size) * 0.18) rgba(2, 3, 26, 0.5);
+}
+
+/* a delicate ring for the medium purple world */
+.uni-saturn {
+  position: absolute;
+  left: -36%;
+  right: -36%;
+  top: 50%;
+  height: 36%;
+  margin-top: -18%;
+  border-radius: 50%;
+  border: calc(var(--size) * 0.028) solid color-mix(in srgb, var(--c) 60%, transparent);
+  box-shadow:
+    0 0 calc(var(--size) * 0.1) color-mix(in srgb, var(--a) 45%, transparent),
+    inset 0 0 calc(var(--size) * 0.06) color-mix(in srgb, var(--a) 40%, transparent);
+  transform: rotate(-17deg);
+  pointer-events: none;
+}
+
+.uni-saturn-back {
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.uni-saturn-front {
+  z-index: 2;
+  clip-path: inset(52% -10% -10% -10%);
+}
+
+/* labels: small and quiet */
+.uni-label {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  text-align: center;
+  pointer-events: none;
+}
+
+.uni-label b {
+  font-size: clamp(0.7rem, 1.15cqw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #f3eeff;
+  text-shadow: 0 1px 10px rgba(2, 3, 26, 0.9);
+}
+
+.uni-label i {
+  font-size: clamp(0.56rem, 0.86cqw, 0.68rem);
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c) 78%, transparent);
+  text-shadow: 0 1px 8px rgba(2, 3, 26, 0.9);
+}
+
+.uni-hint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  margin: 0;
+  text-align: left;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200, 196, 234, 0.55);
+}
+
+/* ---- Detail panel: glass, opens out of the planet ---- */
+
+.uni-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+
+.uni-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(46, 30, 120, 0.5), rgba(3, 4, 22, 0.88));
+  backdrop-filter: blur(6px);
+}
+
+.uni-expand {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  padding: 5rem 1.2rem 1.4rem;
+  overflow-y: auto;
+}
+
+.uni-panel {
+  position: relative;
+  width: min(30rem, 100%);
+  margin: auto;
+  padding: 5.2rem clamp(1.3rem, 5vw, 2.2rem) 1.8rem;
+  border-radius: 2.8rem;
+  text-align: center;
+  color: #e9e5ff;
+  background:
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--a) 22%, transparent), transparent 60%),
+    linear-gradient(165deg, rgba(38, 44, 114, 0.74), rgba(15, 12, 48, 0.9));
+  backdrop-filter: blur(26px) saturate(1.4);
+  box-shadow:
+    0 34px 90px rgba(2, 3, 20, 0.7),
+    0 0 90px color-mix(in srgb, var(--a) 24%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.uni-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--c) 80%, transparent),
+    rgba(255, 255, 255, 0.04) 42%,
+    color-mix(in srgb, var(--a) 70%, transparent)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+
+.uni-panel-orb {
+  --size: 7.6rem;
+  position: absolute;
+  top: -3.8rem;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  margin-left: calc(var(--size) / -2);
+  animation: uni-float 6s ease-in-out infinite alternate;
+}
+
+.uni-panel-orb .uni-orb-text {
+  font-size: 1.25rem;
+}
+
+.uni-panel-close {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.2rem;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e9e5ff;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.uni-panel-close:hover,
+.uni-panel-close:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--a) 50%, transparent);
+}
+
+.uni-panel-kicker {
+  margin: 0;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c) 85%, transparent);
+}
+
+.uni-panel-title {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.2rem, 4.6vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #f8f4ff;
+}
+
+.uni-panel-place {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0.7rem 0 0;
+  font-size: 0.86rem;
+  color: rgba(226, 232, 255, 0.82);
+}
+
+.uni-panel-blurb {
+  margin: 0.9rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #b9b6d4;
+}
+
+.uni-panel-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 0.9rem;
+  margin-top: 1.3rem;
+}
+
+.uni-panel-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fff;
+  border: 1px solid color-mix(in srgb, var(--a) 55%, transparent);
+  background: color-mix(in srgb, var(--a) 18%, rgba(8, 11, 34, 0.6));
+  box-shadow: 0 0 20px color-mix(in srgb, var(--a) 22%, transparent);
+}
+
+.uni-panel-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.74rem;
+  color: #9a97b9;
+}
+
+/* ---- Tablet: compact rocket, planets rearranged ---- */
+
+@media (max-width: 900px) {
+  .uni {
+    max-width: 44rem;
+    aspect-ratio: 10 / 11;
+  }
+
+  .uni-lines-d {
+    display: none;
+  }
+
+  .uni-lines-t {
+    display: block;
+  }
+
+  .uni-rocket {
+    top: 49%;
+    height: 88%;
+  }
+
+  .uni-glow {
+    width: 66%;
+    height: 90%;
+  }
+
+  .uni-ring-a {
+    width: 40%;
+    height: 84%;
+  }
+
+  .uni-ring-b {
+    width: 86%;
+    height: 56%;
+  }
+
+  .uni-planet {
+    --size: max(3.4rem, calc(var(--ts) * 1cqw));
+    left: calc(var(--tx) * 1%);
+    top: calc(var(--ty) * 1%);
+  }
+}
+
+/* ---- Phone: same arrangement as desktop — planets at the sides of the rocket ---- */
+
+.uni-window-year {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .uni {
+    aspect-ratio: 5 / 8;
+    margin-bottom: 3.8rem;
+  }
+
+  .uni-hint {
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    max-width: 9rem;
+    line-height: 1.35;
+  }
+
+  .uni-lines-d,
+  .uni-lines-t {
+    display: none;
+  }
+
+  .uni-lines-m {
+    display: block;
+  }
+
+  .uni-glow {
+    top: 40%;
+    width: 100%;
+    height: 80%;
+  }
+
+  .uni-ring-c {
+    display: none;
+  }
+
+  .uni-rocket {
+    top: 37%;
+    height: 66%;
+  }
+
+  .uni-planet {
+    --size: max(3rem, calc(var(--ms) * 1cqw));
+    left: calc(var(--mx) * 1%);
+    top: calc(var(--my) * 1%);
+  }
+
+  .uni-saturn {
+    left: -18%;
+    right: -18%;
+  }
+
+  .uni-label b {
+    font-size: 0.72rem;
+  }
+
+  .uni-label i {
+    font-size: 0.54rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* the rocket is narrow here: its windows show just the year (the planets carry the details) */
+  .uni-window-copy {
+    display: none;
+  }
+
+  .uni-window-year {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: clamp(0.5rem, 4.6cqw, 0.85rem);
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uni-planet,
+  .uni-float,
+  .uni-rocket-float,
+  .uni-flame-out,
+  .uni-flame-in,
+  .uni-exhaust-glow,
+  .uni-exhaust i,
+  .uni-lines path,
+  .uni-stars,
+  .uni-panel-orb {
+    animation: none !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

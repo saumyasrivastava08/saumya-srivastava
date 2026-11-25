@@ -10,6 +10,7 @@ export default function ExperienceTimeline() {
     // full-time
     ...EXPERIENCE_PREVIEW.map((exp, i) => ({
       key: `ft-${i}`,
+      id: exp.company.toLowerCase(),
       duration: exp.duration,
       content: <ExperienceCard {...exp} />,
     })),
@@ -29,6 +30,7 @@ export default function ExperienceTimeline() {
     // internships
     ...EXPERIENCE_PREVIEW_EXT.map((exp, i) => ({
       key: `intern-${i}`,
+      id: `${exp.company.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-internship`,
       duration: exp.duration,
       content: <ExperienceCard {...exp} />,
     })),

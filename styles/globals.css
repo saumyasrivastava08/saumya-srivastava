@@ -2,12 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Foundation tokens — shared visual language for the portfolio. */
+:root {
+  color-scheme: dark;
+
+  --color-space: #020617;
+  --color-space-soft: #0b1220;
+  --color-surface: #0f172a;
+  --color-surface-raised: #1e293b;
+
+  --color-text: #f8fafc;
+  --color-text-muted: #cbd5e1;
+  --color-text-subtle: #94a3b8;
+
+  --color-cyan: #38bdf8;
+  --color-cyan-soft: #7dd3fc;
+  --color-pink: #f472b6;
+  --color-pink-soft: #f9a8d4;
+  --color-lilac: #c6a5ff;
+
+  --color-border: rgba(148, 163, 184, 0.16);
+  --color-border-strong: rgba(148, 163, 184, 0.28);
+
+  --glow-cyan: rgba(56, 189, 248, 0.18);
+  --glow-pink: rgba(244, 114, 182, 0.16);
+  --glow-lilac: rgba(198, 165, 255, 0.16);
+
+  --radius-card: 1.25rem;
+  --radius-control: 0.85rem;
+
+  --content-width: 72rem;
+  --content-wide: 90rem;
+  --page-gutter: clamp(1rem, 3vw, 2rem);
+
+  --motion-fast: 180ms;
+  --motion-standard: 250ms;
+  --motion-slow: 500ms;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #020617; /* slate-950 */
-  color: #f8fafc; /* slate-100 */
+  background-color: var(--color-space);
+  color: var(--color-text);
+}
+
+/* Keyboard users should always have a visible focus indicator. */
+:focus-visible {
+  outline: 2px solid var(--color-cyan-soft);
+  outline-offset: 3px;
+}
+
+/* Respect the user's system-level motion preference globally. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
