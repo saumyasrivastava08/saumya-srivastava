@@ -34,6 +34,8 @@ export default function CometCursor() {
   useEffect(() => {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!fine) return;
+    // Pointer capability is only known in the browser, so this has to run after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(true);
     document.documentElement.classList.add("has-comet-cursor");
 

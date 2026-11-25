@@ -622,8 +622,6 @@ export default function ScrollWanderer() {
       const p1Now: 0 | 1 | 2 = !landedNow ? 0 : leavingNow ? 2 : 1;
       const p1Before = p1Ref.current;
       p1Ref.current = p1Now;
-      // (landedBefore is only meaningful inside phase 1)
-      const landedBefore = p1Before !== 0;
 
       // The big ship starts scattering in and assembling once the engine part crosses the
       // Stellar Archive heading, and falls apart again when it goes back above it.
@@ -1070,6 +1068,8 @@ export default function ScrollWanderer() {
   useMotionValueEvent(scrollY, "change", (value) => apply(value));
 
   useEffect(() => {
+    // Slot elements only exist in the DOM after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSlots(SLOTS.map((slot) => document.getElementById(slot.id)));
   }, []);
 

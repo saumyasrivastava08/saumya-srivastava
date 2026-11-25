@@ -54,6 +54,8 @@ export default function CosmicVoyage() {
 
   useEffect(() => {
     const value = smooth.get();
+    // Sync once on mount with the current scroll position (e.g. restored scroll).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFormIndex(formIndexFor(value));
     setProgress(value);
   }, [smooth]);

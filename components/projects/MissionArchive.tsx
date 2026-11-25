@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState, type CSSProperties } from "react";
+import { useId, useMemo, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -56,12 +56,6 @@ export default function MissionArchive({
     () => items.find((project) => project.title === openTitle) ?? null,
     [items, openTitle]
   );
-
-  useEffect(() => {
-    if (openTitle && !items.some((project) => project.title === openTitle)) {
-      setOpenTitle(null);
-    }
-  }, [items, openTitle]);
 
   const toggle = (title: string) => {
     setOpenTitle((current) => (current === title ? null : title));

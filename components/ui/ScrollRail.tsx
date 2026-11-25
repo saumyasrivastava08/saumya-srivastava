@@ -50,6 +50,8 @@ export default function ScrollRail() {
   }, []);
 
   useEffect(() => {
+    // Section positions can only be measured from the DOM after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     measure();
     const timers = [300, 1000, 2200].map((ms) => window.setTimeout(measure, ms));
     window.addEventListener("resize", measure);
